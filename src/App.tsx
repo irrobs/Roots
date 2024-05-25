@@ -1,12 +1,11 @@
-import LoginForm from "./pages/login/LoginForm";
+import LoginPage from "./pages/login/LoginPage";
 import GlobalStyles from "./styles/GlobalStyles";
 
 export default function App() {
   return (
     <>
-      <LoginForm />
-
       <GlobalStyles />
+      <LoginPage />
     </>
   );
 }
