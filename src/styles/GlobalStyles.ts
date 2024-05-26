@@ -6,6 +6,7 @@ const GlobalStyles = createGlobalStyle`
     &, &.light-mode {
       --color-gray-0: #fff;
       --color-gray-500: #6b7280;
+      --color-gray-600: #4b5563;
       --color-gray-800: #1f2937;
       --color-gray-900: ##111827;
       --color-lime-200: #d9f99d;
@@ -46,6 +47,7 @@ const GlobalStyles = createGlobalStyle`
     min-height: 100vh;
     line-height: 1.5;
     font-size: 1.6rem;
+    overflow: hidden;
   }
 
   button {

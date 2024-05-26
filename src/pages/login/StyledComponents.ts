@@ -31,6 +31,7 @@ export const StyledInput = styled.input`
   padding: 1rem;
   border-radius: var(--border-radius-sm);
   width: 100%;
+  outline-color: var(--color-lime-500);
 `;
 
 export const StyledSpan = styled.span`
@@ -45,30 +46,39 @@ export const StyledSpan = styled.span`
   & > * {
     width: 100%;
     height: 100%;
+    stroke: var(--color-gray-600);
   }
 `;
 
 export const StyledCheckboxContainer = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
   gap: 1rem;
 `;
 
-export const StyledCheckbox = styled.input`
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-`;
-
-export const StyledCustomCheckbox = styled.span`
+export const StyledCheckbox = styled.input.attrs({ type: "checkbox" })`
+  appearance: none;
+  background-color: var(--color-gray-0);
   width: 2.4rem;
   height: 2.4rem;
   border-radius: var(--border-radius-sm);
-  background-color: var(--color-gray-0);
-  border: none;
+  cursor: pointer;
+  position: relative;
+
+  &:checked {
+    background-color: var(--color-lime-700);
+  }
+
+  &:checked::after {
+    content: url("/checkmark.svg");
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 export const StyledButton = styled.button<{ primary?: boolean }>`
@@ -91,4 +101,26 @@ export const StyledButton = styled.button<{ primary?: boolean }>`
 export const StyledLabel = styled.label`
   font-size: 1.4rem;
   color: var(--color-gray-700);
+  cursor: pointer;
+`;
+
+export const StyledFooter = styled.footer`
+  background-color: var(--color-lime-200);
+  width: 100vw;
+  padding: 1rem 0;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-around;
+  color: var(--color-gray-500);
+`;
+
+export const StyledSelect = styled.select`
+  border: none;
+  background-color: transparent;
+  outline-color: var(--color-lime-700);
+  color: var(--color-lime-700);
+`;
+
+export const StyledLink = styled.a`
+  color: var(--color-gray-500);
 `;

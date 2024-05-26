@@ -10,7 +10,6 @@ import {
   StyledCheckboxContainer,
   StyledCheckbox,
   StyledButton,
-  StyledCustomCheckbox,
   StyledLabel,
 } from "./StyledComponents";
 
@@ -32,7 +31,6 @@ export default function loginForm() {
 
         <StyledCheckboxContainer>
           <StyledCheckbox type="checkbox" id="checkbox-remember" />
-          <StyledCustomCheckbox></StyledCustomCheckbox>
           <StyledLabel htmlFor="checkbox-remember">Lembre de mim</StyledLabel>
         </StyledCheckboxContainer>
 
