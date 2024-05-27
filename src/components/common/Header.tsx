@@ -8,6 +8,7 @@ import {
 import styled from "styled-components";
 
 const StyledHeader = styled.header`
+  grid-column: 1/ -1;
   background-color: var(--color-lime-500);
   padding: 1rem;
   display: flex;
@@ -45,7 +46,7 @@ const InputSearch = styled.input.attrs({ type: "text" })`
   padding: 2rem;
   border-radius: var(--border-radius-full);
   border: none;
-  outline: none;
+  outline-color: var(--color-lime-700);
   color: var(--color-gray-500);
 `;
 
@@ -82,13 +83,20 @@ const NavLink = styled.a`
     }
   }
 `;
-const UserCard = styled.div`
+const UserCard = styled.button`
+  background-color: transparent;
+  border: none;
   display: flex;
   align-items: center;
-
+  border-radius: var(--border-radius-md);
   gap: 1rem;
   color: var(--color-gray-0);
   font-size: 2rem;
+  transition: all 0.3s;
+
+  &:hover {
+    color: var(--color-lime-200);
+  }
 
   & span {
     font-weight: lighter;
@@ -97,10 +105,17 @@ const UserCard = styled.div`
     gap: 0.5rem;
     align-items: center;
     margin-left: auto;
+    line-height: 1;
 
     & span {
       color: var(--color-red-600);
     }
+  }
+
+  & img {
+    width: 6.4rem;
+    height: 6.4rem;
+    border-radius: var(--border-radius-full);
   }
 `;
 
@@ -149,7 +164,8 @@ export default function Header() {
             ocupado
           </span>
         </div>
-        <img src="/logo.png" alt="User profile photo" />
+
+        <img src="/profile-picture.png" alt="User profile photo" />
       </UserCard>
     </StyledHeader>
   );
