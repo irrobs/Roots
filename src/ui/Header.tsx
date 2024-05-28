@@ -1,11 +1,11 @@
 import {
   IoBookmark,
   IoChatbubbleEllipses,
-  IoEllipse,
   IoNotifications,
   IoSearchOutline,
 } from "react-icons/io5";
 import styled from "styled-components";
+import User from "./User";
 
 const StyledHeader = styled.header`
   grid-column: 1/ -1;
@@ -83,41 +83,6 @@ const NavLink = styled.a`
     }
   }
 `;
-const UserCard = styled.button`
-  background-color: transparent;
-  border: none;
-  display: flex;
-  align-items: center;
-  border-radius: var(--border-radius-md);
-  gap: 1rem;
-  color: var(--color-gray-0);
-  font-size: 2rem;
-  transition: all 0.3s;
-
-  &:hover {
-    color: var(--color-lime-200);
-  }
-
-  & span {
-    font-weight: lighter;
-    font-size: 1.6rem;
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    margin-left: auto;
-    line-height: 1;
-
-    & span {
-      color: var(--color-red-600);
-    }
-  }
-
-  & img {
-    width: 6.4rem;
-    height: 6.4rem;
-    border-radius: var(--border-radius-full);
-  }
-`;
 
 export default function Header() {
   return (
@@ -154,19 +119,7 @@ export default function Header() {
         </ul>
       </HeaderNav>
 
-      <UserCard>
-        <div>
-          <p>Joelson Santana</p>
-          <span>
-            <span>
-              <IoEllipse />
-            </span>{" "}
-            ocupado
-          </span>
-        </div>
-
-        <img src="/profile-picture.png" alt="User profile photo" />
-      </UserCard>
+      <User userType="user" />
     </StyledHeader>
   );
 }

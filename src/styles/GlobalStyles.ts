@@ -14,7 +14,7 @@ const GlobalStyles = createGlobalStyle`
       --color-lime-500: #84cc16;
       --color-lime-700: #4d7c0f;
       --color-red-600: #dc2626;
-      --color-green-600: ##16a34a;
+      --color-green-600: #16a34a;
 
       --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
       --shadow-md: 0px .5rem 2.4rem rgba(0, 0, 0, 0.2);
