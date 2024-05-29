@@ -1,41 +1,21 @@
-import {
-  IoBookmark,
-  IoChatbubbleEllipses,
-  IoNotifications,
-  IoSearchOutline,
-} from "react-icons/io5";
+import { IoSearchOutline } from "react-icons/io5";
 import styled from "styled-components";
 import User from "./User";
+import Logo from "./Logo";
+import Navigation from "./HeaderNavigation";
 
 const StyledHeader = styled.header`
   grid-column: 1/ -1;
   background-color: var(--color-lime-500);
   padding: 1rem;
-  display: flex;
+  display: grid;
+  grid-template-columns: calc(20vw - 1rem) 1fr min-content auto;
   align-items: center;
-  gap: 4rem;
-`;
-
-const StyledLogo = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  & > img {
-    width: 6rem;
-  }
-
-  & > p {
-    text-transform: uppercase;
-    color: var(--color-lime-700);
-    font-weight: bold;
-    font-size: 3.6rem;
-  }
+  gap: 3rem;
 `;
 
 const StyledSearchbar = styled.div`
-  margin-left: auto;
-  width: 40vw;
+  width: 100%;
   position: relative;
   color: var(--color-gray-600);
 `;
@@ -60,37 +40,10 @@ const Icon = styled.span`
   transform: translateY(-40%);
 `;
 
-const HeaderNav = styled.nav`
-  margin-left: auto;
-  & > ul {
-    display: flex;
-    gap: 1rem;
-  }
-`;
-
-const NavLink = styled.a`
-  display: inline-block;
-  width: 3.6rem;
-  height: 3.6rem;
-
-  & > * {
-    width: 100%;
-    height: 100%;
-    fill: var(--color-lime-200);
-    transition: fill 0.3s;
-    &:hover {
-      fill: var(--color-lime-700);
-    }
-  }
-`;
-
 export default function Header() {
   return (
     <StyledHeader>
-      <StyledLogo>
-        <img src="/logo.png" alt="Desenho de uma árvore" />
-        <p>Roots</p>
-      </StyledLogo>
+      <Logo />
 
       <StyledSearchbar>
         <InputSearch placeholder="Pesquisar..." />
@@ -99,27 +52,9 @@ export default function Header() {
         </Icon>
       </StyledSearchbar>
 
-      <HeaderNav>
-        <ul>
-          <li>
-            <NavLink href="#">
-              <IoChatbubbleEllipses />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink href="#">
-              <IoBookmark />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink href="#">
-              <IoNotifications />
-            </NavLink>
-          </li>
-        </ul>
-      </HeaderNav>
+      <Navigation />
 
-      <User userType="user" />
+      <User />
     </StyledHeader>
   );
 }
