@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { StyledButton } from "./StyledComponents";
+import Button from "../../ui/Button";
 
 const StyledForgetAndCreateContainer = styled.div`
   display: flex;
@@ -9,8 +9,8 @@ const StyledForgetAndCreateContainer = styled.div`
 export default function ForgetAndCreate() {
   return (
     <StyledForgetAndCreateContainer>
-      <StyledButton>Esqueceu a senha?</StyledButton>
-      <StyledButton>Cadastre-se</StyledButton>
+      <Button category="secondary">Esqueceu a senha?</Button>
+      <Button category="secondary">Cadastre-se</Button>
     </StyledForgetAndCreateContainer>
   );
 }

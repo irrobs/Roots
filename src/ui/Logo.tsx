@@ -1,9 +1,15 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-const StyledLogo = styled.div`
+const StyledLogo = styled.div<{ type: string }>`
   display: flex;
   align-items: center;
   gap: 1rem;
+
+  ${(props) =>
+    props.type === "login" &&
+    css`
+      flex-direction: column;
+    `}
 
   & > img {
     width: 6rem;
@@ -17,9 +23,9 @@ const StyledLogo = styled.div`
   }
 `;
 
-export default function Logo() {
+export default function Logo({ type }) {
   return (
-    <StyledLogo>
+    <StyledLogo type={type}>
       <img src="/logo.png" alt="Desenho de uma árvore" />
       <p>Roots</p>
     </StyledLogo>

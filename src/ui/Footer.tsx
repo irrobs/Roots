@@ -1,4 +1,24 @@
-import { StyledFooter, StyledLink, StyledSelect } from "./StyledComponents";
+import styled from "styled-components";
+import Select from "./Select";
+
+const StyledFooter = styled.footer`
+  background-color: var(--color-lime-200);
+  width: 100vw;
+  padding: 1rem 0;
+  margin-top: auto;
+  display: flex;
+  justify-content: space-around;
+  color: var(--color-gray-500);
+`;
+const StyledLink = styled.a`
+  color: var(--color-gray-500);
+`;
+
+const options = [
+  { value: 1, text: "Português" },
+  { value: 2, text: "Inglês" },
+  { value: 3, text: "Espanhol" },
+];
 
 export default function Footer() {
   return (
@@ -7,11 +27,7 @@ export default function Footer() {
 
       <div>
         <label htmlFor="language-select">Idiomas:</label>
-        <StyledSelect id="language-select">
-          <option value="1">Português</option>
-          <option value="2">Inglês</option>
-          <option value="3">Espanhol</option>
-        </StyledSelect>
+        <Select options={options} id="language-select" />
       </div>
 
       <span>@2024 copyright - fasdfsafd</span>

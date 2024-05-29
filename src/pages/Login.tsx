@@ -1,12 +1,7 @@
 import styled from "styled-components";
-import LoginForm from "./LoginForm";
-import ForgetAndCreate from "./ForgetAndCreate";
-import Footer from "./Footer";
-
-const StyledContainer = styled.div`
-  width: 20vw;
-  margin: 20vh auto 0;
-`;
+import LoginForm from "../features/authentication/LoginForm";
+import ForgetAndCreate from "../features/authentication/ForgetAndCreate";
+import Footer from "../ui/Footer";
 
 const StyledPageContainer = styled.div`
   display: flex;
@@ -15,7 +10,12 @@ const StyledPageContainer = styled.div`
   justify-content: space-around;
 `;
 
-export default function LoginPage() {
+const StyledContainer = styled.div`
+  width: 20vw;
+  margin: 20vh auto 0;
+`;
+
+export default function Login() {
   return (
     <StyledPageContainer>
       <StyledContainer>

@@ -8,6 +8,7 @@ const StyledCreatePost = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
+  margin-bottom: 1rem;
 
   & img {
     height: 4.8rem;

@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./ui/AppLayout";
-import MainPage from "./pages/main/MainPage";
+import MainPage from "./pages/MainPage";
+import Login from "./pages/Login";
 
 export default function App() {
   return (
@@ -12,6 +13,8 @@ export default function App() {
           <Route element={<AppLayout />}>
             <Route index element={<MainPage />} />
           </Route>
+
+          <Route element={<Login />} />
         </Routes>
       </BrowserRouter>
     </>
