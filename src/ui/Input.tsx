@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledInput = styled.input`
+const Input = styled.input`
   border: none;
   background-color: var(--color-gray-0);
   color: var(--color-gray-500);
@@ -10,6 +10,4 @@ const StyledInput = styled.input`
   outline-color: var(--color-lime-500);
 `;
 
-export default function TextInput({ type, placeholder }) {
-  return <StyledInput type={type} placeholder={placeholder} />;
-}
+export default Input;

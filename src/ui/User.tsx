@@ -1,5 +1,7 @@
+import { useQuery } from "@tanstack/react-query";
 import { IoEllipse } from "react-icons/io5";
 import styled, { css } from "styled-components";
+import { useUser } from "../features/authentication/useUser";
 
 const UserCard = styled.button<{ type: string }>`
   background-color: transparent;
@@ -76,10 +78,12 @@ const UserStatus = styled.span<{ type: string }>`
 `;
 
 export default function User({ userType }) {
+  const { user, isPending, isAuthenticated } = useUser();
+
   return (
     <UserCard type={userType}>
       <UserInfoContainer type={userType}>
-        <p>Joelson Santana</p>
+        <p>{user?.email}</p>
         <UserStatus type={userType}>
           <span>
             <IoEllipse />

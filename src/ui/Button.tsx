@@ -28,6 +28,10 @@ const StyledButton = styled.button<{ category: string }>`
   }
 `;
 
-export default function Button({ category, children }) {
-  return <StyledButton category={category}>{children}</StyledButton>;
+export default function Button({ category, type, children, disabled }) {
+  return (
+    <StyledButton category={category} type={type} disabled={disabled}>
+      {children}
+    </StyledButton>
+  );
 }
