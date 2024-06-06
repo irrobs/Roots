@@ -16,11 +16,13 @@ export async function login({ email, password }: userType) {
   return data;
 }
 
+//gets user from localStore from supabase auth token
 export async function getCurrentUser() {
   const { data: session } = await supabase.auth.getSession();
 
   if (!session.session) return null;
 
+  //re-fetching the data instead of getting it of session because it' more secure
   const { data, error } = await supabase.auth.getUser();
 
   if (error) throw new Error(error.message);

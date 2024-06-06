@@ -1,9 +1,9 @@
-import { IoEyeOutline } from "react-icons/io5";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import Logo from "../../ui/Logo";
 
 import styled from "styled-components";
 import Input from "../../ui/Input";
-import Checkbox from "../../ui/Checkbox";
+import { CheckboxContainer, Checkbox, Label } from "../../ui/Checkbox";
 import Button from "../../ui/Button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -26,7 +26,7 @@ const StyledForm = styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 4rem;
 `;
 
 const StyledInputContainer = styled.div`
@@ -49,6 +49,13 @@ const StyledSpan = styled.span`
   }
 `;
 
+const ErrorMessage = styled.p`
+  position: absolute;
+  color: var(--color-red-600);
+  bottom: 0%;
+  transform: translateY(100%);
+`;
+
 interface LoginData {
   email: string;
   password: string;
@@ -57,6 +64,7 @@ interface LoginData {
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [seePassword, setSeePassword] = useState(false);
 
   const { login, isPending } = useLogin();
 
@@ -75,21 +83,25 @@ export default function LoginForm() {
       <Logo type="login" />
 
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          type="email"
-          placeholder="Digite seu email"
-          {...register("email", { required: true })}
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
-          disabled={isPending}
-        />
-        {errors.email?.type === "required" && <p>Está campo é obrigatório</p>}
+        <StyledInputContainer>
+          <Input
+            type="email"
+            placeholder="Digite seu email"
+            {...register("email", { required: true })}
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
+            disabled={isPending}
+          />
+          {errors.email?.type === "required" && (
+            <ErrorMessage>Está campo é obrigatório</ErrorMessage>
+          )}
+        </StyledInputContainer>
 
         <StyledInputContainer>
           <Input
-            type="password"
+            type={seePassword ? "text" : "password"}
             placeholder="Digite sua senha"
             {...register("password", { required: true, minLength: 8 })}
             value={password}
@@ -99,16 +111,21 @@ export default function LoginForm() {
             disabled={isPending}
           />
           {errors.password?.type === "required" && (
-            <p>Está campo é obrigatório</p>
+            <ErrorMessage>Está campo é obrigatório</ErrorMessage>
           )}
-          {errors.password?.type === "minLength" && <p>Senha muito pequena</p>}
+          {errors.password?.type === "minLength" && (
+            <ErrorMessage>Senha muito pequena</ErrorMessage>
+          )}
 
-          <StyledSpan>
-            <IoEyeOutline />
+          <StyledSpan onClick={() => setSeePassword(!seePassword)}>
+            {seePassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </StyledSpan>
         </StyledInputContainer>
 
-        <Checkbox />
+        <CheckboxContainer>
+          <Checkbox type="checkbox" id="checkbox-remember" />
+          <Label htmlFor="checkbox-remember">Lembre de mim</Label>
+        </CheckboxContainer>
 
         <Button category="primary" type="submit" disabled={isPending}>
           {isPending ? "Loading..." : "Entrar"}

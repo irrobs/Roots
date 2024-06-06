@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-const StyledCheckboxContainer = styled.div`
+const CheckboxContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
 `;
 
-const StyledCheckbox = styled.input.attrs({ type: "checkbox" })`
+const Checkbox = styled.input.attrs({ type: "checkbox" })`
   appearance: none;
   background-color: var(--color-gray-0);
   width: 2.4rem;
@@ -30,17 +30,10 @@ const StyledCheckbox = styled.input.attrs({ type: "checkbox" })`
     transform: translate(-50%, -50%);
   }
 `;
-const StyledLabel = styled.label`
+const Label = styled.label`
   font-size: 1.4rem;
   color: var(--color-gray-700);
   cursor: pointer;
 `;
 
-export default function Checkbox() {
-  return (
-    <StyledCheckboxContainer>
-      <StyledCheckbox type="checkbox" id="checkbox-remember" />
-      <StyledLabel htmlFor="checkbox-remember">Lembre de mim</StyledLabel>
-    </StyledCheckboxContainer>
-  );
-}
+export { CheckboxContainer, Checkbox, Label };

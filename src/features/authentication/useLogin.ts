@@ -5,6 +5,7 @@ import { login as loginApi } from "../../services/apiAuth";
 interface LoginData {
   email: string;
   password: string;
+  isCheckedRemember?: boolean;
 }
 
 export function useLogin() {
@@ -15,10 +16,9 @@ export function useLogin() {
     mutationFn: ({ email, password }: LoginData) =>
       loginApi({ email, password }),
 
-    onSuccess: (user) => {
-      // Manually set data to cache
-      queryClient.setQueryData(["user"], user.user);
-      navigate("/main", { replace: true });
+    onSuccess: (data) => {
+      queryClient.setQueryData(["user"], data.user);
+      //navigate("/main", { replace: true });
     },
 
     onError: (err) => {
