@@ -10,7 +10,7 @@ const StyledForgetAndCreateContainer = styled.div`
 export default function ForgetAndCreate() {
   return (
     <StyledForgetAndCreateContainer>
-      <Button category="secondary">Esqueceu a senha?</Button>
+      <Button variation="secondary">Esqueceu a senha?</Button>
       <SignUp />
     </StyledForgetAndCreateContainer>
   );

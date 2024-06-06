@@ -1,49 +1,48 @@
 import styled, { css } from "styled-components";
 
-const StyledButton = styled.button<{ category: string }>`
+type VariationType = "primary" | "secondary";
+type SizeType = "medium" | "full";
+
+//record used to create a object type that has keys of VariationType type, and the keys have a return value of css(for styled-components)
+const variation: Record<VariationType, ReturnType<typeof css>> = {
+  primary: css`
+    text-transform: uppercase;
+    border-radius: var(--border-radius-full);
+    font-weight: bold;
+  `,
+  secondary: css`
+    text-transform: capitalize;
+    border-radius: var(--border-radius-md);
+  `,
+};
+
+const size: Record<SizeType, ReturnType<typeof css>> = {
+  medium: css`
+    width: 50%;
+  `,
+  full: css`
+    width: 100%;
+  `,
+};
+
+interface ButtonProps {
+  variation?: VariationType;
+  size?: SizeType;
+}
+
+const Button = styled.button<ButtonProps>`
   color: var(--color-gray-0);
   background-color: var(--color-lime-500);
   border: none;
   font-size: 1.6rem;
-  width: 100%;
   padding: 1rem 0;
-
-  ${(props) =>
-    props.category === "primary" &&
-    css`
-      text-transform: uppercase;
-      border-radius: var(--border-radius-full);
-      font-weight: bold;
-    `};
-
-  ${(props) =>
-    props.category === "secondary" &&
-    css`
-      text-transform: capitalize;
-      border-radius: var(--border-radius-md);
-    `};
 
   &:hover {
     background-color: var(--color-lime-700);
   }
+
+  ${(props) => size[props.size ?? "full"]}
+  ${(props) => variation[props.variation ?? "primary"]}
 `;
 
-interface ButtonProps {
-  category: string;
-  type: string;
-  children: string;
-  disabled?: boolean;
-}
-
-export default function Button({
-  category,
-  type,
-  children,
-  disabled,
-}: ButtonProps) {
-  return (
-    <StyledButton category={category} type={type} disabled={disabled}>
-      {children}
-    </StyledButton>
-  );
-}
+export default Button;
