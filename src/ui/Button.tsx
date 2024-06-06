@@ -28,7 +28,19 @@ const StyledButton = styled.button<{ category: string }>`
   }
 `;
 
-export default function Button({ category, type, children, disabled }) {
+interface ButtonProps {
+  category: string;
+  type: string;
+  children: string;
+  disabled?: boolean;
+}
+
+export default function Button({
+  category,
+  type,
+  children,
+  disabled,
+}: ButtonProps) {
   return (
     <StyledButton category={category} type={type} disabled={disabled}>
       {children}

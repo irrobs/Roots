@@ -1,4 +1,5 @@
 import {
+  ReactElement,
   ReactNode,
   cloneElement,
   createContext,
@@ -7,6 +8,7 @@ import {
 } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 import styled from "styled-components";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -45,17 +47,30 @@ interface ModalProps {
   children: ReactNode;
 }
 
+interface OpenProps {
+  children: ReactElement;
+  opens: string;
+}
+
+interface WindowProps {
+  children: ReactElement;
+  name: string;
+}
+
 const ModalContext = createContext<ModalContextType>({
   openName: "",
-  close,
-  open,
+  close: () => {},
+  open: () => {},
 });
 
-export function Modal({ children }: ModalProps) {
+export default function Modal({ children }: ModalProps) {
   const [openName, setOpenName] = useState("");
 
   const close = () => setOpenName("");
-  const open = setOpenName;
+  const open = (name: string) => {
+    console.log(name);
+    setOpenName(name);
+  };
 
   return (
     <ModalContext.Provider value={{ openName, close, open }}>
@@ -65,22 +80,22 @@ export function Modal({ children }: ModalProps) {
 }
 
 //component that opens the modal
-function Open({ children, opens }) {
+function Open({ children, opens }: OpenProps) {
   const { open } = useContext(ModalContext);
 
-  //create a element to open the modal with a onClick prop
+  //creates a clone of the choosen element with the choosen props
   return cloneElement(children, { onClick: () => open(opens) });
 }
 
-function Window({ children, name }) {
+function Window({ children, name }: WindowProps) {
   const { openName, close } = useContext(ModalContext);
 
-  // const ref = useOutsideClick(close);
+  const ref = useOutsideClick(close);
 
   if (name != openName) return null;
   return (
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <IoCloseCircleOutline />
         </Button>
