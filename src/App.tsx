@@ -5,6 +5,7 @@ import MainPage from "./pages/MainPage";
 import Login from "./pages/Login";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +31,7 @@ export default function App() {
             <Route path="login" element={<Login />} />
           </Routes>
         </BrowserRouter>
+        <Toaster />
       </QueryClientProvider>
     </>
   );

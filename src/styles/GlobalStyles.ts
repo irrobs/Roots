@@ -9,9 +9,11 @@ const GlobalStyles = createGlobalStyle`
       --color-gray-500: #6b7280;
       --color-gray-600: #4b5563;
       --color-gray-800: #1f2937;
+      --color-gray-800-1: rgba(31,41,44, 0.1);
       --color-gray-900: ##111827;
       --color-lime-200: #d9f99d;
       --color-lime-500: #84cc16;
+      --color-lime-500-1: rgba(132, 204, 22, 0.1);
       --color-lime-700: #4d7c0f;
       --color-red-600: #dc2626;
       --color-green-600: #16a34a;

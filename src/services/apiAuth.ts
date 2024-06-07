@@ -3,6 +3,7 @@ import supabase from "./supabase";
 type userType = {
   email: string;
   password: string;
+  name?: string;
 };
 
 export async function login({ email, password }: userType) {
@@ -30,10 +31,15 @@ export async function getCurrentUser() {
   return data.user;
 }
 
-export async function signUp({ email, password }: userType) {
+export async function signUp({ email, password, name }: userType) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
+    options: {
+      data: {
+        name,
+      },
+    },
   });
 
   if (error) throw new Error(error.message);

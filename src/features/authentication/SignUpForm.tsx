@@ -7,6 +7,8 @@ import InputContainer from "../../ui/InputContainer";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import toast from "react-hot-toast";
+import useSignUp from "./useSignUp";
 
 const FormText = styled.p`
   text-align: center;
@@ -39,9 +41,10 @@ export default function SignUpForm() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [seePassword, setSeePassword] = useState(false);
 
-  const isPending = false;
+  const { signUp, isPending } = useSignUp();
 
   const {
     register,
@@ -49,7 +52,11 @@ export default function SignUpForm() {
     formState: { errors },
   } = useForm();
 
-  function onSubmit() {}
+  function onSubmit() {
+    if (password !== confirmPassword) return toast("Senhas não são iguais!");
+
+    signUp({ name, email, password });
+  }
 
   return (
     <StyledForm variation="modal" onSubmit={handleSubmit(onSubmit)}>
@@ -91,7 +98,7 @@ export default function SignUpForm() {
       <InputContainer>
         <Input
           type={seePassword ? "text" : "password"}
-          placeholder="Digite sua senha"
+          placeholder="Senha"
           {...register("password", { required: true, minLength: 8 })}
           value={password}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -113,11 +120,11 @@ export default function SignUpForm() {
 
       <InputContainer>
         <Input
-          placeholder="Digite sua senha"
+          placeholder="Confirme sua senha"
           {...register("confirm-password", { required: true, minLength: 8 })}
-          value={password}
+          value={confirmPassword}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
+            setConfirmPassword(e.target.value)
           }
           disabled={isPending}
         />

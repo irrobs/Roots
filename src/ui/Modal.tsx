@@ -29,7 +29,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-
+  background-color: var(--color-lime-500-1);
   backdrop-filter: blur(4px);
   z-index: 1000;
   transition: all 0.5s;
