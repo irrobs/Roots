@@ -6,17 +6,18 @@ import {
   useContext,
   useState,
 } from "react";
-import { IoCloseCircleOutline } from "react-icons/io5";
+import { IoCloseOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { createPortal } from "react-dom";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const StyledModal = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--color-grey-0);
-  border-radius: var(--border-radius-lg);
+  background-color: var(--color-lime-200);
+  border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
@@ -28,13 +29,25 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: var(--backdrop-color);
+
   backdrop-filter: blur(4px);
   z-index: 1000;
   transition: all 0.5s;
 `;
 const Button = styled.button`
-  font-size: 2rem;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(-50%, 50%);
+  font-size: 3.6rem;
+  background-color: inherit;
+  border: none;
+  color: var(--color-lime-700);
+  transition: all 0.3s;
+
+  &:hover {
+    color: var(--color-red-600);
+  }
 `;
 
 interface ModalContextType {
@@ -92,16 +105,16 @@ function Window({ children, name }: WindowProps) {
   const { openName, close } = useContext(ModalContext);
 
   //allows closingthe modal with click in overlay
-  //const ref = useOutsideClick(close);
+  const ref = useOutsideClick(close);
 
   if (name != openName) return null;
 
   //puts the modal as a sibling of body
   return createPortal(
-    <Overlay onClick={close}>
-      <StyledModal>
+    <Overlay>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
-          <IoCloseCircleOutline />
+          <IoCloseOutline />
         </Button>
         <div>{cloneElement(children, { onCloseModal: close })}</div>
       </StyledModal>

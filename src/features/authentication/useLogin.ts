@@ -5,7 +5,6 @@ import { login as loginApi } from "../../services/apiAuth";
 interface LoginData {
   email: string;
   password: string;
-  isCheckedRemember?: boolean;
 }
 
 export function useLogin() {

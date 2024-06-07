@@ -8,6 +8,8 @@ import Button from "../../ui/Button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLogin } from "./useLogin";
+import StyledForm from "../../ui/Form";
+import InputContainer from "../../ui/InputContainer";
 
 const StyledFormContainer = styled.div`
   background-color: var(--color-lime-200);
@@ -19,18 +21,6 @@ const StyledFormContainer = styled.div`
   border-radius: var(--border-radius-md);
   margin-bottom: 1rem;
   box-shadow: var(--shadow-md);
-`;
-
-const StyledForm = styled.form`
-  margin-top: 3rem;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-`;
-
-const StyledInputContainer = styled.div`
-  position: relative;
 `;
 
 const StyledSpan = styled.span`
@@ -83,7 +73,7 @@ export default function LoginForm() {
       <Logo type="login" />
 
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
-        <StyledInputContainer>
+        <InputContainer>
           <Input
             type="email"
             placeholder="Digite seu email"
@@ -97,9 +87,9 @@ export default function LoginForm() {
           {errors.email?.type === "required" && (
             <ErrorMessage>Está campo é obrigatório</ErrorMessage>
           )}
-        </StyledInputContainer>
+        </InputContainer>
 
-        <StyledInputContainer>
+        <InputContainer>
           <Input
             type={seePassword ? "text" : "password"}
             placeholder="Digite sua senha"
@@ -120,16 +110,14 @@ export default function LoginForm() {
           <StyledSpan onClick={() => setSeePassword(!seePassword)}>
             {seePassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </StyledSpan>
-        </StyledInputContainer>
+        </InputContainer>
 
         <CheckboxContainer>
           <Checkbox type="checkbox" id="checkbox-remember" />
           <Label htmlFor="checkbox-remember">Lembre de mim</Label>
         </CheckboxContainer>
 
-        <Button category="primary" type="submit" disabled={isPending}>
-          {isPending ? "Loading..." : "Entrar"}
-        </Button>
+        <Button>{isPending ? "Loading..." : "Entrar"}</Button>
       </StyledForm>
     </StyledFormContainer>
   );

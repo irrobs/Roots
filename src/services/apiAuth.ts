@@ -29,3 +29,14 @@ export async function getCurrentUser() {
 
   return data.user;
 }
+
+export async function signUp({ email, password }: userType) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}

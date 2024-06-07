@@ -3,8 +3,7 @@ import styled, { css } from "styled-components";
 type VariationType = "primary" | "secondary";
 type SizeType = "medium" | "full";
 
-//record used to create a object type that has keys of VariationType type, and the keys have a return value of css(for styled-components)
-const variation: Record<VariationType, ReturnType<typeof css>> = {
+const variation = {
   primary: css`
     text-transform: uppercase;
     border-radius: var(--border-radius-full);
@@ -16,7 +15,7 @@ const variation: Record<VariationType, ReturnType<typeof css>> = {
   `,
 };
 
-const size: Record<SizeType, ReturnType<typeof css>> = {
+const size = {
   medium: css`
     width: 50%;
   `,
