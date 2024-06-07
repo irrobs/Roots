@@ -1,7 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
-import { IoEllipse } from "react-icons/io5";
+import { IoEllipse, IoLogOutOutline } from "react-icons/io5";
 import styled, { css } from "styled-components";
 import { useUser } from "../features/authentication/useUser";
+import Button from "./Button";
+import useSignOut from "../features/authentication/useSignOut";
 
 const UserCard = styled.button<{ type: string }>`
   background-color: transparent;
@@ -77,8 +78,9 @@ const UserStatus = styled.span<{ type: string }>`
   }
 `;
 
-export default function User({ userType }) {
-  const { user, isPending, isAuthenticated } = useUser();
+export default function User({ userType }: { userType: string }) {
+  const { user } = useUser();
+  const { signOut } = useSignOut();
 
   return (
     <UserCard type={userType}>
@@ -93,6 +95,9 @@ export default function User({ userType }) {
       </UserInfoContainer>
 
       <img src="/profile-picture.png" alt="User profile photo" />
+      <Button variation="secondary" size="small" onClick={() => signOut()}>
+        <IoLogOutOutline />
+      </Button>
     </UserCard>
   );
 }

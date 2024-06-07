@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 type VariationType = "primary" | "secondary";
-type SizeType = "medium" | "full";
+type SizeType = "small" | "medium" | "full";
 
 const variation = {
   primary: css`
@@ -16,6 +16,9 @@ const variation = {
 };
 
 const size = {
+  small: css`
+    width: fit-content;
+  `,
   medium: css`
     width: 50%;
   `,

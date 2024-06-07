@@ -43,7 +43,7 @@ const Icon = styled.span`
 export default function Header() {
   return (
     <StyledHeader>
-      <Logo />
+      <Logo type="" />
 
       <StyledSearchbar>
         <InputSearch placeholder="Pesquisar..." />
