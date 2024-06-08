@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,6 +37,7 @@ export default function App() {
             </Route>
 
             <Route path="login" element={<Login />} />
+            <Route path="resetPassword" element={<ResetPasswordPage />} />
           </Routes>
         </BrowserRouter>
         <Toaster />

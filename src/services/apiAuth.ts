@@ -6,6 +6,22 @@ type userType = {
   name?: string;
 };
 
+export async function signUp({ email, password, name }: userType) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        name,
+      },
+    },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
 export async function login({ email, password }: userType) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -31,24 +47,22 @@ export async function getCurrentUser() {
   return data.user;
 }
 
-export async function signUp({ email, password, name }: userType) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        name,
-      },
-    },
-  });
-
-  if (error) throw new Error(error.message);
-
-  return data;
-}
-
 export async function signOut() {
   const { error } = await supabase.auth.signOut();
 
   if (error) throw new Error(error.message);
+}
+
+export async function resetPassword(email:string){
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email,{
+    redirectTo: "http://localhost:5173/resetPassword"
+  })
+
+  return {data,error}
+}
+
+export async function updateUserPassword(newPassword){
+  const { data, error } = await supabase.auth.updateUser({
+    password: newPassword
+  })
 }

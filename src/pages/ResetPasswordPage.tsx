@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import LoginForm from "../features/authentication/LoginForm";
+import ResetPasswordForm from '../features/authentication/ResetPasswordForm'
 import Footer from "../ui/Footer";
-import SignUp from "../features/authentication/SignUp";
-import ResetPassword from "../features/authentication/ResetPasswordRedirect";
+
 
 const StyledPageContainer = styled.div`
   display: flex;
@@ -16,20 +15,11 @@ const StyledContainer = styled.div`
   margin: 20vh auto 0;
 `;
 
-const ActionsContainer=styled.div`
-display: flex;
-gap: 1rem;
-`;
-
-export default function Login() {
+export default function ResetPasswordPage() {
   return (
     <StyledPageContainer>
       <StyledContainer>
-        <LoginForm />
-        <ActionsContainer>
-          <ResetPassword/>
-          <SignUp />
-        </ActionsContainer>
+        <ResetPasswordForm/>
       </StyledContainer>
 
       <Footer />
