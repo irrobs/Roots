@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { resetPassword as resetPasswordApi } from "../../services/apiAuth";
+import { resetPassword as resetPasswordApi } from "../../../services/apiAuth";
 
 
 export default function useResetPasswordRedirect() {

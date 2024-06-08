@@ -2,7 +2,7 @@ import { IoEllipse, IoLogOutOutline } from "react-icons/io5";
 import styled, { css } from "styled-components";
 import { useUser } from "../features/authentication/useUser";
 import Button from "./Button";
-import useSignOut from "../features/authentication/useSignOut";
+import useSignOut from "../features/authentication/SignOut/useSignOut";
 
 const UserCard = styled.button<{ type: string }>`
   background-color: transparent;
@@ -89,7 +89,7 @@ export default function User({ userType }: { userType: string }) {
         <UserStatus type={userType}>
           <span>
             <IoEllipse />
-          </span>{" "}
+          </span>
           ocupado
         </UserStatus>
       </UserInfoContainer>

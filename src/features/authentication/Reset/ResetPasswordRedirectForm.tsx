@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import Button from "../../ui/Button";
-import StyledForm from "../../ui/Form";
-import Input from "../../ui/Input";
-import Logo from "../../ui/Logo";
-import InputContainer from "../../ui/InputContainer";
+import Button from "../../../ui/Button";
+import StyledForm from "../../../ui/Form";
+import Input from "../../../ui/Input";
+import Logo from "../../../ui/Logo";
+import InputContainer from "../../../ui/InputContainer";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useResetPasswordRedirect from "./useResetPasswordRedirect";

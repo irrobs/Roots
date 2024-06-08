@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import LoginForm from "../features/authentication/LoginForm";
+import LoginForm from "../features/authentication/Login/LoginForm";
 import Footer from "../ui/Footer";
-import SignUp from "../features/authentication/SignUp";
-import ResetPassword from "../features/authentication/ResetPasswordRedirect";
+import SignUp from "../features/authentication/SignUp/SignUp";
+import ResetPassword from "../features/authentication/Reset/ResetPasswordRedirect";
 
 const StyledPageContainer = styled.div`
   display: flex;

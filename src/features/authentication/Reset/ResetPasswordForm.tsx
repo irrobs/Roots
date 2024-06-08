@@ -1,14 +1,15 @@
 import styled from "styled-components";
-import Button from "../../ui/Button";
-import StyledForm from "../../ui/Form";
-import Input from "../../ui/Input";
-import Logo from "../../ui/Logo";
-import InputContainer from "../../ui/InputContainer";
+import Button from "../../../ui/Button";
+import StyledForm from "../../../ui/Form";
+import Input from "../../../ui/Input";
+import Logo from "../../../ui/Logo";
+import InputContainer from "../../../ui/InputContainer";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
-import useSignUp from "./useSignUp";
+import useResetPassword from './useResetPassword'
+
 
 const FormText = styled.p`
   text-align: center;
@@ -38,13 +39,12 @@ const ErrorMessage = styled.p`
 `;
 
 export default function SignUpForm() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [seePassword, setSeePassword] = useState(false);
 
-  const { signUp, isPending } = useSignUp();
+  const{resetPassword, isPending} = useResetPassword()
+ 
 
   const {
     register,
@@ -55,7 +55,7 @@ export default function SignUpForm() {
   function onSubmit() {
     if (password !== confirmPassword) return toast("Senhas não são iguais!");
 
-    signUp({ name, email, password });
+    resetPassword(password);
   }
 
   return (
@@ -65,40 +65,8 @@ export default function SignUpForm() {
 
       <InputContainer>
         <Input
-          type="text"
-          placeholder="Nome"
-          {...register("name", { required: true })}
-          value={name}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setName(e.target.value)
-          }
-          disabled={isPending}
-        />
-        {errors.name?.type === "required" && (
-          <ErrorMessage>Está campo é obrigatório</ErrorMessage>
-        )}
-      </InputContainer>
-
-      <InputContainer>
-        <Input
-          type="email"
-          placeholder="Digite seu email"
-          {...register("email", { required: true })}
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
-          disabled={isPending}
-        />
-        {errors.email?.type === "required" && (
-          <ErrorMessage>Está campo é obrigatório</ErrorMessage>
-        )}
-      </InputContainer>
-
-      <InputContainer>
-        <Input
           type={seePassword ? "text" : "password"}
-          placeholder="Senha"
+          placeholder="Nova senha"
           {...register("password", { required: true, minLength: 8 })}
           value={password}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -120,7 +88,7 @@ export default function SignUpForm() {
 
       <InputContainer>
         <Input
-          placeholder="Confirme sua senha"
+          placeholder="Confirme sua nova senha"
           {...register("confirm-password", { required: true, minLength: 8 })}
           value={confirmPassword}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -136,7 +104,7 @@ export default function SignUpForm() {
         )}
       </InputContainer>
 
-      <Button>Cadastre-se</Button>
+      <Button>Redefinir senha</Button>
     </StyledForm>
   );
 }

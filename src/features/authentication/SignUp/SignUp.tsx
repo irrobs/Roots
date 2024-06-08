@@ -1,5 +1,5 @@
-import Button from "../../ui/Button";
-import Modal from "../../ui/Modal";
+import Button from "../../../ui/Button";
+import Modal from "../../../ui/Modal";
 import SignUpForm from "./SignUpForm";
 
 export default function SignUp() {

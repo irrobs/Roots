@@ -1,15 +1,15 @@
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
-import Logo from "../../ui/Logo";
+import Logo from "../../../ui/Logo";
 
 import styled from "styled-components";
-import Input from "../../ui/Input";
-import { CheckboxContainer, Checkbox, Label } from "../../ui/Checkbox";
-import Button from "../../ui/Button";
+import Input from "../../../ui/Input";
+import { CheckboxContainer, Checkbox, Label } from "../../../ui/Checkbox";
+import Button from "../../../ui/Button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLogin } from "./useLogin";
-import StyledForm from "../../ui/Form";
-import InputContainer from "../../ui/InputContainer";
+import StyledForm from "../../../ui/Form";
+import InputContainer from "../../../ui/InputContainer";
 
 const StyledFormContainer = styled.div`
   background-color: var(--color-lime-200);

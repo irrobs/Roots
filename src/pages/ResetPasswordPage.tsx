@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ResetPasswordForm from '../features/authentication/ResetPasswordForm'
+import ResetPasswordForm from '../features/authentication/Reset/ResetPasswordForm'
 import Footer from "../ui/Footer";
 
 
