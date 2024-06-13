@@ -1,17 +1,21 @@
 import { IoSearchOutline } from "react-icons/io5";
 import styled from "styled-components";
-import User from "./User";
+import UserCard from "./UserCard";
 import Logo from "./Logo";
 import Navigation from "./HeaderNavigation";
+import UserDropDown from "./UserDropDown";
+import { useState } from "react";
 
 const StyledHeader = styled.header`
   grid-column: 1/ -1;
   background-color: var(--color-lime-500);
   padding: 1rem;
   display: grid;
-  grid-template-columns: calc(20vw - 1rem) 1fr min-content auto;
+  grid-template-columns: calc(20vw - 1rem) 1fr min-content 21rem;
   align-items: center;
   gap: 3rem;
+  position: relative;
+  z-index: 5;
 `;
 
 const StyledSearchbar = styled.div`
@@ -41,6 +45,7 @@ const Icon = styled.span`
 `;
 
 export default function Header() {
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <StyledHeader>
       <Logo type="" />
@@ -54,7 +59,8 @@ export default function Header() {
 
       <Navigation />
 
-      <User />
+      <UserCard onSetIsHovered={setIsHovered} />
+      <UserDropDown isHovered={isHovered} />
     </StyledHeader>
   );
 }
