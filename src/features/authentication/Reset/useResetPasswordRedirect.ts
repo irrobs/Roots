@@ -1,12 +1,18 @@
 import { useMutation } from "@tanstack/react-query";
 import { resetPassword as resetPasswordApi } from "../../../services/apiAuth";
-
+import { useContext } from "react";
+import { ModalContext } from "../../../ui/Modal";
+import toast from "react-hot-toast";
 
 export default function useResetPasswordRedirect() {
-    const {mutate:resetPasswordRedirect, isPending} = useMutation({
-        mutationFn: (email: string) => resetPasswordApi(email),
-        
-    })
+  const { close } = useContext(ModalContext);
+  const { mutate: resetPasswordRedirect, isPending } = useMutation({
+    mutationFn: (email: string) => resetPasswordApi(email),
+    onSettled: () => {
+      close();
+      toast("Email de confirmação enviado!");
+    },
+  });
 
-    return {resetPasswordRedirect, isPending}
+  return { resetPasswordRedirect, isPending };
 }

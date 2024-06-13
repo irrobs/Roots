@@ -21,7 +21,7 @@ const StyledUserDropDown = styled.div<{ isHovered: boolean }>`
           transform: translateY(8rem);
         `
       : css`
-          transform: translateY(-100%);
+          transform: translateY(-10%);
         `}
 `;
 

@@ -125,3 +125,4 @@ function Window({ children, name }: WindowProps) {
 
 Modal.Open = Open;
 Modal.Window = Window;
+export { ModalContext };
