@@ -11,7 +11,7 @@ const StyledHeader = styled.header`
   background-color: var(--color-lime-500);
   padding: 1rem;
   display: grid;
-  grid-template-columns: calc(20vw - 1rem) 1fr min-content 21rem;
+  grid-template-columns: calc(20vw - 1rem) 1fr min-content auto;
   align-items: center;
   gap: 3rem;
   position: relative;
@@ -47,20 +47,22 @@ const Icon = styled.span`
 export default function Header() {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <StyledHeader>
-      <Logo type="" />
+    <>
+      <StyledHeader>
+        <Logo type="" />
 
-      <StyledSearchbar>
-        <InputSearch placeholder="Pesquisar..." />
-        <Icon>
-          <IoSearchOutline />
-        </Icon>
-      </StyledSearchbar>
+        <StyledSearchbar>
+          <InputSearch placeholder="Pesquisar..." />
+          <Icon>
+            <IoSearchOutline />
+          </Icon>
+        </StyledSearchbar>
 
-      <Navigation />
+        <Navigation />
 
-      <UserCard onSetIsHovered={setIsHovered} />
-      <UserDropDown isHovered={isHovered} />
-    </StyledHeader>
+        <UserCard onSetIsHovered={setIsHovered} />
+      </StyledHeader>
+      <UserDropDown isHovered={isHovered} onSetIsHovered={setIsHovered} />
+    </>
   );
 }

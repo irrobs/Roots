@@ -9,12 +9,9 @@ const StyledUserCard = styled.button`
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 1rem;
-  border-radius: var(--border-radius-md);
   color: var(--color-gray-0);
   font-size: 2rem;
   transition: all 0.3s;
-  position: relative;
-  z-index: 2;
 
   & img {
     border-radius: var(--border-radius-full);

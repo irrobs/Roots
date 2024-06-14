@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-type VariationType = "primary" | "secondary";
+type VariationType = "primary" | "secondary" | "tertiary";
 type SizeType = "small" | "medium" | "full";
 
 const variation = {
@@ -8,10 +8,35 @@ const variation = {
     text-transform: uppercase;
     border-radius: var(--border-radius-full);
     font-weight: bold;
+
+    &:hover {
+      background-color: var(--color-lime-700);
+    }
   `,
   secondary: css`
     text-transform: capitalize;
     border-radius: var(--border-radius-md);
+
+    &:hover {
+      background-color: var(--color-lime-700);
+    }
+  `,
+  tertiary: css`
+    text-transform: capitalize;
+    padding: 0.5rem 0;
+    background: none;
+    color: var(--color-lime-700);
+    transition: all 0.3s;
+
+    & > * {
+      width: 2.4rem;
+      height: 2.4rem;
+    }
+
+    &:hover {
+      color: var(--color-lime-500);
+      gap: 1.5rem;
+    }
   `,
 };
 
@@ -38,10 +63,9 @@ const Button = styled.button<ButtonProps>`
   border: none;
   font-size: 1.6rem;
   padding: 1rem 0;
-
-  &:hover {
-    background-color: var(--color-lime-700);
-  }
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 
   ${(props) => size[props.size ?? "full"]}
   ${(props) => variation[props.variation ?? "primary"]}
