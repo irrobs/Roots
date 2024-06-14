@@ -14,11 +14,7 @@ const FullPage = styled.div`
   justify-content: center;
 `;
 
-interface RouteProps {
-  children: ReactNode;
-}
-
-export default function ProtectedRoute({ children }: RouteProps) {
+export default function ProtectedRoute({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
 
   //get user data

@@ -1,6 +1,5 @@
 import {
   ReactElement,
-  ReactNode,
   cloneElement,
   createContext,
   useContext,
@@ -57,16 +56,14 @@ interface ModalContextType {
 }
 
 interface ModalProps {
-  children: ReactNode;
+  children: ReactElement;
 }
 
-interface OpenProps {
-  children: ReactElement;
+interface OpenProps extends ModalProps {
   opens: string;
 }
 
-interface WindowProps {
-  children: ReactElement;
+interface WindowProps extends ModalProps {
   name: string;
 }
 
@@ -105,7 +102,7 @@ function Window({ children, name }: WindowProps) {
   const { openName, close } = useContext(ModalContext);
 
   //allows closingthe modal with click in overlay
-  const ref = useOutsideClick(close);
+  const ref = useOutsideClick<HTMLDivElement>(close);
 
   if (name != openName) return null;
 

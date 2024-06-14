@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { useLogin } from "./useLogin";
 import StyledForm from "../../../ui/Form";
 import InputContainer from "../../../ui/InputContainer";
+import { LoginData } from "../../../types";
 
 const StyledFormContainer = styled.div`
   background-color: var(--color-lime-200);
@@ -45,11 +46,6 @@ const ErrorMessage = styled.p`
   bottom: 0%;
   transform: translateY(100%);
 `;
-
-interface LoginData {
-  email: string;
-  password: string;
-}
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");

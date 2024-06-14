@@ -39,7 +39,11 @@ const UserStatus = styled.span`
   }
 `;
 
-export default function UserCard({ onSetIsHovered }) {
+export default function UserCard({
+  onSetIsHovered,
+}: {
+  onSetIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const { user } = useUser();
 
   return (

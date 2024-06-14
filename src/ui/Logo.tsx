@@ -23,7 +23,7 @@ const StyledLogo = styled.div<{ type: string }>`
   }
 `;
 
-export default function Logo({ type }) {
+export default function Logo({ type }: { type: string }) {
   return (
     <StyledLogo type={type}>
       <img src="/logo.png" alt="Desenho de uma árvore" />

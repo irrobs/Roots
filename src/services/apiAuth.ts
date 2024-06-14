@@ -1,12 +1,7 @@
+import { LoginData, UserData } from "../types";
 import supabase from "./supabase";
 
-type userType = {
-  email: string;
-  password: string;
-  name?: string;
-};
-
-export async function signUp({ email, password, name }: userType) {
+export async function signUp({ email, password, name }: UserData) {
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
@@ -22,7 +17,7 @@ export async function signUp({ email, password, name }: userType) {
   return data;
 }
 
-export async function login({ email, password }: userType) {
+export async function login({ email, password }: LoginData) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
@@ -53,16 +48,16 @@ export async function signOut() {
   if (error) throw new Error(error.message);
 }
 
-export async function resetPassword(email:string){
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email,{
-    redirectTo: "http://localhost:5173/resetPassword"
-  })
+export async function resetPassword(email: string) {
+  const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "http://localhost:5173/resetPassword",
+  });
 
-  return {data,error}
+  return { data, error };
 }
 
-export async function updateUserPassword(newPassword){
-  const { data, error } = await supabase.auth.updateUser({
-    password: newPassword
-  })
+export async function updateUserPassword(newPassword: string) {
+  await supabase.auth.updateUser({
+    password: newPassword,
+  });
 }

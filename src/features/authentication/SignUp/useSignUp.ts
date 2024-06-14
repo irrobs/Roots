@@ -3,12 +3,7 @@ import { signUp as signUpApi } from "../../../services/apiAuth";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { ModalContext } from "../../../ui/Modal";
-
-interface UserData {
-  email: string;
-  password: string;
-  name: string;
-}
+import { UserData } from "../../../types";
 
 export default function useSignUp() {
   const { close } = useContext(ModalContext);

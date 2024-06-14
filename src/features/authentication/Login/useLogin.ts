@@ -1,11 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { login as loginApi } from "../../../services/apiAuth";
-
-interface LoginData {
-  email: string;
-  password: string;
-}
+import { LoginData } from "../../../types";
 
 export function useLogin() {
   const queryClient = useQueryClient();

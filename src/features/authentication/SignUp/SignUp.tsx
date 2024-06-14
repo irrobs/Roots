@@ -5,12 +5,14 @@ import SignUpForm from "./SignUpForm";
 export default function SignUp() {
   return (
     <Modal>
-      <Modal.Open opens="sign-up-form">
-        <Button variation="secondary">Cadastre-se</Button>
-      </Modal.Open>
-      <Modal.Window name="sign-up-form">
-        <SignUpForm />
-      </Modal.Window>
+      <>
+        <Modal.Open opens="sign-up-form">
+          <Button variation="secondary">Cadastre-se</Button>
+        </Modal.Open>
+        <Modal.Window name="sign-up-form">
+          <SignUpForm />
+        </Modal.Window>
+      </>
     </Modal>
   );
 }

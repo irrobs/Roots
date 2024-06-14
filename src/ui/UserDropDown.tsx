@@ -26,7 +26,15 @@ const StyledUserDropDown = styled.ul<{ isHovered: boolean }>`
         `}
 `;
 
-export default function UserDropDown({ isHovered, onSetIsHovered }) {
+interface DropDownType {
+  isHovered: boolean;
+  onSetIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function UserDropDown({
+  isHovered,
+  onSetIsHovered,
+}: DropDownType) {
   const { signOut } = useSignOut();
   return (
     <StyledUserDropDown
