@@ -13,7 +13,10 @@ export default function useSignUp() {
 
     onSuccess: () => {
       close();
-      toast("Usuário criado com sucesso!");
+      toast.success("Usuário criado com sucesso!");
+    },
+    onError: (err) => {
+      toast.error("Falha na criação do usuário pois: " + err);
     },
   });
 

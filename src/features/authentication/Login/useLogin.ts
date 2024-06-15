@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { login as loginApi } from "../../../services/apiAuth";
 import { LoginData } from "../../../types";
+import toast from "react-hot-toast";
 
 export function useLogin() {
   const queryClient = useQueryClient();
@@ -16,8 +17,8 @@ export function useLogin() {
       navigate("/main", { replace: true });
     },
 
-    onError: (err) => {
-      console.log("ERROR", err);
+    onError: () => {
+      toast.error("Email ou senha inválidos");
     },
   });
 

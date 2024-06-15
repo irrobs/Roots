@@ -66,6 +66,7 @@ const Button = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  justify-content: center;
 
   ${(props) => size[props.size ?? "full"]}
   ${(props) => variation[props.variation ?? "primary"]}

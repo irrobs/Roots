@@ -3,7 +3,7 @@ import Logo from "../../../ui/Logo";
 
 import styled from "styled-components";
 import Input from "../../../ui/Input";
-import { CheckboxContainer, Checkbox, Label } from "../../../ui/Checkbox";
+
 import Button from "../../../ui/Button";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -107,11 +107,6 @@ export default function LoginForm() {
             {seePassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
           </StyledSpan>
         </InputContainer>
-
-        <CheckboxContainer>
-          <Checkbox type="checkbox" id="checkbox-remember" />
-          <Label htmlFor="checkbox-remember">Lembre de mim</Label>
-        </CheckboxContainer>
 
         <Button>{isPending ? "Loading..." : "Entrar"}</Button>
       </StyledForm>
