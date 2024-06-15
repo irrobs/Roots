@@ -12,6 +12,8 @@ import StyledForm from "../../../ui/Form";
 import InputContainer from "../../../ui/InputContainer";
 import { LoginData } from "../../../types";
 import LoadingMini from "../../../ui/LoadingMini";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { typeEmail, typePassword} from "../authenticationSlice";
 
 const StyledFormContainer = styled.div`
   background-color: var(--color-lime-200);
@@ -49,11 +51,13 @@ const ErrorMessage = styled.p`
 `;
 
 export default function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [seePassword, setSeePassword] = useState(false);
 
   const { login, isPending } = useLogin();
+
+  const dispatch = useAppDispatch();
+  const email = useAppSelector((state) => state.authentication.email);
+  const password = useAppSelector((state) => state.authentication.password);
 
   const {
     register,
@@ -76,9 +80,7 @@ export default function LoginForm() {
             placeholder="Digite seu email"
             {...register("email", { required: true })}
             value={email}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setEmail(e.target.value)
-            }
+            onChange={(e) => dispatch(typeEmail({ email: e.target.value }))}
             disabled={isPending}
           />
           {errors.email?.type === "required" && (
@@ -92,8 +94,8 @@ export default function LoginForm() {
             placeholder="Digite sua senha"
             {...register("password", { required: true, minLength: 8 })}
             value={password}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setPassword(e.target.value)
+            onChange={(e) =>
+              dispatch(typePassword({ password: e.target.value }))
             }
             disabled={isPending}
           />

@@ -22,7 +22,7 @@ const StyledLogo = styled.div<{ variation?: VariationType }>`
     font-size: 3.6rem;
   }
 
-  ${(props) => (props.variation === "header" ? "" : "flex-drection: column")}
+  ${(props) => (props.variation === "header" ? "" : "flex-direction: column")}
 `;
 
 export default function Logo({ variation }: LogoProps) {

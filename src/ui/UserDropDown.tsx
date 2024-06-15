@@ -3,7 +3,7 @@ import { IoLogOutOutline } from "react-icons/io5";
 import Button from "./Button";
 import useSignOut from "../features/authentication/SignOut/useSignOut";
 
-const StyledUserDropDown = styled.ul<{ isHovered: boolean }>`
+const StyledUserDropDown = styled.ul<{ $isHovered: boolean }>`
   position: absolute;
   z-index: 1;
   background-color: var(--color-lime-200);
@@ -16,8 +16,8 @@ const StyledUserDropDown = styled.ul<{ isHovered: boolean }>`
   padding: 1rem;
   border-radius: 0 0 0 var(--border-radius-md);
 
-  ${({ isHovered }) =>
-    isHovered
+  ${({ $isHovered }) =>
+    $isHovered
       ? css`
           transform: translateY(8rem);
         `
@@ -38,7 +38,7 @@ export default function UserDropDown({
   const { signOut } = useSignOut();
   return (
     <StyledUserDropDown
-      isHovered={isHovered}
+      $isHovered={isHovered}
       onMouseEnter={() => onSetIsHovered(true)}
       onMouseLeave={() => onSetIsHovered(false)}
     >
