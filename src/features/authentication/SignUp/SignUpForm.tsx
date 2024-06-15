@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import useSignUp from "./useSignUp";
+import LoadingMini from "../../../ui/LoadingMini";
 
 const FormText = styled.p`
   text-align: center;
@@ -60,7 +61,7 @@ export default function SignUpForm() {
 
   return (
     <StyledForm variation="modal" onSubmit={handleSubmit(onSubmit)}>
-      <Logo type="login" />
+      <Logo />
       <FormText>Cadastre-se para pode se conectar com seus amigos</FormText>
 
       <InputContainer>
@@ -136,7 +137,7 @@ export default function SignUpForm() {
         )}
       </InputContainer>
 
-      <Button>Cadastre-se</Button>
+      <Button>{isPending ? <LoadingMini /> : "Cadastre-se"}</Button>
     </StyledForm>
   );
 }

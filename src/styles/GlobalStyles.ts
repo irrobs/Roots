@@ -34,10 +34,17 @@ const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     padding: 0;
     margin: 0;
-
+    
     /* Creating animations for dark mode */
     transition: background-color 0.3s, border 0.3s;
+
+    
   }
+
+  *:focus {
+      outline: 2px solid var(--color-lime-500);
+      outline-offset: 2px;
+    }
 
   html {
     font-size: 62.5%;

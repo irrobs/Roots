@@ -1,15 +1,15 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-const StyledLogo = styled.div<{ type: string }>`
+type VariationType = "header";
+
+type LogoProps = {
+  variation?: VariationType;
+};
+
+const StyledLogo = styled.div<{ variation?: VariationType }>`
   display: flex;
   align-items: center;
   gap: 1rem;
-
-  ${(props) =>
-    props.type === "login" &&
-    css`
-      flex-direction: column;
-    `}
 
   & > img {
     width: 6rem;
@@ -21,11 +21,13 @@ const StyledLogo = styled.div<{ type: string }>`
     font-weight: bold;
     font-size: 3.6rem;
   }
+
+  ${(props) => (props.variation === "header" ? "" : "flex-drection: column")}
 `;
 
-export default function Logo({ type }: { type: string }) {
+export default function Logo({ variation }: LogoProps) {
   return (
-    <StyledLogo type={type}>
+    <StyledLogo variation={variation}>
       <img src="/logo.png" alt="Desenho de uma árvore" />
       <p>Roots</p>
     </StyledLogo>

@@ -7,6 +7,7 @@ import InputContainer from "../../../ui/InputContainer";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useResetPasswordRedirect from "./useResetPasswordRedirect";
+import LoadingMini from "../../../ui/LoadingMini";
 
 const FormText = styled.p`
   text-align: center;
@@ -22,7 +23,7 @@ const ErrorMessage = styled.p`
 export default function ResetPasswordRedirectForm() {
   const [email, setEmail] = useState("");
 
-  const {resetPasswordRedirect, isPending} = useResetPasswordRedirect()
+  const { resetPasswordRedirect, isPending } = useResetPasswordRedirect();
 
   const {
     register,
@@ -36,8 +37,10 @@ export default function ResetPasswordRedirectForm() {
 
   return (
     <StyledForm variation="modal" onSubmit={handleSubmit(onSubmit)}>
-      <Logo type="login" />
-      <FormText>Insira seu email para receber um email de redefinição de senha</FormText>
+      <Logo />
+      <FormText>
+        Insira seu email para receber um email de redefinição de senha
+      </FormText>
 
       <InputContainer>
         <Input
@@ -55,7 +58,7 @@ export default function ResetPasswordRedirectForm() {
         )}
       </InputContainer>
 
-      <Button>Enviar</Button>
+      <Button>{isPending ? <LoadingMini /> : "Enviar"}</Button>
     </StyledForm>
   );
 }

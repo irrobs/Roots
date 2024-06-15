@@ -60,7 +60,7 @@ export default function SignUpForm() {
 
   return (
     <StyledForm variation="modal" onSubmit={handleSubmit(onSubmit)}>
-      <Logo type="login" />
+      <Logo  />
       <FormText>Cadastre-se para pode se conectar com seus amigos</FormText>
 
       <InputContainer>

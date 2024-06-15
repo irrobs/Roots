@@ -14,21 +14,25 @@ const StyledLink = styled.a`
   color: var(--color-gray-500);
 `;
 
-const options = [
-  { value: 1, text: "Português" },
-  { value: 2, text: "Inglês" },
-  { value: 3, text: "Espanhol" },
-];
+const SelectContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
 
 export default function Footer() {
   return (
     <StyledFooter>
       <StyledLink href="#">Sobre</StyledLink>
 
-      <div>
+      <SelectContainer>
         <label htmlFor="language-select">Idiomas:</label>
-        <Select options={options} id="language-select" />
-      </div>
+
+        <Select id="language-select">
+          <option value="1">Português</option>
+          <option value="2">Inglês</option>
+          <option value="3">Espanhol</option>
+        </Select>
+      </SelectContainer>
 
       <span>@2024 copyright - fasdfsafd</span>
     </StyledFooter>

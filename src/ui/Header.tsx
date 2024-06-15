@@ -49,7 +49,7 @@ export default function Header() {
   return (
     <>
       <StyledHeader>
-        <Logo type="" />
+        <Logo variation="header" />
 
         <StyledSearchbar>
           <InputSearch placeholder="Pesquisar..." />

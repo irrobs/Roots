@@ -7,7 +7,6 @@ const Input = styled.input`
   padding: 1rem;
   border-radius: var(--border-radius-sm);
   width: 100%;
-  outline-color: var(--color-lime-500);
 `;
 
 export default Input;

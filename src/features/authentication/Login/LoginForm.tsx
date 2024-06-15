@@ -11,6 +11,7 @@ import { useLogin } from "./useLogin";
 import StyledForm from "../../../ui/Form";
 import InputContainer from "../../../ui/InputContainer";
 import { LoginData } from "../../../types";
+import LoadingMini from "../../../ui/LoadingMini";
 
 const StyledFormContainer = styled.div`
   background-color: var(--color-lime-200);
@@ -66,7 +67,7 @@ export default function LoginForm() {
 
   return (
     <StyledFormContainer>
-      <Logo type="login" />
+      <Logo />
 
       <StyledForm onSubmit={handleSubmit(onSubmit)}>
         <InputContainer>
@@ -108,7 +109,7 @@ export default function LoginForm() {
           </StyledSpan>
         </InputContainer>
 
-        <Button>{isPending ? "Loading..." : "Entrar"}</Button>
+        <Button>{isPending ? <LoadingMini /> : "Entrar"}</Button>
       </StyledForm>
     </StyledFormContainer>
   );
