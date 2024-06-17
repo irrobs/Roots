@@ -8,8 +8,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
-import useResetPassword from './useResetPassword'
-
+import useResetPassword from "./useResetPassword";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { typePassword } from "../authenticationSlice";
 
 const FormText = styled.p`
   text-align: center;
@@ -39,12 +40,12 @@ const ErrorMessage = styled.p`
 `;
 
 export default function SignUpForm() {
-  const [password, setPassword] = useState("");
+  const password = useAppSelector((state) => state.authentication.password);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [seePassword, setSeePassword] = useState(false);
 
-  const{resetPassword, isPending} = useResetPassword()
- 
+  const { resetPassword, isPending } = useResetPassword();
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -60,8 +61,8 @@ export default function SignUpForm() {
 
   return (
     <StyledForm variation="modal" onSubmit={handleSubmit(onSubmit)}>
-      <Logo  />
-      <FormText>Cadastre-se para pode se conectar com seus amigos</FormText>
+      <Logo />
+      <FormText>Insira sua nova senha</FormText>
 
       <InputContainer>
         <Input
@@ -69,9 +70,7 @@ export default function SignUpForm() {
           placeholder="Nova senha"
           {...register("password", { required: true, minLength: 8 })}
           value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => dispatch(typePassword({ password: e.target.value }))}
           disabled={isPending}
         />
         {errors.password?.type === "required" && (

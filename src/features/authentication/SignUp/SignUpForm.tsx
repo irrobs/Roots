@@ -10,6 +10,8 @@ import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import toast from "react-hot-toast";
 import useSignUp from "./useSignUp";
 import LoadingMini from "../../../ui/LoadingMini";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { typeEmail, typePassword } from "../authenticationSlice";
 
 const FormText = styled.p`
   text-align: center;
@@ -39,13 +41,13 @@ const ErrorMessage = styled.p`
 `;
 
 export default function SignUpForm() {
+  const { email, password } = useAppSelector((state) => state.authentication);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [seePassword, setSeePassword] = useState(false);
 
   const { signUp, isPending } = useSignUp();
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -86,9 +88,7 @@ export default function SignUpForm() {
           placeholder="Digite seu email"
           {...register("email", { required: true })}
           value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => dispatch(typeEmail({ email: e.target.value }))}
           disabled={isPending}
         />
         {errors.email?.type === "required" && (
@@ -102,9 +102,7 @@ export default function SignUpForm() {
           placeholder="Senha"
           {...register("password", { required: true, minLength: 8 })}
           value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
+          onChange={(e) => dispatch(typePassword({ password: e.target.value }))}
           disabled={isPending}
         />
         {errors.password?.type === "required" && (

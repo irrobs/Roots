@@ -10,6 +10,7 @@ export default function useResetPasswordRedirect() {
     mutationFn: (email: string) => resetPasswordApi(email),
     onSettled: () => {
       close();
+
       toast.success("Email de confirmação enviado!");
     },
     onError: () => {

@@ -4,10 +4,11 @@ import StyledForm from "../../../ui/Form";
 import Input from "../../../ui/Input";
 import Logo from "../../../ui/Logo";
 import InputContainer from "../../../ui/InputContainer";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useResetPasswordRedirect from "./useResetPasswordRedirect";
 import LoadingMini from "../../../ui/LoadingMini";
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { typeEmail } from "../authenticationSlice";
 
 const FormText = styled.p`
   text-align: center;
@@ -21,7 +22,8 @@ const ErrorMessage = styled.p`
 `;
 
 export default function ResetPasswordRedirectForm() {
-  const [email, setEmail] = useState("");
+  const email = useAppSelector((state) => state.authentication.email);
+  const dispatch = useAppDispatch();
 
   const { resetPasswordRedirect, isPending } = useResetPasswordRedirect();
 
@@ -48,9 +50,7 @@ export default function ResetPasswordRedirectForm() {
           placeholder="Digite seu email"
           {...register("email", { required: true })}
           value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
+          onChange={(e) => dispatch(typeEmail({ email: e.target.value }))}
           disabled={isPending}
         />
         {errors.email?.type === "required" && (

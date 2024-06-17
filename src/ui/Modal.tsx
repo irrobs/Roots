@@ -9,6 +9,8 @@ import { IoCloseOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { createPortal } from "react-dom";
 import { useOutsideClick } from "../hooks/useOutsideClick";
+import { useAppDispatch } from "../store";
+import { resetState } from "../features/authentication/authenticationSlice";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -75,9 +77,13 @@ const ModalContext = createContext<ModalContextType>({
 
 export default function Modal({ children }: ModalProps) {
   //controls the component that will be opened with the modal
+  const dispatch = useAppDispatch();
   const [openName, setOpenName] = useState("");
 
-  const close = () => setOpenName("");
+  const close = () => {
+    setOpenName("");
+    dispatch(resetState());
+  };
   const open = (name: string) => {
     setOpenName(name);
   };
