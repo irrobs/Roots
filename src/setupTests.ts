@@ -13,3 +13,15 @@ afterEach(() => server.resetHandlers());
 
 // Clean up after the tests are finished.
 afterAll(() => server.close());
+
+//solve matchMedia error
+Object.defineProperty(window, "matchMedia", {
+  writable: true,
+  value: (query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: function () {}, // You can use empty functions as needed
+    removeListener: function () {},
+  }),
+});

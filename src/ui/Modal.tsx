@@ -115,7 +115,7 @@ function Window({ children, name }: WindowProps) {
   //puts the modal as a sibling of body
   return createPortal(
     <Overlay>
-      <StyledModal ref={ref}>
+      <StyledModal ref={ref} role="dialog">
         <Button onClick={close}>
           <IoCloseOutline />
         </Button>

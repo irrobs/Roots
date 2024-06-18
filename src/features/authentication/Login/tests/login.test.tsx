@@ -1,12 +1,18 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "../../../../App";
+import { Provider } from "react-redux";
+import { store } from "../../../../store";
 
 test("User puts right credentials and log into app", async () => {
   const user = userEvent.setup();
 
   //render login page
-  render(<App />);
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
 
   //get elements that will be used
   const email = await screen.findByRole("textbox");

@@ -14,7 +14,6 @@ const variation = {
     }
   `,
   secondary: css`
-    text-transform: capitalize;
     border-radius: var(--border-radius-md);
 
     &:hover {

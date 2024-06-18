@@ -47,7 +47,7 @@ export default function ResetPasswordRedirectForm() {
       <InputContainer>
         <Input
           type="email"
-          placeholder="Digite seu email"
+          placeholder="Digite o email que irá receber a confirmação"
           {...register("email", { required: true })}
           value={email}
           onChange={(e) => dispatch(typeEmail({ email: e.target.value }))}
