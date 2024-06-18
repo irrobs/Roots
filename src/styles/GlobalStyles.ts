@@ -41,10 +41,10 @@ const GlobalStyles = createGlobalStyle`
     
   }
 
-  *:focus {
+ /*  *:focus {
       outline: 2px solid var(--color-lime-500);
       outline-offset: 2px;
-    }
+    } */
 
   html {
     font-size: 62.5%;

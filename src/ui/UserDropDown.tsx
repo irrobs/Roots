@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
-import { IoLogOutOutline } from "react-icons/io5";
+import { IoLogOutOutline, IoPersonOutline } from "react-icons/io5";
 import Button from "./Button";
 import useSignOut from "../features/authentication/SignOut/useSignOut";
+import { Link } from "react-router-dom";
 
 const StyledUserDropDown = styled.ul<{ $isHovered: boolean }>`
   position: absolute;
@@ -42,6 +43,12 @@ export default function UserDropDown({
       onMouseEnter={() => onSetIsHovered(true)}
       onMouseLeave={() => onSetIsHovered(false)}
     >
+      <Link to="user">
+        <Button variation="tertiary" size="small">
+          <IoPersonOutline />
+          Perfil
+        </Button>
+      </Link>
       <li>
         <Button variation="tertiary" size="small" onClick={() => signOut()}>
           <IoLogOutOutline />
