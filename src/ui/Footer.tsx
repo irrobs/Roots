@@ -27,7 +27,7 @@ export default function Footer() {
       <SelectContainer>
         <label htmlFor="language-select">Idiomas:</label>
 
-        <Select id="language-select">
+        <Select id="language-select" variation="language">
           <option value="1">Português</option>
           <option value="2">Inglês</option>
           <option value="3">Espanhol</option>

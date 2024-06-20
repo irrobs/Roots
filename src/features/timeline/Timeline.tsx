@@ -11,16 +11,11 @@ const StyledTimeline = styled.main`
   align-items: center;
 `;
 
-const options = [
-  { value: 1, text: "A - Z" },
-  { value: 2, text: "Z - A" },
-];
-
 export default function Timeline() {
   return (
     <StyledTimeline>
       <CreatePost />
-      <Select options={options} type="green" />
+      <Select />
       <Posts />
     </StyledTimeline>
   );

@@ -1,13 +1,21 @@
 import styled, { css } from "styled-components";
 
-type VariationsType = "green";
+type VariationsType = "sort" | "language";
 
 type SelectProps = {
   variation?: VariationsType;
 };
 
 const variation = {
-  green: css``,
+  sort: css`
+    background-color: var(--color-lime-500);
+    color: var(--color-gray-0);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-full);
+    font-size: 1.6rem;
+    margin-left: auto;
+  `,
+  language: css``,
 };
 
 const Select = styled.select<SelectProps>`
@@ -16,7 +24,7 @@ const Select = styled.select<SelectProps>`
   outline-offset: 0;
   color: var(--color-lime-700);
 
-  ${(props) => variation[props.variation ?? "green"]}
+  ${(props) => variation[props.variation ?? "sort"]}
 `;
 
 export default Select;
