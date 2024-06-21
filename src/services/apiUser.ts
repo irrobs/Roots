@@ -1,5 +1,5 @@
 import { UserType } from "../types";
-import supabase from "./supabase";
+import supabase, { supabaseUrl } from "./supabase";
 
 export async function editUser({
   name,
@@ -7,12 +7,53 @@ export async function editUser({
   profilePicture,
   coverPhoto,
 }: UserType) {
-  await supabase.auth.updateUser({
+  //1: update name and description
+  const { data, error } = await supabase.auth.updateUser({
     data: {
       name,
       description,
-      profilePicture,
-      coverPhoto,
     },
   });
+
+  if (error) throw new Error(error.message);
+
+  if (!profilePicture && !coverPhoto) return data;
+
+  //2: upload images and update user
+  if (profilePicture) {
+    console.log(profilePicture);
+    const fileName = `avatar-${data.user.id}`;
+
+    const { error: storageError } = await supabase.storage
+      .from("Profile-pictures")
+      .upload(fileName, profilePicture, { upsert: true });
+
+    if (storageError) throw new Error(storageError.message);
+
+    //cache busting so the image gets refetched to display in screen
+    const timestamp = new Date().getTime();
+    const profilePictureUrl = `${supabaseUrl}/storage/v1/object/public/Profile-pictures/${fileName}?timestamp=${timestamp}`;
+
+    await supabase.auth.updateUser({
+      data: {
+        profilePicture: profilePictureUrl,
+      },
+    });
+  }
+
+  if (coverPhoto) {
+    const fileName = `cover-${data.user.id}`;
+
+    const { error: storageError } = await supabase.storage
+      .from("Cover-photos")
+      .upload(fileName, coverPhoto, { upsert: true });
+
+    if (storageError) throw new Error(storageError.message);
+
+    await supabase.auth.updateUser({
+      data: {
+        coverPhoto: `${supabaseUrl}/storage/v1/object/public/Cover-photos/${fileName}`,
+      },
+    });
+  }
 }

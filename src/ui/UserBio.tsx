@@ -15,7 +15,6 @@ const StyledUserBio = styled.div`
 `;
 
 const BackgroundImage = styled.img`
-  cursor: pointer;
   grid-row: 1;
   height: 100%;
   width: 100%;
@@ -31,13 +30,13 @@ const UserInfoContainer = styled.div`
 `;
 
 const ProfilePicture = styled.img`
-  cursor: pointer;
   background-color: var(--color-gray-0);
   position: absolute;
   transform: translate(10%, -50%);
   width: 19.2rem;
   height: 19.2rem;
   border-radius: 100%;
+  border: 2px solid var(--color-gray-0);
 `;
 
 const UserInfo = styled.div`
@@ -85,47 +84,49 @@ export default function UserBio() {
 
   return (
     <StyledUserBio>
-      <BackgroundImage
-        src={
-          userData.coverPhoto
-            ? userData.coverPhoto
-            : "/public/default-cover-photo.png"
-        }
-        alt="Foto de capa"
-      />
-
       {editMode ? (
         <UserForm onSetEditMode={setEditMode} />
       ) : (
-        <UserInfoContainer>
-          <ProfilePicture
+        <>
+          <BackgroundImage
             src={
-              userData.profilePicture
-                ? userData.profilePicture
-                : "/public/default-profile-picture.svg"
+              userData.coverPhoto
+                ? userData.coverPhoto
+                : "/default-cover-photo.png"
             }
-            alt="Foto de perfil"
+            alt="Foto de capa"
           />
-          <UserInfo>
-            <Username>{userData ? userData.name : "username"}</Username>
-            <UserFriends>200 amigos</UserFriends>
-          </UserInfo>
 
-          <EditButton
-            variation="secondary"
-            size="small"
-            onClick={() => setEditMode(!editMode)}
-          >
-            <IoPencil />
-          </EditButton>
-          <UserDescription>
-            {userData.description
-              ? userData.description
-              : "Escreva sobre você para te conhecerem melhor!"}
-          </UserDescription>
-        </UserInfoContainer>
+          <UserInfoContainer>
+            <ProfilePicture
+              src={
+                userData.profilePicture
+                  ? userData.profilePicture
+                  : "/default-profile-picture.svg"
+              }
+              alt="Foto de perfil"
+            />
+            <UserInfo>
+              <Username>{userData ? userData.name : "username"}</Username>
+              <UserFriends>200 amigos</UserFriends>
+            </UserInfo>
+
+            <EditButton
+              variation="secondary"
+              size="small"
+              onClick={() => setEditMode(!editMode)}
+            >
+              <IoPencil />
+            </EditButton>
+            <UserDescription>
+              {userData.description
+                ? userData.description
+                : "Escreva sobre você para te conhecerem melhor!"}
+            </UserDescription>
+          </UserInfoContainer>
+          <UserContentChoices />
+        </>
       )}
-      <UserContentChoices />
     </StyledUserBio>
   );
 }

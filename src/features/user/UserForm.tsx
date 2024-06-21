@@ -11,12 +11,35 @@ import { useQueryClient } from "@tanstack/react-query";
 
 const UserFormContainer = styled.form`
   position: relative;
+  display: grid;
+  grid-template-rows: 50% 1fr min-content;
+  height: 60vh;
+  margin-bottom: 3rem;
+`;
+
+const BackgroundImageInput = styled.input`
+  text-align: center;
+  cursor: pointer;
+  padding-top: 5rem;
+  height: 100%;
+  width: 100%;
+  border-top-left-radius: var(--border-radius-md);
+  border-top-right-radius: var(--border-radius-md);
+
+  &:hover {
+    background-color: var(--color-gray-200);
+  }
+`;
+
+const UserInfoContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   padding: 0 2rem;
 `;
 
-const ProfilePicture = styled.img`
+const ProfilePictureInput = styled.input`
+  padding-top: 6rem;
   cursor: pointer;
   background-color: var(--color-gray-0);
   position: absolute;
@@ -24,6 +47,10 @@ const ProfilePicture = styled.img`
   width: 19.2rem;
   height: 19.2rem;
   border-radius: 100%;
+
+  &:hover {
+    background-color: var(--color-gray-200);
+  }
 `;
 
 const SubmitButton = styled(Button)`
@@ -47,7 +74,7 @@ const UserInput = styled(Input)`
 `;
 
 const DescriptionContainer = styled.div`
-  margin: 6rem 0 2rem;
+  margin: 8rem 0;
   display: flex;
   flex-direction: column;
 
@@ -78,13 +105,15 @@ export default function UserForm({
   const [description, setDescription] = useState(
     userData.description ? userData.description : ""
   );
+  const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [coverPhoto, setCoverPhoto] = useState<File | null>(null);
 
   const { edit, isPending } = useEditUser();
   const { register, handleSubmit } = useForm();
 
   function onSubmit() {
     edit(
-      { name, description },
+      { name, description, profilePicture, coverPhoto },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["user"] });
@@ -97,39 +126,56 @@ export default function UserForm({
 
   return (
     <UserFormContainer onSubmit={handleSubmit(onSubmit)}>
-      <ProfilePicture
-        src={
-          userData.profilePicture
-            ? userData.profilePicture
-            : "/public/default-profile-picture.svg"
+      <BackgroundImageInput
+        {...register("cover")}
+        type="file"
+        accept="image/*"
+        onChange={(e) =>
+          e.target.files
+            ? setCoverPhoto(e.target.files[0])
+            : setCoverPhoto(null)
         }
-        alt="Foto de perfil"
-      />
-      <UserInput
-        placeholder="Digite o seu nome"
-        maxLength={25}
-        {...register("name")}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
         disabled={isPending}
       />
 
-      <SubmitButton variation="secondary" size="small" type="submit">
-        <IoCheckmark />
-      </SubmitButton>
-
-      <DescriptionContainer>
-        <label htmlFor="description">Conte um pouco sobre você:</label>
-        <DescriptionInput
-          {...register("description")}
-          rows={5}
-          cols={80}
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+      <UserInfoContainer>
+        <ProfilePictureInput
+          {...register("profile")}
+          type="file"
+          accept="image/*"
+          onChange={(e) =>
+            e.target.files
+              ? setProfilePicture(e.target.files[0])
+              : setProfilePicture(null)
+          }
           disabled={isPending}
-        ></DescriptionInput>
-      </DescriptionContainer>
+        />
+        <UserInput
+          placeholder="Digite o seu nome"
+          maxLength={25}
+          {...register("name")}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          disabled={isPending}
+        />
+
+        <SubmitButton variation="secondary" size="small" type="submit">
+          <IoCheckmark />
+        </SubmitButton>
+
+        <DescriptionContainer>
+          <label htmlFor="description">Conte um pouco sobre você:</label>
+          <DescriptionInput
+            {...register("description")}
+            rows={5}
+            cols={80}
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            disabled={isPending}
+          ></DescriptionInput>
+        </DescriptionContainer>
+      </UserInfoContainer>
     </UserFormContainer>
   );
 }

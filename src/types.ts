@@ -12,6 +12,6 @@ export interface UserData {
 export interface UserType {
   name?: string;
   description?: string;
-  profilePicture?: string;
-  coverPhoto?: string;
+  profilePicture: File | null;
+  coverPhoto: File | null;
 }
