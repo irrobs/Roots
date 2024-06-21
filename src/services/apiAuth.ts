@@ -8,6 +8,9 @@ export async function signUp({ email, password, name }: UserData) {
     options: {
       data: {
         name,
+        description: "",
+        profilePicture: "",
+        coverPhoto: "",
       },
     },
   });

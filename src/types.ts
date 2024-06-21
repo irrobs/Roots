@@ -8,3 +8,10 @@ export interface UserData {
   password: string;
   name: string;
 }
+
+export interface UserType {
+  name?: string;
+  description?: string;
+  profilePicture?: string;
+  coverPhoto?: string;
+}

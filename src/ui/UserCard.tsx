@@ -14,6 +14,7 @@ const StyledUserCard = styled.button`
   transition: all 0.3s;
 
   & img {
+    background-color: var(--color-gray-0);
     border-radius: var(--border-radius-full);
     width: 6.4rem;
     height: 6.4rem;
@@ -45,6 +46,7 @@ export default function UserCard({
   onSetIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const { user } = useUser();
+  const userData = user!.user_metadata;
 
   return (
     <StyledUserCard
@@ -52,7 +54,7 @@ export default function UserCard({
       onMouseLeave={() => onSetIsHovered(false)}
     >
       <UserInfoContainer>
-        <p>{user?.email}</p>
+        <p>{userData.name}</p>
         <UserStatus>
           <span>
             <IoEllipse />
@@ -61,7 +63,14 @@ export default function UserCard({
         </UserStatus>
       </UserInfoContainer>
 
-      <img src="/profile-picture.png" alt="User profile photo" />
+      <img
+        src={
+          userData.profilePicture
+            ? userData.profilePicture
+            : "/public/default-profile-picture.svg"
+        }
+        alt="Foto de perfil"
+      />
     </StyledUserCard>
   );
 }

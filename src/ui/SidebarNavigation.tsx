@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import { IoHome, IoSettings, IoTrendingUp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const StyledNavigation = styled.nav``;
 
 const NavItems = styled.ul`
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 2.4rem;
+  font-size: 2rem;
 
   display: flex;
   flex-direction: column;
@@ -15,7 +16,7 @@ const NavItems = styled.ul`
 
 const NavItem = styled.li``;
 
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -36,19 +37,19 @@ export default function SidebarNavigation() {
     <StyledNavigation>
       <NavItems>
         <NavItem>
-          <NavLink href="#">
+          <NavLink to="/main">
             <IoHome /> Página inicial
           </NavLink>
         </NavItem>
 
         <NavItem>
-          <NavLink href="#">
+          <NavLink to="#">
             <IoTrendingUp /> Populares
           </NavLink>
         </NavItem>
 
         <NavItem>
-          <NavLink href="#">
+          <NavLink to="#">
             <IoSettings /> Configurações
           </NavLink>
         </NavItem>
