@@ -87,7 +87,7 @@ export default function Post() {
     <StyledPost>
       <PostUser>
         <img src="/profile-picture.png" alt="User profile picture" />
-        <span>Joelson Santana - há 10h</span>
+        <span>João Marques - há 10h</span>
       </PostUser>
 
       <img src="/post-photo.png" alt="Post Image" />

@@ -47,7 +47,7 @@ export default function FriendCard() {
       />
 
       <div>
-        <p>Joelson Santana</p>
+        <p>Lucas Silva</p>
         <span>
           <span>
             <IoEllipse />
