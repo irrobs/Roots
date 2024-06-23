@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyles = createGlobalStyle`
   :root {
+   font-family: "Nunito", sans-serif;
     
     &, &.light-mode {
       --color-gray-0: #fff;
