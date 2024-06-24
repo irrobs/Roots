@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Modal from "./Modal";
 import CreatePostForm from "../features/posts/CreatePostForm";
+import { useUser } from "../features/authentication/useUser";
 
 const StyledCreatePost = styled.div`
   background-color: var(--color-lime-500);
@@ -37,9 +38,19 @@ const FakeInput = styled.button`
 `;
 
 export default function CreatePost() {
+  const { user } = useUser();
+  const userData = user!.user_metadata;
+
   return (
     <StyledCreatePost>
-      <img src="/profile-picture.png" alt="User profile picture" />
+      <img
+        src={
+          userData.profilePicture
+            ? userData.profilePicture
+            : "/default-profile-picture.svg"
+        }
+        alt="Foto de perfil"
+      />
       <Modal>
         <>
           <Modal.Open opens="create-post-form">

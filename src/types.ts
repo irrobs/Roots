@@ -1,17 +1,23 @@
-export interface LoginData {
+export type LoginData = {
   email: string;
   password: string;
-}
+};
 
-export interface UserData {
+export type UserData = {
   email: string;
   password: string;
   name: string;
-}
+};
 
-export interface UserType {
+export type UserType = {
   name?: string;
   description?: string;
   profilePicture: File | null;
   coverPhoto: File | null;
-}
+};
+
+export type PostType = {
+  postText: string;
+  postImage: File | null;
+  userId: string;
+};
