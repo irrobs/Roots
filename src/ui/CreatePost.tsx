@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import Modal from "./Modal";
+import CreatePostForm from "../features/posts/CreatePostForm";
 
 const StyledCreatePost = styled.div`
   background-color: var(--color-lime-500);
@@ -38,7 +40,16 @@ export default function CreatePost() {
   return (
     <StyledCreatePost>
       <img src="/profile-picture.png" alt="User profile picture" />
-      <FakeInput>Faça uma publicação</FakeInput>
+      <Modal>
+        <>
+          <Modal.Open opens="create-post-form">
+            <FakeInput>Faça uma nova publicação</FakeInput>
+          </Modal.Open>
+          <Modal.Window name="create-post-form">
+            <CreatePostForm />
+          </Modal.Window>
+        </>
+      </Modal>
     </StyledCreatePost>
   );
 }

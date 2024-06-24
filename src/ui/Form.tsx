@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-type VariationType = "regular" | "modal";
+type VariationType = "regular" | "modal" | "post";
 
 type FormType = {
   variation?: VariationType;
@@ -14,6 +14,10 @@ const variations = {
 
   modal: css`
     width: 20vw;
+  `,
+
+  post: css`
+    width: 30vw;
   `,
 };
 

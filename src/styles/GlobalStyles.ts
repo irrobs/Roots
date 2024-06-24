@@ -42,7 +42,7 @@ const GlobalStyles = createGlobalStyle`
     
   }
 
-  input:focus {
+  input:focus, textarea:focus {
       outline: 2px solid var(--color-lime-500);
       outline-offset: 2px;
     }

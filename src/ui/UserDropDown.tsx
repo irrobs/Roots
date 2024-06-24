@@ -9,7 +9,7 @@ const StyledUserDropDown = styled.ul<{ $isHovered: boolean }>`
   z-index: 1;
   background-color: var(--color-lime-200);
   width: 22rem;
-  transition: all 0.5s ease-out;
+  transition: all 0.8s ease-out;
   top: 0;
   right: 0;
   display: flex;

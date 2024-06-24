@@ -45,6 +45,11 @@ const Button = styled.button`
   border: none;
   color: var(--color-lime-700);
   transition: all 0.3s;
+  height: 3.6rem;
+  width: 3.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover {
     color: var(--color-red-600);

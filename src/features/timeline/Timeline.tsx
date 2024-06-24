@@ -3,7 +3,7 @@ import Posts from "../../ui/Posts";
 import Select from "../../ui/Select";
 import CreatePost from "../../ui/CreatePost";
 
-const StyledTimeline = styled.main`
+const StyledTimeline = styled.div`
   padding-top: 2rem;
   padding-right: 5rem;
   display: flex;
