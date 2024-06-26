@@ -89,6 +89,9 @@ const NewCommentInput = styled.input.attrs({ type: "text" })`
 export default function Post({ post }: { post: PostRenderType }) {
   const { getUserWithId, isPending } = useGetUserWithId();
   const [postUser, setPostUser] = useState("");
+  const [fullPost, setFullPost] = useState(
+    post.text.length <= 200 ? true : false
+  );
 
   useEffect(() => {
     getUserWithId(post.user_id, {
@@ -125,8 +128,14 @@ export default function Post({ post }: { post: PostRenderType }) {
       </PostInfo>
 
       <p>
-        {post.text}
-        <button>...Ver mais</button>
+        {fullPost ? post.text : post.text.slice(0, 200)}
+        {fullPost ? (
+          post.text.length > 200 ? (
+            <button onClick={() => setFullPost(!fullPost)}>...Ver menos</button>
+          ) : null
+        ) : (
+          <button onClick={() => setFullPost(!fullPost)}>...Ver mais</button>
+        )}
       </p>
 
       <ButtonSeeComments>Ver comentários...</ButtonSeeComments>
