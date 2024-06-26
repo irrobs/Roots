@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export type LoginData = {
   email: string;
   password: string;
@@ -26,7 +24,7 @@ export type PostType = {
 
 export type PostRenderType = {
   id: number;
-  created_at: ReactNode;
+  created_at: Date;
   text: string;
   image: string | null;
   user_id: string;

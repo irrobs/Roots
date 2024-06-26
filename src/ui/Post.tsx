@@ -3,7 +3,8 @@ import styled from "styled-components";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { useEffect, useState } from "react";
 import { PostRenderType } from "../types";
-
+import { formatDistanceToNow } from "date-fns";
+import { pt } from "date-fns/locale";
 const StyledPost = styled.div`
   min-height: 50rem;
   font-size: 1.6rem;
@@ -104,7 +105,7 @@ export default function Post({ post }: { post: PostRenderType }) {
       <PostUser>
         <img src="/profile-picture.png" alt="User profile picture" />
         <span>
-          {postUser} - há {post.created_at}
+          {postUser} - há {formatDistanceToNow(post.created_at, { locale: pt })}
         </span>
       </PostUser>
 
