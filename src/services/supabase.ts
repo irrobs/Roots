@@ -1,7 +1,8 @@
 import { createClient } from "@supabase/supabase-js";
 export const supabaseUrl = "https://ofwpftbzznmixatxvqbv.supabase.co";
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9md3BmdGJ6em5taXhhdHh2cWJ2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTY0OTQ1MTIsImV4cCI6MjAzMjA3MDUxMn0.bOu3sWiBFlwIAbIF6RJFjUL1e1wdJZHHuMl21Dkl12w";
-const supabase = createClient(supabaseUrl, supabaseKey);
+
+const supabaseServiceKey = import.meta.env.VITE_REACT_APP_SUPABASE_SERVICE_KEY;
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
 export default supabase;
