@@ -58,7 +58,7 @@ export async function editUser({
   }
 }
 
-export async function getUserWithId(id) {
+export async function getUserWithId(id: string) {
   const { data, error } = await supabase.auth.admin.getUserById(id);
 
   if (error) throw new Error(error.message);

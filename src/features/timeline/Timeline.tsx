@@ -21,6 +21,8 @@ export default function Timeline() {
     getPosts();
   }, [getPosts]);
 
+  if (isPending) return <p>loading...</p>;
+
   return (
     <StyledTimeline>
       <CreatePost />

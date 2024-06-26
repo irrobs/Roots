@@ -17,7 +17,7 @@ export default function Posts() {
   return (
     <PostsContainer>
       {posts.map((post) => (
-        <Post key={post.user_id} post={post} />
+        <Post key={post.id} post={post} />
       ))}
     </PostsContainer>
   );

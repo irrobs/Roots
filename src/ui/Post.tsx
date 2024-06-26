@@ -2,6 +2,7 @@ import { IoHeartOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { useEffect, useState } from "react";
+import { PostRenderType } from "../types";
 
 const StyledPost = styled.div`
   min-height: 50rem;
@@ -84,14 +85,14 @@ const NewCommentInput = styled.input.attrs({ type: "text" })`
   width: 100%;
 `;
 
-export default function Post({ post }) {
+export default function Post({ post }: { post: PostRenderType }) {
   const { getUserWithId, isPending } = useGetUserWithId();
-  const [postUser, setPostUser] = useState({});
+  const [postUser, setPostUser] = useState("");
 
   useEffect(() => {
     getUserWithId(post.user_id, {
       onSuccess: (data) => {
-        setPostUser(data.user_metadata);
+        setPostUser(data.user_metadata.name);
       },
     });
   }, [post.user_id, getUserWithId]);
@@ -103,7 +104,7 @@ export default function Post({ post }) {
       <PostUser>
         <img src="/profile-picture.png" alt="User profile picture" />
         <span>
-          {postUser.name} - há {post.created_at}
+          {postUser} - há {post.created_at}
         </span>
       </PostUser>
 

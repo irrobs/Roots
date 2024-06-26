@@ -1,19 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-
-type PostType = {
-  create_at: Date;
-  text: string;
-  image: string | null;
-  user_id: number;
-};
+import { PostRenderType } from "../../types";
 
 type PostQueryType = {
-  posts: PostType[] | undefined;
+  posts: PostRenderType[] | undefined;
   isPending: boolean;
 };
 
 export function useQueryPosts(): PostQueryType {
-  const { isPending, data: posts } = useQuery<PostType[]>({
+  const { isPending, data: posts } = useQuery<PostRenderType[]>({
     queryKey: ["posts"],
   });
 
