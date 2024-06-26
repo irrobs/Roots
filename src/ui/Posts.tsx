@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Post from "./Post";
+import { useQueryPosts } from "../features/posts/useQueryPosts";
 
 const PostsContainer = styled.section`
   margin-top: 1rem;
@@ -7,9 +8,17 @@ const PostsContainer = styled.section`
 `;
 
 export default function Posts() {
+  const { posts, isPending } = useQueryPosts();
+
+  if (isPending) return <p>Loading...</p>;
+
+  if (!posts) return <p>Nenhum post encontrado</p>;
+
   return (
     <PostsContainer>
-      <Post />
+      {posts.map((post) => (
+        <Post key={post.user_id} post={post} />
+      ))}
     </PostsContainer>
   );
 }

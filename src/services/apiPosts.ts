@@ -35,3 +35,11 @@ export async function createPost({ postText, postImage, userId }: PostType) {
 
   if (error) throw new Error(error.message);
 }
+
+export async function getPosts() {
+  const { data, error } = await supabase.from("post").select("*");
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}

@@ -1,5 +1,7 @@
 import { IoHeartOutline } from "react-icons/io5";
 import styled from "styled-components";
+import { useGetUserWithId } from "../features/user/useGetUserWithId";
+import { useEffect, useState } from "react";
 
 const StyledPost = styled.div`
   min-height: 50rem;
@@ -82,15 +84,33 @@ const NewCommentInput = styled.input.attrs({ type: "text" })`
   width: 100%;
 `;
 
-export default function Post() {
+export default function Post({ post }) {
+  const { getUserWithId, isPending } = useGetUserWithId();
+  const [postUser, setPostUser] = useState({});
+
+  useEffect(() => {
+    getUserWithId(post.user_id, {
+      onSuccess: (data) => {
+        setPostUser(data.user_metadata);
+      },
+    });
+  }, [post.user_id, getUserWithId]);
+
+  if (isPending) return <p>Loading...</p>;
+
   return (
     <StyledPost>
       <PostUser>
         <img src="/profile-picture.png" alt="User profile picture" />
-        <span>João Marques - há 10h</span>
+        <span>
+          {postUser.name} - há {post.created_at}
+        </span>
       </PostUser>
 
-      <img src="/post-photo.png" alt="Post Image" />
+      <img
+        src={post.image ? post.image : "/default-cover-photo.png"}
+        alt="Post Image"
+      />
 
       <PostInfo>
         <Likes>
@@ -103,9 +123,7 @@ export default function Post() {
       </PostInfo>
 
       <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. A eveniet
-        tempore eligendi nisi explicabo perspiciatis error magnam eius delectus
-        illo repellat rerum hic quae quo alias, corporis quam iusto sint.{" "}
+        {post.text}
         <button>...Ver mais</button>
       </p>
 

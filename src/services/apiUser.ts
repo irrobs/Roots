@@ -57,3 +57,11 @@ export async function editUser({
     });
   }
 }
+
+export async function getUserWithId(id) {
+  const { data, error } = await supabase.auth.admin.getUserById(id);
+
+  if (error) throw new Error(error.message);
+
+  return data.user;
+}
