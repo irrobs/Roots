@@ -1,10 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import { editUser as editUserApi } from "../../services/apiUser";
-import { UserType } from "../../types";
+import { UserSendType } from "../../types";
 
 export function useEditUser() {
   const { mutate: edit, isPending } = useMutation({
-    mutationFn: ({ name, description, profilePicture, coverPhoto }: UserType) =>
+    mutationFn: ({
+      name,
+      description,
+      profilePicture,
+      coverPhoto,
+    }: UserSendType) =>
       editUserApi({
         name,
         description,

@@ -1,4 +1,4 @@
-import { UserType } from "../types";
+import { UserSendType } from "../types";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function editUser({
@@ -6,7 +6,7 @@ export async function editUser({
   description,
   profilePicture,
   coverPhoto,
-}: UserType) {
+}: UserSendType) {
   //1: update name and description
   const { data, error } = await supabase.auth.updateUser({
     data: {

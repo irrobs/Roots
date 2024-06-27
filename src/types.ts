@@ -17,6 +17,13 @@ export type UserType = {
   coverPhoto: File | null;
 };
 
+export type UserSendType = {
+  name: string;
+  description?: string;
+  profilePicture: File | null;
+  coverPhoto: File | null;
+};
+
 export type PostType = {
   postText: string;
   postImage: File | null;
