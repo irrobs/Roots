@@ -29,3 +29,9 @@ export type PostRenderType = {
   image: string | null;
   user_id: string;
 };
+
+export type CommentType = {
+  user_id: string;
+  post_id: number;
+  content: string;
+};

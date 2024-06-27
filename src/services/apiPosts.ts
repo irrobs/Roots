@@ -1,5 +1,5 @@
 import supabase from "./supabase";
-import { PostType } from "../types";
+import { CommentType, PostType } from "../types";
 
 export async function createPost({ postText, postImage, userId }: PostType) {
   let newPost;
@@ -42,4 +42,16 @@ export async function getPosts() {
   if (error) throw new Error(error.message);
 
   return data;
+}
+
+export async function createComment({
+  user_id,
+  post_id,
+  content,
+}: CommentType) {
+  const { error } = await supabase
+    .from("comment")
+    .insert({ user_id, post_id, content });
+
+  if (error) throw new Error(error.message);
 }

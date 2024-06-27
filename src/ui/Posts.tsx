@@ -14,9 +14,11 @@ export default function Posts() {
 
   if (!posts) return <p>Nenhum post encontrado</p>;
 
+  const reversedPosts = [...posts].reverse();
+
   return (
     <PostsContainer>
-      {posts.map((post) => (
+      {reversedPosts.map((post) => (
         <Post key={post.id} post={post} />
       ))}
     </PostsContainer>
