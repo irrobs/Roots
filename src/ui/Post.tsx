@@ -2,14 +2,15 @@ import { IoHeartOutline, IoSendOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { useEffect, useState } from "react";
-import { PostRenderType } from "../types";
+import { CommentRenderType, PostRenderType } from "../types";
 import { formatDistanceToNow } from "date-fns";
 import { pt } from "date-fns/locale";
 import { useForm } from "react-hook-form";
 import Button from "./Button";
 import { useCreateComment } from "../features/posts/useCreateComment";
-import { useUser } from "../features/authentication/useUser";
 import toast from "react-hot-toast";
+import { useGetComments } from "../features/posts/useGetComments";
+import Comment from "../features/posts/Comment";
 
 const StyledPost = styled.div`
   min-height: 50rem;
@@ -85,6 +86,10 @@ const ButtonSeeComments = styled.button`
   }
 `;
 
+const CommentsContainer = styled.div`
+  margin: 1rem 0;
+`;
+
 const NewCommentInput = styled.input.attrs({ type: "text" })`
   border: none;
   border-bottom: 1px solid var(--color-gray-500);
@@ -104,15 +109,26 @@ const ButtonComment = styled(Button)`
   }
 `;
 
-export default function Post({ post }: { post: PostRenderType }) {
+export default function Post({
+  post,
+  userId,
+  userName,
+}: {
+  post: PostRenderType;
+  userId: string;
+  userName: string;
+}) {
   const { getUserWithId, isPending } = useGetUserWithId();
   const { createComment, isPending: isPendingComment } = useCreateComment();
-  const { user } = useUser();
+  const { getComments, isPending: isPendingGetComments } = useGetComments();
+
   const [postUser, setPostUser] = useState("");
   const [fullPost, setFullPost] = useState(
     post.text.length <= 200 ? true : false
   );
   const [comment, setComment] = useState("");
+  const [comments, setComments] = useState<CommentRenderType[]>([]);
+  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     getUserWithId(post.user_id, {
@@ -120,7 +136,13 @@ export default function Post({ post }: { post: PostRenderType }) {
         setPostUser(data.user_metadata.name);
       },
     });
-  }, [post.user_id, getUserWithId]);
+
+    getComments(post.id, {
+      onSuccess: (data) => {
+        setComments(data);
+      },
+    });
+  }, [post.user_id, getUserWithId, post.id, setComments, getComments]);
 
   const {
     register,
@@ -129,9 +151,15 @@ export default function Post({ post }: { post: PostRenderType }) {
   } = useForm();
 
   function onSubmit() {
-    if (!user) return toast.error("Comentário não pode ser criado");
+    if (!userId || !userName)
+      return toast.error("Comentário não pode ser criado");
     createComment(
-      { user_id: user.id, post_id: post.id, content: comment },
+      {
+        user_id: userId,
+        post_id: post.id,
+        content: comment,
+        user_name: userName,
+      },
       {
         onSuccess: () => {
           setComment("");
@@ -177,7 +205,22 @@ export default function Post({ post }: { post: PostRenderType }) {
         )}
       </p>
 
-      <ButtonSeeComments>Ver comentários...</ButtonSeeComments>
+      {showComments ? null : (
+        <ButtonSeeComments onClick={() => setShowComments(!showComments)}>
+          Ver comentários...
+        </ButtonSeeComments>
+      )}
+      {showComments ? (
+        isPendingGetComments ? (
+          <p>Loading comments</p>
+        ) : (
+          <CommentsContainer>
+            {comments.map((comment) => (
+              <Comment comment={comment} key={comment.id} />
+            ))}
+          </CommentsContainer>
+        )
+      ) : null}
 
       <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
         <NewCommentInput

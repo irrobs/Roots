@@ -10,7 +10,8 @@ export type UserData = {
 };
 
 export type UserType = {
-  name?: string;
+  id: string;
+  name: string;
   description?: string;
   profilePicture: File | null;
   coverPhoto: File | null;
@@ -30,8 +31,16 @@ export type PostRenderType = {
   user_id: string;
 };
 
-export type CommentType = {
+export type CommentRenderType = {
+  id: number;
   user_id: string;
   post_id: number;
   content: string;
+  user_name: string;
+};
+export type CommentSendType = {
+  user_id: string;
+  post_id: number;
+  content: string;
+  user_name: string;
 };
