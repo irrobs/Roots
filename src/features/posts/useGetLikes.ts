@@ -3,7 +3,7 @@ import { getLikes as getLikesApi } from "../../services/apiPosts";
 
 export function useGetLikes() {
   const { mutate: getLikes, isPending } = useMutation({
-    mutationFn: (post_id) => getLikesApi(post_id),
+    mutationFn: (post_id: number) => getLikesApi(post_id),
   });
 
   return { getLikes, isPending };
