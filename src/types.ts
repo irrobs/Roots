@@ -51,3 +51,8 @@ export type CommentSendType = {
   content: string;
   user_name: string;
 };
+
+export type LikeType = {
+  user_id: string;
+  post_id: number;
+};

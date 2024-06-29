@@ -14,6 +14,7 @@ const StyledCreatePost = styled.div`
   margin-bottom: 1rem;
 
   & img {
+    background-color: var(--color-gray-0);
     height: 4.8rem;
     width: 4.8rem;
     border-radius: var(--border-radius-full);

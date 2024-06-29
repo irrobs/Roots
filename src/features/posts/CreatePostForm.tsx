@@ -17,6 +17,7 @@ const UserContainer = styled.div`
 const UserImg = styled.img`
   border-radius: var(--border-radius-full);
   width: 10%;
+  background-color: var(--color-gray-0);
 `;
 
 const UserName = styled.span``;
@@ -63,8 +64,15 @@ export default function CreatePostForm() {
   return (
     <Form variation="post" onSubmit={handleSubmit(onSubmit)}>
       <UserContainer>
-        <UserImg src="/profile-picture.png" alt="Foto do usuário" />
-        <UserName>Matheus Escobar</UserName>
+        <UserImg
+          src={
+            user?.user_metadata.profilePicture
+              ? user?.user_metadata.profilePicture
+              : "/default-profile-picture.svg"
+          }
+          alt="Foto do usuário"
+        />
+        <UserName>{user?.user_metadata.name}</UserName>
       </UserContainer>
       <div>
         <PostImgInput

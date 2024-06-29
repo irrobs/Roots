@@ -1,4 +1,4 @@
-import { IoHeartOutline, IoSendOutline } from "react-icons/io5";
+import { IoSendOutline } from "react-icons/io5";
 import styled from "styled-components";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { useEffect, useState } from "react";
@@ -11,6 +11,8 @@ import { useCreateComment } from "../features/posts/useCreateComment";
 import toast from "react-hot-toast";
 import { useGetComments } from "../features/posts/useGetComments";
 import Comment from "../features/posts/Comment";
+
+import LikesContainer from "./LikesContainer";
 
 const StyledPost = styled.div`
   min-height: 50rem;
@@ -62,15 +64,6 @@ const PostInfo = styled.div`
   & button > * {
     width: 2.4rem;
     height: 2.4rem;
-  }
-`;
-
-const Likes = styled.span`
-  display: flex;
-  gap: 0.5rem;
-
-  & span {
-    font-weight: lighter;
   }
 `;
 
@@ -150,7 +143,7 @@ export default function Post({
     /* formState: { errors }, */
   } = useForm();
 
-  function onSubmit() {
+  function onSubmitComment() {
     if (!userId || !userName)
       return toast.error("Comentário não pode ser criado");
     createComment(
@@ -185,13 +178,7 @@ export default function Post({
       />
 
       <PostInfo>
-        <Likes>
-          <strong>217</strong>
-          <span>Curtidas</span>
-        </Likes>
-        <button>
-          <IoHeartOutline />
-        </button>
+        <LikesContainer post_id={post.id} />
       </PostInfo>
 
       <p>
@@ -222,7 +209,10 @@ export default function Post({
         )
       ) : null}
 
-      <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
+      <form
+        onSubmit={handleSubmit(onSubmitComment)}
+        style={{ position: "relative" }}
+      >
         <NewCommentInput
           type="text"
           placeholder="Escreva um comentário"

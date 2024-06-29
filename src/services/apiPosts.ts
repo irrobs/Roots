@@ -1,5 +1,5 @@
 import supabase from "./supabase";
-import { CommentSendType, PostType } from "../types";
+import { CommentSendType, LikeType, PostType } from "../types";
 
 export async function createPost({ postText, postImage, userId }: PostType) {
   let newPost;
@@ -62,6 +62,25 @@ export async function getComments(id: number) {
     .from("comment")
     .select()
     .eq("post_id", id);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function createLike({ user_id, post_id }: LikeType) {
+  const { error } = await supabase
+    .from("like_table")
+    .insert({ user_id, post_id });
+
+  if (error) throw new Error(error.message);
+}
+
+export async function getLikes(post_id: number) {
+  const { data, error } = await supabase
+    .from("like_table")
+    .select("post_id(count)")
+    .eq("post_id", post_id);
 
   if (error) throw new Error(error.message);
 
