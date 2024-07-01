@@ -17,6 +17,13 @@ export type UserType = {
   coverPhoto: File | null;
 };
 
+export interface PartialCachedUser {
+  id: string;
+  user_metadata: {
+    name: string;
+  };
+}
+
 export type UserSendType = {
   name: string;
   description?: string;
