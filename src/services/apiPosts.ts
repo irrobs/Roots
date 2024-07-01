@@ -79,7 +79,7 @@ export async function createLike({ user_id, post_id }: LikeType) {
 export async function getLikes(post_id: number) {
   const { data, error } = await supabase
     .from("like_table")
-    .select("post_id(count)")
+    .select("user_id")
     .eq("post_id", post_id);
 
   if (error) throw new Error(error.message);
