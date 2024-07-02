@@ -192,7 +192,7 @@ export default function Post({
         )}
       </p>
 
-      {showComments ? null : (
+      {showComments || comments.length === 0 ? null : (
         <ButtonSeeComments onClick={() => setShowComments(!showComments)}>
           Ver comentários...
         </ButtonSeeComments>

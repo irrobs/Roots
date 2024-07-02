@@ -3,6 +3,7 @@ import { useCreateLike } from "../features/posts/useCreateLike";
 import styled from "styled-components";
 import { useGetLikes } from "../features/posts/useGetLikes";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+import { useDeleteLike } from "../features/posts/useDeleteLike";
 
 const Likes = styled.span`
   display: flex;
@@ -21,6 +22,7 @@ const LikeButton = styled.button`
 
 export default function LikesContainer({ post_id }: { post_id: number }) {
   const { createLike } = useCreateLike();
+  const { deleteLike } = useDeleteLike();
   const { likes, isPending } = useGetLikes(post_id);
   const user = useGetCachedUser();
 
@@ -39,8 +41,14 @@ export default function LikesContainer({ post_id }: { post_id: number }) {
         <span>Curtidas</span>
       </Likes>
 
-      <LikeButton onClick={() => createLike({ user_id: user.id, post_id })}>
-        {userLiked ? <IoHeart /> : <IoHeartOutline />}
+      <LikeButton>
+        {userLiked ? (
+          <IoHeart onClick={() => deleteLike({ user_id: user.id, post_id })} />
+        ) : (
+          <IoHeartOutline
+            onClick={() => createLike({ user_id: user.id, post_id })}
+          />
+        )}
       </LikeButton>
     </>
   );

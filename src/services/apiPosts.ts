@@ -79,6 +79,18 @@ export async function createLike({ user_id, post_id }: LikeType) {
   return { data, post_id };
 }
 
+export async function deleteLike({ user_id, post_id }: LikeType) {
+  const { error } = await supabase
+    .from("like_table")
+    .delete()
+    .eq("user_id", user_id)
+    .eq("post_id", post_id);
+
+  if (error) throw new Error(error.message);
+
+  return post_id;
+}
+
 export async function getLikes(post_id: number) {
   const { data, error } = await supabase
     .from("like_table")
