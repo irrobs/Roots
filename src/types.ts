@@ -21,6 +21,9 @@ export interface PartialCachedUser {
   id: string;
   user_metadata: {
     name: string;
+    coverPhoto: string;
+    profilePicture: string;
+    description: string;
   };
 }
 

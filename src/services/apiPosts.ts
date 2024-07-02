@@ -69,11 +69,14 @@ export async function getComments(id: number) {
 }
 
 export async function createLike({ user_id, post_id }: LikeType) {
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("like_table")
-    .insert({ user_id, post_id });
+    .insert({ user_id, post_id })
+    .select();
 
   if (error) throw new Error(error.message);
+
+  return { data, post_id };
 }
 
 export async function getLikes(post_id: number) {
@@ -84,5 +87,5 @@ export async function getLikes(post_id: number) {
 
   if (error) throw new Error(error.message);
 
-  return data;
+  return { data };
 }

@@ -21,7 +21,6 @@ export async function editUser({
 
   //2: upload images and update user
   if (profilePicture) {
-    console.log(profilePicture);
     const fileName = `avatar-${data.user.id}`;
 
     const { error: storageError } = await supabase.storage

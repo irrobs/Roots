@@ -2,8 +2,6 @@ import styled from "styled-components";
 import Posts from "../../ui/Posts";
 import Select from "../../ui/Select";
 import CreatePost from "../../ui/CreatePost";
-import { useEffect } from "react";
-import { useGetPosts } from "../posts/useGetPosts";
 
 const StyledTimeline = styled.div`
   padding-top: 2rem;
@@ -16,14 +14,6 @@ const StyledTimeline = styled.div`
 `;
 
 export default function Timeline() {
-  const { getPosts, isPending } = useGetPosts();
-
-  useEffect(() => {
-    getPosts();
-  }, [getPosts]);
-
-  if (isPending) return <p>loading...</p>;
-
   return (
     <StyledTimeline>
       <CreatePost />

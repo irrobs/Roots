@@ -9,7 +9,7 @@ export default function useSignOut() {
     mutationFn: () => signOutApi(),
 
     onSuccess: () => {
-      queryClient.removeQueries({ queryKey: ["user"], exact: true });
+      queryClient.removeQueries();
 
       navigate("/login", { replace: true });
     },

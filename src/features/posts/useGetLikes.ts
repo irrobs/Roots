@@ -1,10 +1,14 @@
-import { useMutation } from "@tanstack/react-query";
-import { getLikes as getLikesApi } from "../../services/apiPosts";
+import { useQuery } from "@tanstack/react-query";
+import { getLikes } from "../../services/apiPosts";
 
-export function useGetLikes() {
-  const { mutate: getLikes, isPending } = useMutation({
-    mutationFn: (post_id: number) => getLikesApi(post_id),
+export function useGetLikes(post_id: number) {
+  const { data, isPending, isSuccess } = useQuery({
+    queryKey: [`likes-${post_id}`],
+    queryFn: () => getLikes(post_id),
   });
+  let likes;
 
-  return { getLikes, isPending };
+  if (isSuccess) likes = data.data;
+
+  return { likes, isPending };
 }

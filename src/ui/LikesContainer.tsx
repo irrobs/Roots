@@ -2,7 +2,6 @@ import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import { useCreateLike } from "../features/posts/useCreateLike";
 import styled from "styled-components";
 import { useGetLikes } from "../features/posts/useGetLikes";
-import { useEffect, useState } from "react";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 
 const Likes = styled.span`
@@ -22,28 +21,16 @@ const LikeButton = styled.button`
 
 export default function LikesContainer({ post_id }: { post_id: number }) {
   const { createLike } = useCreateLike();
-  const { getLikes, isPending: isPendingGetLikes } = useGetLikes();
+  const { likes, isPending } = useGetLikes(post_id);
   const user = useGetCachedUser();
 
-  const [likes, setLikes] = useState<[] | { user_id: string }[]>([]);
+  if (isPending) return <p>Loading...</p>;
 
-  useEffect(() => {
-    getLikes(post_id, {
-      onSuccess: (data) => {
-        setLikes(data);
-      },
-    });
-  }, [getLikes, post_id]);
+  const likeAmount = likes ? likes.length : 0;
 
-  if (isPendingGetLikes) return <p>Loading...</p>;
-
-  const likeAmount = likes.length;
-
-  const userLiked =
-    likes.filter((like) => like.user_id === user.id)[0] === undefined
-      ? false
-      : true;
-  console.log(userLiked);
+  const userLiked = likes
+    ? likes.filter((like) => like.user_id === user.id)[0]
+    : false;
 
   return (
     <>

@@ -13,7 +13,7 @@ import UserPage from "./pages/UserPage";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 0,
+      staleTime: 600000,
     },
   },
 });
