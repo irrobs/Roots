@@ -1,10 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
-import { getComments as getCommentsApi } from "../../services/apiPosts";
+import { useQuery } from "@tanstack/react-query";
+import { getComments } from "../../services/apiPosts";
 
-export function useGetComments() {
-  const { mutate: getComments, isPending } = useMutation({
-    mutationFn: (id: number) => getCommentsApi(id),
+export function useGetComments(post_id: number) {
+  const { data: comments, isPending } = useQuery({
+    queryKey: [`comments-${post_id}`],
+    queryFn: () => getComments(post_id),
   });
 
-  return { getComments, isPending };
+  return { comments, isPending };
 }

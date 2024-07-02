@@ -50,11 +50,14 @@ export async function createComment({
   content,
   user_name,
 }: CommentSendType) {
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("comment")
-    .insert({ user_id, post_id, content, user_name });
+    .insert({ user_id, post_id, content, user_name })
+    .select();
 
   if (error) throw new Error(error.message);
+
+  return { data, post_id };
 }
 
 export async function getComments(id: number) {

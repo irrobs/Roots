@@ -1,24 +1,39 @@
-import { IoSendOutline } from "react-icons/io5";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { useEffect, useState } from "react";
-import { CommentRenderType, PostRenderType } from "../types";
+import { PostRenderType } from "../types";
 import { formatDistanceToNow } from "date-fns";
 import { pt } from "date-fns/locale";
-import { useForm } from "react-hook-form";
-import Button from "./Button";
-import { useCreateComment } from "../features/posts/useCreateComment";
-import toast from "react-hot-toast";
-import { useGetComments } from "../features/posts/useGetComments";
-import Comment from "../features/posts/Comment";
 
 import LikesContainer from "./LikesContainer";
+import Comments from "../features/posts/Comments";
+
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+`;
+
+const StyledLoadingPost = styled.div`
+  min-height: 50rem;
+  margin-bottom: 5cqb;
+  border-radius: var(--border-radius-sm);
+  background: linear-gradient(
+    45deg,
+    var(--color-gray-500),
+    var(--color-gray-0)
+  );
+
+  animation: ${gradientAnimation} 5s linear infinite;
+`;
 
 const StyledPost = styled.div`
-  min-height: 50rem;
   font-size: 1.6rem;
   color: var(--color-gray-800);
-  margin-bottom: 2rem;
+  margin-bottom: 5rem;
 
   & img {
     border-radius: var(--border-radius-sm);
@@ -67,61 +82,17 @@ const PostInfo = styled.div`
   }
 `;
 
-const ButtonSeeComments = styled.button`
-  background-color: transparent;
-  border: none;
-  color: var(--color-gray-500);
-  display: block;
-  margin: 1rem 0;
-
-  &:hover {
-    text-decoration: underline;
-  }
+const Description = styled.p`
+  margin-bottom: 1rem;
 `;
 
-const CommentsContainer = styled.div`
-  margin: 1rem 0;
-`;
-
-const NewCommentInput = styled.input.attrs({ type: "text" })`
-  border: none;
-  border-bottom: 1px solid var(--color-gray-500);
-  outline: none;
-  width: 95%;
-  padding: 0.5rem;
-`;
-
-const ButtonComment = styled(Button)`
-  position: absolute;
-  top: 0;
-  right: 1rem;
-
-  & > * {
-    width: 1.6rem;
-    height: 1.6rem;
-  }
-`;
-
-export default function Post({
-  post,
-  userId,
-  userName,
-}: {
-  post: PostRenderType;
-  userId: string;
-  userName: string;
-}) {
+export default function Post({ post }: { post: PostRenderType }) {
   const { getUserWithId, isPending } = useGetUserWithId();
-  const { createComment, isPending: isPendingComment } = useCreateComment();
-  const { getComments, isPending: isPendingGetComments } = useGetComments();
 
   const [postUser, setPostUser] = useState("");
   const [fullPost, setFullPost] = useState(
     post.text.length <= 200 ? true : false
   );
-  const [comment, setComment] = useState("");
-  const [comments, setComments] = useState<CommentRenderType[]>([]);
-  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
     getUserWithId(post.user_id, {
@@ -129,39 +100,9 @@ export default function Post({
         setPostUser(data.user_metadata.name);
       },
     });
+  }, [getUserWithId, post.user_id]);
 
-    getComments(post.id, {
-      onSuccess: (data) => {
-        setComments(data);
-      },
-    });
-  }, [post.user_id, getUserWithId, post.id, setComments, getComments]);
-
-  const {
-    register,
-    handleSubmit,
-    /* formState: { errors }, */
-  } = useForm();
-
-  function onSubmitComment() {
-    if (!userId || !userName)
-      return toast.error("Comentário não pode ser criado");
-    createComment(
-      {
-        user_id: userId,
-        post_id: post.id,
-        content: comment,
-        user_name: userName,
-      },
-      {
-        onSuccess: () => {
-          setComment("");
-        },
-      }
-    );
-  }
-
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <StyledLoadingPost />;
 
   return (
     <StyledPost>
@@ -181,7 +122,7 @@ export default function Post({
         <LikesContainer post_id={post.id} />
       </PostInfo>
 
-      <p>
+      <Description>
         {fullPost ? post.text : post.text.slice(0, 200)}
         {fullPost ? (
           post.text.length > 200 ? (
@@ -190,47 +131,9 @@ export default function Post({
         ) : (
           <button onClick={() => setFullPost(!fullPost)}>...Ver mais</button>
         )}
-      </p>
+      </Description>
 
-      {showComments || comments.length === 0 ? null : (
-        <ButtonSeeComments onClick={() => setShowComments(!showComments)}>
-          Ver comentários...
-        </ButtonSeeComments>
-      )}
-      {showComments ? (
-        isPendingGetComments ? (
-          <p>Loading comments</p>
-        ) : (
-          <CommentsContainer>
-            {comments.map((comment) => (
-              <Comment comment={comment} key={comment.id} />
-            ))}
-          </CommentsContainer>
-        )
-      ) : null}
-
-      <form
-        onSubmit={handleSubmit(onSubmitComment)}
-        style={{ position: "relative" }}
-      >
-        <NewCommentInput
-          type="text"
-          placeholder="Escreva um comentário"
-          value={comment}
-          {...register("comment", { required: true })}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setComment(e.target.value)
-          }
-        />
-        <ButtonComment
-          type="submit"
-          variation="tertiary"
-          size="small"
-          disabled={isPendingComment}
-        >
-          <IoSendOutline />
-        </ButtonComment>
-      </form>
+      <Comments post={post} />
     </StyledPost>
   );
 }
