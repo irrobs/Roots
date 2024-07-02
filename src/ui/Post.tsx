@@ -10,24 +10,27 @@ import Comments from "../features/posts/Comments";
 
 const gradientAnimation = keyframes`
   0% {
-    background-position: 0% 0%;
+    background-position: 150% 50%;
   }
+
   100% {
-    background-position: 100% 100%;
+    background-position: 0% 50%;
   }
 `;
 
 const StyledLoadingPost = styled.div`
-  min-height: 50rem;
-  margin-bottom: 5cqb;
+  height: 50rem;
+  margin-bottom: 5rem;
   border-radius: var(--border-radius-sm);
-  background: linear-gradient(
-    45deg,
-    var(--color-gray-500),
-    var(--color-gray-0)
-  );
 
-  animation: ${gradientAnimation} 5s linear infinite;
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-0),
+    var(--color-gray-200)
+  );
+  background-size: 300% 300%;
+
+  animation: ${gradientAnimation} 2s linear infinite;
 `;
 
 const StyledPost = styled.div`
@@ -50,6 +53,27 @@ const StyledPost = styled.div`
   }
 `;
 
+const LoadingImage = styled.div`
+  height: 50%;
+  width: 100%;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 1rem;
+
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-0),
+    var(--color-gray-200)
+  );
+  background-size: 300% 300%;
+
+  animation: ${gradientAnimation} 2s linear infinite;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  border-radius: var(--border-radius-sm);
+  margin-bottom: 1rem;
+`;
 const PostUser = styled.div`
   display: flex;
   align-items: center;
@@ -62,23 +86,6 @@ const PostUser = styled.div`
     height: 4.8rem;
     width: 4.8rem;
     border-radius: var(--border-radius-full);
-  }
-`;
-
-const PostInfo = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  line-height: 1;
-
-  & button {
-    background-color: transparent;
-    border: none;
-  }
-
-  & button > * {
-    width: 2.4rem;
-    height: 2.4rem;
   }
 `;
 
@@ -113,14 +120,16 @@ export default function Post({ post }: { post: PostRenderType }) {
         </span>
       </PostUser>
 
-      <img
-        src={post.image ? post.image : "/default-cover-photo.png"}
-        alt="Post Image"
-      />
+      {isPending ? (
+        <LoadingImage />
+      ) : (
+        <Image
+          src={post.image ? post.image : "/default-cover-photo.png"}
+          alt="Post Image"
+        />
+      )}
 
-      <PostInfo>
-        <LikesContainer post_id={post.id} />
-      </PostInfo>
+      <LikesContainer post_id={post.id} />
 
       <Description>
         {fullPost ? post.text : post.text.slice(0, 200)}

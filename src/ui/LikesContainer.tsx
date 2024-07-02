@@ -1,9 +1,53 @@
 import { IoHeart, IoHeartOutline } from "react-icons/io5";
 import { useCreateLike } from "../features/posts/useCreateLike";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useGetLikes } from "../features/posts/useGetLikes";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import { useDeleteLike } from "../features/posts/useDeleteLike";
+
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 150% 50%;
+  }
+  
+
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+const PostInfo = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1;
+
+  & button {
+    background-color: transparent;
+    border: none;
+  }
+
+  & button > * {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+`;
+
+const LoadingPostInfo = styled.div`
+  display: flex;
+  width: 100%;
+  line-height: 1;
+
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-0),
+    var(--color-gray-200)
+  );
+  background-size: 300% 300%;
+
+  animation: ${gradientAnimation} 2s linear infinite;
+`;
 
 const Likes = styled.span`
   display: flex;
@@ -26,7 +70,7 @@ export default function LikesContainer({ post_id }: { post_id: number }) {
   const { likes, isPending } = useGetLikes(post_id);
   const user = useGetCachedUser();
 
-  if (isPending) return <p>Loading...</p>;
+  if (isPending) return <LoadingPostInfo />;
 
   const likeAmount = likes ? likes.length : 0;
 
@@ -35,7 +79,7 @@ export default function LikesContainer({ post_id }: { post_id: number }) {
     : false;
 
   return (
-    <>
+    <PostInfo>
       <Likes>
         <strong>{likeAmount}</strong>
         <span>Curtidas</span>
@@ -50,6 +94,6 @@ export default function LikesContainer({ post_id }: { post_id: number }) {
           />
         )}
       </LikeButton>
-    </>
+    </PostInfo>
   );
 }
