@@ -6,7 +6,6 @@ import UserContentChoices from "./UserContentChoices";
 import { useParams } from "react-router-dom";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { useEffect, useState } from "react";
-import { PartialCachedUser } from "../types";
 import { User } from "@supabase/supabase-js";
 
 const StyledUserBio = styled.div`
