@@ -88,7 +88,9 @@ export default function UserBio() {
 
   const { getUserWithId } = useGetUserWithId();
   const { createFriendship, isPending } = useCreateFriendship();
-  const { friends, isPending: isPendingGetFriends } = useGetFriends(id);
+  const { friends, isPending: isPendingGetFriends } = useGetFriends(
+    id as string
+  );
 
   const [user, setUser] = useState<User | null>(null);
 
