@@ -77,6 +77,7 @@ export default function Searchbar() {
   const { users } = useGetUsers();
   const [searchUser, setSearchUser] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const filteredUsers = users
     ? users.filter((user) =>
@@ -100,11 +101,14 @@ export default function Searchbar() {
         <IoSearchOutline />
       </Icon>
 
-      {isFocused && filteredUsers.length > 0 && (
-        <SearchedUsersList>
+      {(isFocused || isHovered) && filteredUsers.length > 0 && (
+        <SearchedUsersList
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           {filteredUsers.map((user) => (
             <li key={user.id}>
-              <SearchedUserLink to={""}>
+              <SearchedUserLink to={`/user/${user.id}`}>
                 <SearchedUserImg
                   src={
                     user.user_metadata.profilePicture

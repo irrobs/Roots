@@ -2,12 +2,9 @@ import styled from "styled-components";
 import Button from "./Button";
 import { IoPencil } from "react-icons/io5";
 import UserContentChoices from "./UserContentChoices";
-
-import { useParams } from "react-router-dom";
-import { useGetUserWithId } from "../features/user/useGetUserWithId";
-import { useEffect, useState } from "react";
-import { PartialCachedUser } from "../types";
-import { User } from "@supabase/supabase-js";
+import { useUser } from "../features/authentication/useUser";
+import { useState } from "react";
+import UserForm from "../features/user/UserForm";
 
 const StyledUserBio = styled.div`
   position: relative;
@@ -80,58 +77,56 @@ const UserDescription = styled.p`
   font-size: 1.8rem;
 `;
 
-export default function UserBio() {
-  const { id } = useParams();
-  const { getUserWithId } = useGetUserWithId();
-  const [user, setUser] = useState<User | null>(null);
-
-  useEffect(() => {
-    getUserWithId(id as string, {
-      onSuccess: (data) => setUser(data),
-    });
-  }, [getUserWithId, id]);
-
-  if (!user) return <p>Loading...</p>;
-
-  const userData = user.user_metadata;
+export default function LoggedUserBio() {
+  const [editMode, setEditMode] = useState(false);
+  const { user } = useUser();
+  const userData = user!.user_metadata; //since user needs to be logged to get to this page, user will always exist
 
   return (
     <StyledUserBio>
-      <>
-        <BackgroundImage
-          src={
-            userData.coverPhoto
-              ? userData.coverPhoto
-              : "/default-cover-photo.png"
-          }
-          alt="Foto de capa"
-        />
-
-        <UserInfoContainer>
-          <ProfilePicture
+      {editMode ? (
+        <UserForm onSetEditMode={setEditMode} />
+      ) : (
+        <>
+          <BackgroundImage
             src={
-              userData.profilePicture
-                ? userData.profilePicture
-                : "/default-profile-picture.svg"
+              userData.coverPhoto
+                ? userData.coverPhoto
+                : "/default-cover-photo.png"
             }
-            alt="Foto de perfil"
+            alt="Foto de capa"
           />
-          <UserInfo>
-            <Username>{userData ? userData.name : "username"}</Username>
-            <UserFriends>200 amigos</UserFriends>
-          </UserInfo>
 
-          <EditButton variation="secondary" size="small">
-            <IoPencil />
-          </EditButton>
-          <UserDescription>
-            {userData.description
-              ? userData.description
-              : "Escreva sobre você para te conhecerem melhor!"}
-          </UserDescription>
-        </UserInfoContainer>
-        <UserContentChoices />
-      </>
+          <UserInfoContainer>
+            <ProfilePicture
+              src={
+                userData.profilePicture
+                  ? userData.profilePicture
+                  : "/default-profile-picture.svg"
+              }
+              alt="Foto de perfil"
+            />
+            <UserInfo>
+              <Username>{userData ? userData.name : "username"}</Username>
+              <UserFriends>200 amigos</UserFriends>
+            </UserInfo>
+
+            <EditButton
+              variation="secondary"
+              size="small"
+              onClick={() => setEditMode(!editMode)}
+            >
+              <IoPencil />
+            </EditButton>
+            <UserDescription>
+              {userData.description
+                ? userData.description
+                : "Escreva sobre você para te conhecerem melhor!"}
+            </UserDescription>
+          </UserInfoContainer>
+          <UserContentChoices />
+        </>
+      )}
     </StyledUserBio>
   );
 }

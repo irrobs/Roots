@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import LoggedUserBio from "../ui/LoggedUserBio";
 import UserContent from "../ui/UserContent";
-import UserBio from "../ui/UserBio";
 
 const PageContainer = styled.div`
   grid-column: 1 / -1;
@@ -8,10 +8,10 @@ const PageContainer = styled.div`
   margin: 2rem auto;
 `;
 
-export default function UserPage() {
+export default function LoggedUserPage() {
   return (
     <PageContainer>
-      <UserBio />
+      <LoggedUserBio />
       <UserContent />
     </PageContainer>
   );

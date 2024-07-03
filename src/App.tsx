@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import LoggedUserPage from "./pages/LoggedUserPage";
 import UserPage from "./pages/UserPage";
 
 const queryClient = new QueryClient({
@@ -35,7 +36,8 @@ export default function App() {
             >
               <Route index element={<Navigate replace to="main" />} />
               <Route path="main" element={<MainPage />} />
-              <Route path="user" element={<UserPage />} />
+              <Route path="user" element={<LoggedUserPage />} />
+              <Route path="user/:id" element={<UserPage />} />
             </Route>
 
             <Route path="login" element={<Login />} />
