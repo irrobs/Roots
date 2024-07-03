@@ -64,3 +64,14 @@ export async function getUserWithId(id: string) {
 
   return data.user;
 }
+
+export async function getUsers() {
+  const {
+    data: { users },
+    error,
+  } = await supabase.auth.admin.listUsers();
+
+  if (error) throw new Error(error.message);
+
+  return users;
+}
