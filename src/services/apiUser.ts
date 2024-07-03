@@ -1,4 +1,4 @@
-import { UserSendType } from "../types";
+import { FriendSendType, UserSendType } from "../types";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function editUser({
@@ -74,4 +74,23 @@ export async function getUsers() {
   if (error) throw new Error(error.message);
 
   return users;
+}
+
+export async function createFriendship({ user_id, friend_id }: FriendSendType) {
+  const { error } = await supabase
+    .from("friend_list")
+    .insert({ user_id, friend_id });
+
+  if (error) throw new Error(error.message);
+}
+
+export async function getFriends(user_id: string) {
+  const { data, error } = await supabase
+    .from("friend_list")
+    .select()
+    .eq("user_id", user_id);
+
+  if (error) throw new Error(error.message);
+
+  return data;
 }

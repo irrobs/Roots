@@ -75,6 +75,7 @@ const SearchedUserImg = styled.img`
 
 export default function Searchbar() {
   const { users } = useGetUsers();
+
   const [searchUser, setSearchUser] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);

@@ -66,3 +66,8 @@ export type LikeType = {
   user_id: string;
   post_id: number;
 };
+
+export type FriendSendType = {
+  user_id: string;
+  friend_id: string;
+};

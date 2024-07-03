@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { IoPencil } from "react-icons/io5";
+import { IoAdd } from "react-icons/io5";
 import UserContentChoices from "./UserContentChoices";
 
 import { useParams } from "react-router-dom";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
+import { useCreateFriendship } from "../features/user/useCreateFriendship";
+import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+import { useGetFriends } from "../features/user/useGetFriends";
 
 const StyledUserBio = styled.div`
   position: relative;
@@ -59,15 +62,15 @@ const UserFriends = styled.span`
   color: var(--color-gray-500);
 `;
 
-const EditButton = styled(Button)`
+const AddButton = styled(Button)`
   position: absolute;
   top: 1rem;
   right: 0;
-  width: 3.2rem;
-  height: 3.2rem;
   border-radius: var(--border-radius-sm);
+  padding: 1rem 2rem;
+  font-size: 1.8rem;
 
-  & > * {
+  & > *:not(p) {
     width: 2.4rem;
     height: 2.4rem;
   }
@@ -81,7 +84,12 @@ const UserDescription = styled.p`
 
 export default function UserBio() {
   const { id } = useParams();
+  const loggedUser = useGetCachedUser();
+
   const { getUserWithId } = useGetUserWithId();
+  const { createFriendship, isPending } = useCreateFriendship();
+  const { friends, isPending: isPendingGetFriends } = useGetFriends(id);
+
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -91,6 +99,8 @@ export default function UserBio() {
   }, [getUserWithId, id]);
 
   if (!user) return <p>Loading...</p>;
+
+  console.log(friends);
 
   const userData = user.user_metadata;
 
@@ -120,9 +130,22 @@ export default function UserBio() {
             <UserFriends>200 amigos</UserFriends>
           </UserInfo>
 
-          <EditButton variation="secondary" size="small">
-            <IoPencil />
-          </EditButton>
+          {!isPendingGetFriends && (
+            <AddButton
+              variation="secondary"
+              size="small"
+              onClick={() =>
+                createFriendship({
+                  user_id: loggedUser.id,
+                  friend_id: id as string,
+                })
+              }
+            >
+              <p>{isPending ? "Adicionando..." : "Adicionar amigo"}</p>
+              <IoAdd />
+            </AddButton>
+          )}
+
           <UserDescription>
             {userData.description
               ? userData.description
