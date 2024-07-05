@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PostRenderType } from "../types";
 import { formatDistanceToNow } from "date-fns";
 import { pt } from "date-fns/locale";
@@ -62,7 +62,7 @@ const LoadingImage = styled.div`
   background: linear-gradient(
     90deg,
     var(--color-gray-0),
-    var(--color-gray-200)
+    var (--color-gray-200)
   );
   background-size: 300% 300%;
 
@@ -74,6 +74,7 @@ const Image = styled.img`
   border-radius: var(--border-radius-sm);
   margin-bottom: 1rem;
 `;
+
 const PostUser = styled.div`
   display: flex;
   align-items: center;
@@ -94,20 +95,10 @@ const Description = styled.p`
 `;
 
 export default function Post({ post }: { post: PostRenderType }) {
-  const { getUserWithId, isPending } = useGetUserWithId();
-
-  const [postUser, setPostUser] = useState("");
+  const { user, isPending } = useGetUserWithId(post.user_id);
   const [fullPost, setFullPost] = useState(
     post.text.length <= 200 ? true : false
   );
-
-  useEffect(() => {
-    getUserWithId(post.user_id, {
-      onSuccess: (data) => {
-        setPostUser(data.user_metadata.name);
-      },
-    });
-  }, [getUserWithId, post.user_id]);
 
   if (isPending) return <StyledLoadingPost />;
 
@@ -116,7 +107,8 @@ export default function Post({ post }: { post: PostRenderType }) {
       <PostUser>
         <img src="/profile-picture.png" alt="User profile picture" />
         <span>
-          {postUser} - há {formatDistanceToNow(post.created_at, { locale: pt })}
+          {user!.user_metadata.name} - há{" "}
+          {formatDistanceToNow(new Date(post.created_at), { locale: pt })}
         </span>
       </PostUser>
 

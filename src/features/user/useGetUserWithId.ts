@@ -1,9 +1,12 @@
-import { useMutation } from "@tanstack/react-query";
-import { getUserWithId as getUserWithIdApi } from "../../services/apiUser";
+import { useQuery } from "@tanstack/react-query";
+import { User } from "@supabase/supabase-js";
+import { getUserWithId } from "../../services/apiUser";
 
-export function useGetUserWithId() {
-  const { mutate: getUserWithId, isPending } = useMutation({
-    mutationFn: (id: string) => getUserWithIdApi(id),
+export function useGetUserWithId(id: string) {
+  const { data: user, isPending } = useQuery<User>({
+    queryKey: [`user-${id}`],
+    queryFn: () => getUserWithId(id),
+    enabled: !!id,
   });
-  return { getUserWithId, isPending };
+  return { user, isPending };
 }

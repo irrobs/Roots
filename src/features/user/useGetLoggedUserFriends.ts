@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getFriends } from "../../services/apiUser";
+import { getLoggedUserFriends } from "../../services/apiUser";
 
-export function useGetFriends(user_id: string) {
+export function useGetLoggedUserFriends(user_id: string) {
   const { data: friends, isPending } = useQuery({
     queryKey: [`user-${user_id}-friends`],
-    queryFn: () => getFriends(user_id),
+    queryFn: () => getLoggedUserFriends(user_id),
   });
 
   return { friends, isPending };

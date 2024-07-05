@@ -2,9 +2,10 @@ import styled from "styled-components";
 import Button from "./Button";
 import { IoPencil } from "react-icons/io5";
 import UserContentChoices from "./UserContentChoices";
-import { useUser } from "../features/authentication/useUser";
 import { useState } from "react";
 import UserForm from "../features/user/UserForm";
+import { useGetLoggedUserFriends } from "../features/user/useGetLoggedUserFriends";
+import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 
 const StyledUserBio = styled.div`
   position: relative;
@@ -79,8 +80,12 @@ const UserDescription = styled.p`
 
 export default function LoggedUserBio() {
   const [editMode, setEditMode] = useState(false);
-  const { user } = useUser();
+  const user = useGetCachedUser();
   const userData = user!.user_metadata; //since user needs to be logged to get to this page, user will always exist
+
+  const { friends, isPending } = useGetLoggedUserFriends(user.id as string);
+
+  isPending ? console.log("fetching") : console.log(friends);
 
   return (
     <StyledUserBio>
