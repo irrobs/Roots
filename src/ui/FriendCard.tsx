@@ -1,6 +1,9 @@
 import { IoEllipse } from "react-icons/io5";
 import styled from "styled-components";
 
+import { useGetUserWithId } from "../features/user/useGetUserWithId";
+import { FriendshipType } from "../types";
+
 const StyledFriendCard = styled.button`
   background-color: transparent;
   border: none;
@@ -36,18 +39,33 @@ const FriendProfilePicture = styled.img`
   width: 4.8rem;
   height: 4.8rem;
   border-radius: var(--border-radius-full);
+  background-color: var(--color-gray-0);
 `;
 
-export default function FriendCard() {
+export default function FriendCard({
+  friendship,
+}: {
+  friendship: FriendshipType;
+}) {
+  const { user: friend, isPending } = useGetUserWithId(friendship.friend_id);
+
+  if (isPending) return <p>Loading</p>;
+
+  const friendData = friend!.user_metadata;
+
   return (
     <StyledFriendCard>
       <FriendProfilePicture
-        src="/profile-picture.png"
-        alt="User profile photo"
+        src={
+          friendData.profilePicture
+            ? friendData.profilePicture
+            : "/default-profile-picture.svg"
+        }
+        alt="Foto de usuário"
       />
 
       <div>
-        <p>Lucas Silva</p>
+        <p>{friendData.name}</p>
         <span>
           <span>
             <IoEllipse />

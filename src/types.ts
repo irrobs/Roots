@@ -71,3 +71,9 @@ export type FriendSendType = {
   user_id: string;
   friend_id: string;
 };
+
+export type FriendshipType = {
+  user_id: string;
+  friend_id: string;
+  created_at: Date;
+};
