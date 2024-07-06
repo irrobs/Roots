@@ -87,6 +87,7 @@ const PostUser = styled.div`
     height: 4.8rem;
     width: 4.8rem;
     border-radius: var(--border-radius-full);
+    background-color: var(--color-gray-0);
   }
 `;
 
@@ -105,7 +106,14 @@ export default function Post({ post }: { post: PostRenderType }) {
   return (
     <StyledPost>
       <PostUser>
-        <img src="/profile-picture.png" alt="User profile picture" />
+        <img
+          src={
+            user!.user_metadata.profilePicture
+              ? user!.user_metadata.profilePicture
+              : "/default-profile-picture.svg"
+          }
+          alt="User profile picture"
+        />
         <span>
           {user!.user_metadata.name} - há{" "}
           {formatDistanceToNow(new Date(post.created_at), { locale: pt })}

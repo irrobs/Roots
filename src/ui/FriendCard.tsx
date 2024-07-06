@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { FriendshipType } from "../types";
+import { Link } from "react-router-dom";
 
-const StyledFriendCard = styled.button`
+const StyledFriendCard = styled(Link)`
   background-color: transparent;
   border: none;
   display: flex;
@@ -54,7 +55,7 @@ export default function FriendCard({
   const friendData = friend!.user_metadata;
 
   return (
-    <StyledFriendCard>
+    <StyledFriendCard to={`/user/${friend!.id}`}>
       <FriendProfilePicture
         src={
           friendData.profilePicture
