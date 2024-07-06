@@ -5,7 +5,8 @@ import LoggedUserContent from "../ui/LoggedUserContent";
 const PageContainer = styled.div`
   grid-column: 1 / -1;
   width: 90%;
-  margin: 2rem auto;
+  margin: 0 auto;
+  padding: 2rem 0;
   height: calc(100vh - 8rem);
   overflow-y: scroll;
 `;
