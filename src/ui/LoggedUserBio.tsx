@@ -113,7 +113,10 @@ export default function LoggedUserBio() {
             />
             <UserInfo>
               <Username>{userData ? userData.name : "username"}</Username>
-              <UserFriends>200 amigos</UserFriends>
+              <UserFriends>
+                {friends ? friends.length : 0}{" "}
+                {friends?.length === 1 ? "amigo" : "amigos"}
+              </UserFriends>
             </UserInfo>
 
             <EditButton

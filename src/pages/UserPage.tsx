@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UserContent from "../ui/UserContent";
+import UserContent from "../ui/LoggedUserContent";
 import UserBio from "../ui/UserBio";
 
 import { useNavigate, useParams } from "react-router-dom";

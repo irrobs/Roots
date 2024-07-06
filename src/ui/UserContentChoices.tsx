@@ -3,7 +3,7 @@ import styled from "styled-components";
 const UserChoices = styled.ul`
   text-transform: uppercase;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   color: var(--color-lime-500);
   font-size: 2.4rem;
   font-weight: bold;
@@ -27,7 +27,6 @@ export default function UserContentChoices() {
     <UserChoices>
       <UserChoice>Posts</UserChoice>
       <UserChoice>Amigos</UserChoice>
-      <UserChoice>Salvos</UserChoice>
     </UserChoices>
   );
 }

@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { IoAdd } from "react-icons/io5";
+import { IoPersonAddOutline, IoPersonRemoveOutline } from "react-icons/io5";
 import UserContentChoices from "./UserContentChoices";
 
 import { useParams } from "react-router-dom";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { useCreateFriendship } from "../features/user/useCreateFriendship";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+import { useGetLoggedUserFriends } from "../features/user/useGetLoggedUserFriends";
+import { useDeleteFriendship } from "../features/user/useDeleteFriendship";
 
 const StyledUserBio = styled.div`
   position: relative;
@@ -59,13 +61,16 @@ const UserFriends = styled.span`
   color: var(--color-gray-500);
 `;
 
-const AddButton = styled(Button)`
+const FriendButton = styled(Button)`
   position: absolute;
   top: 1rem;
   right: 0;
   border-radius: var(--border-radius-sm);
   padding: 1rem 2rem;
   font-size: 1.8rem;
+  display: flex;
+
+  gap: 1rem;
 
   & > *:not(p) {
     width: 2.4rem;
@@ -84,12 +89,20 @@ export default function UserBio() {
   const loggedUser = useGetCachedUser();
 
   const { user, isPending: isPendingGetUser } = useGetUserWithId(id as string);
+  const { friends: loggedUserFriendships, isPending: isPendingGetFriends } =
+    useGetLoggedUserFriends(loggedUser.id);
   const { createFriendship, isPending } = useCreateFriendship();
+  const { deleteFriendship, isPending: isPendingDelete } =
+    useDeleteFriendship();
 
-  if (!user && isPendingGetUser) return <p>Loading...</p>;
+  if (!user || isPendingGetUser || isPendingGetFriends)
+    return <p>Loading...</p>;
 
   const userData = user!.user_metadata;
-
+  const friendshipsIds = loggedUserFriendships?.map(
+    (friendship) => friendship.friend_id
+  );
+  const isFriend = friendshipsIds?.includes(id as string);
   return (
     <StyledUserBio>
       <>
@@ -116,19 +129,37 @@ export default function UserBio() {
             <UserFriends>200 amigos</UserFriends>
           </UserInfo>
 
-          <AddButton
-            variation="secondary"
-            size="small"
-            onClick={() =>
-              createFriendship({
-                user_id: loggedUser.id,
-                friend_id: id as string,
-              })
-            }
-          >
-            <p>{isPending ? "Adicionando..." : "Adicionar amigo"}</p>
-            <IoAdd />
-          </AddButton>
+          {isFriend ? (
+            <FriendButton
+              variation="secondary"
+              size="small"
+              onClick={() =>
+                deleteFriendship({
+                  user_id: loggedUser.id,
+                  friend_id: id as string,
+                })
+              }
+              disabled={isPendingDelete}
+            >
+              <p>{isPendingDelete ? "Removendo..." : "Remover amigo"}</p>
+              <IoPersonRemoveOutline />
+            </FriendButton>
+          ) : (
+            <FriendButton
+              variation="secondary"
+              size="small"
+              onClick={() =>
+                createFriendship({
+                  user_id: loggedUser.id,
+                  friend_id: id as string,
+                })
+              }
+              disabled={isPending}
+            >
+              <p>{isPending ? "Adicionando..." : "Adicionar amigo"}</p>
+              <IoPersonAddOutline />
+            </FriendButton>
+          )}
 
           <UserDescription>
             {userData.description

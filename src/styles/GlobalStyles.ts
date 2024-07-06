@@ -58,7 +58,6 @@ const GlobalStyles = createGlobalStyle`
 
     line-height: 1.5;
     font-size: 1.6rem; 
-
   
   }
 

@@ -78,11 +78,25 @@ export async function getUsers() {
 }
 
 export async function createFriendship({ user_id, friend_id }: FriendSendType) {
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from("friend_list")
     .insert({ user_id, friend_id });
 
   if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function deleteFriendship({ user_id, friend_id }: FriendSendType) {
+  const { data, error } = await supabase
+    .from("friend_list")
+    .delete()
+    .eq("user_id", user_id)
+    .eq("friend_id", friend_id);
+
+  if (error) throw new Error(error.message);
+
+  return data;
 }
 
 export async function getLoggedUserFriends(user_id: string) {

@@ -1,18 +1,20 @@
 import styled from "styled-components";
 import LoggedUserBio from "../ui/LoggedUserBio";
-import UserContent from "../ui/UserContent";
+import LoggedUserContent from "../ui/LoggedUserContent";
 
 const PageContainer = styled.div`
   grid-column: 1 / -1;
   width: 90%;
   margin: 2rem auto;
+  height: calc(100vh - 8rem);
+  overflow-y: scroll;
 `;
 
 export default function LoggedUserPage() {
   return (
     <PageContainer>
       <LoggedUserBio />
-      <UserContent />
+      <LoggedUserContent />
     </PageContainer>
   );
 }
