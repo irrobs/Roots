@@ -8,7 +8,7 @@ const PageContainer = styled.div`
   margin: 0 auto;
   padding: 2rem 0;
   height: calc(100vh - 8rem);
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 export default function LoggedUserPage() {

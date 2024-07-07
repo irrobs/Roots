@@ -2,8 +2,8 @@ import styled from "styled-components";
 import Post from "./Post";
 import { useQueryPosts } from "../features/posts/useQueryPosts";
 import LoadingMini from "./LoadingMini";
-import { useGetLoggedUserFriends } from "../features/user/useGetLoggedUserFriends";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+import { useGetFollowings } from "../features/user/useGetFollowings";
 
 const PostsContainer = styled.section`
   margin-top: 1rem;
@@ -13,14 +13,14 @@ const PostsContainer = styled.section`
 export default function Posts() {
   const user = useGetCachedUser();
   const { posts, isPending: isPendingPosts } = useQueryPosts();
-  const { friends, isPending: isPendingFriends } = useGetLoggedUserFriends(
+  const { followings, isPending: isPendingFollowings } = useGetFollowings(
     user.id
   );
 
-  if (isPendingPosts || isPendingFriends) return <LoadingMini />;
+  if (isPendingPosts || isPendingFollowings) return <LoadingMini />;
   if (!posts) return <p>Nenhum post encontrado</p>;
 
-  const friendIds = new Set(friends?.map((friend) => friend.friend_id));
+  const friendIds = new Set(followings?.map((friend) => friend.friend_id));
   const filteredPosts = posts.filter((post) => friendIds.has(post.user_id));
   const reversedPosts = [...filteredPosts].reverse();
 

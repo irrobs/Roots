@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Button from "./Button";
 import { IoPersonAddOutline, IoPersonRemoveOutline } from "react-icons/io5";
 import UserContentChoices from "./UserContentChoices";
@@ -7,8 +7,35 @@ import { useParams } from "react-router-dom";
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { useCreateFriendship } from "../features/user/useCreateFriendship";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
-import { useGetLoggedUserFriends } from "../features/user/useGetLoggedUserFriends";
+import { useGetFollowers } from "../features/user/useGetFollowers";
 import { useDeleteFriendship } from "../features/user/useDeleteFriendship";
+import { useGetFollowings } from "../features/user/useGetFollowings";
+
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 150% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+const StyledLoadingUserBio = styled.div`
+  position: relative;
+  height: 60vh;
+  margin-bottom: 3rem;
+  border-radius: var(--border-radius-sm);
+
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-0),
+    var(--color-gray-200)
+  );
+  background-size: 300% 300%;
+
+  animation: ${gradientAnimation} 2s linear infinite;
+`;
 
 const StyledUserBio = styled.div`
   position: relative;
@@ -89,20 +116,33 @@ export default function UserBio() {
   const loggedUser = useGetCachedUser();
 
   const { user, isPending: isPendingGetUser } = useGetUserWithId(id as string);
-  const { friends: loggedUserFriendships, isPending: isPendingGetFriends } =
-    useGetLoggedUserFriends(loggedUser.id);
+
+  //logged user friends
+  const { followings, isPending: isPendingGetFollowings } = useGetFollowings(
+    id as string
+  );
+
+  //visited user friends
+  const { followers, isPending: isPendingGetFollowers } = useGetFollowers(
+    id as string
+  );
+
   const { createFriendship, isPending } = useCreateFriendship();
   const { deleteFriendship, isPending: isPendingDelete } =
     useDeleteFriendship();
 
-  if (!user || isPendingGetUser || isPendingGetFriends)
-    return <p>Loading...</p>;
+  if (
+    !user ||
+    isPendingGetUser ||
+    isPendingGetFollowers ||
+    isPendingGetFollowings
+  )
+    return <StyledLoadingUserBio />;
 
   const userData = user!.user_metadata;
-  const friendshipsIds = loggedUserFriendships?.map(
-    (friendship) => friendship.friend_id
-  );
-  const isFriend = friendshipsIds?.includes(id as string);
+  const followersIds = followers?.map((friendship) => friendship.friend_id);
+  const isFollower = followersIds?.includes(id as string);
+
   return (
     <StyledUserBio>
       <>
@@ -126,10 +166,14 @@ export default function UserBio() {
           />
           <UserInfo>
             <Username>{userData ? userData.name : "username"}</Username>
-            <UserFriends>200 amigos</UserFriends>
+            <UserFriends>
+              {followers ? followers.length : 0}{" "}
+              {followers?.length === 1 ? "seguidor" : "seguidores"} /{" "}
+              {followings ? followings.length : 0} seguindo
+            </UserFriends>
           </UserInfo>
 
-          {isFriend ? (
+          {isFollower ? (
             <FriendButton
               variation="secondary"
               size="small"

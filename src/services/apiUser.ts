@@ -99,7 +99,20 @@ export async function deleteFriendship({ user_id, friend_id }: FriendSendType) {
   return data;
 }
 
-export async function getLoggedUserFriends(user_id: string) {
+//get the relationships were users followed you
+export async function getFollowers(user_id: string) {
+  const { data, error } = await supabase
+    .from("friend_list")
+    .select()
+    .eq("friend_id", user_id);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+//get the relationships were you followed a user
+export async function getFollowings(user_id: string) {
   const { data, error } = await supabase
     .from("friend_list")
     .select()

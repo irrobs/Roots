@@ -1,11 +1,38 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Button from "./Button";
 import { IoPencil } from "react-icons/io5";
 import UserContentChoices from "./UserContentChoices";
 import { useState } from "react";
 import UserForm from "../features/user/UserForm";
-import { useGetLoggedUserFriends } from "../features/user/useGetLoggedUserFriends";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+import { useGetFollowings } from "../features/user/useGetFollowings";
+import { useGetFollowers } from "../features/user/useGetFollowers";
+
+const gradientAnimation = keyframes`
+  0% {
+    background-position: 150% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+`;
+
+const StyledLoadingUserBio = styled.div`
+  position: relative;
+  height: 60vh;
+  margin-bottom: 3rem;
+  border-radius: var(--border-radius-sm);
+
+  background: linear-gradient(
+    90deg,
+    var(--color-gray-0),
+    var(--color-gray-200)
+  );
+  background-size: 300% 300%;
+
+  animation: ${gradientAnimation} 2s linear infinite;
+`;
 
 const StyledUserBio = styled.div`
   position: relative;
@@ -83,9 +110,16 @@ export default function LoggedUserBio() {
   const user = useGetCachedUser();
   const userData = user!.user_metadata; //since user needs to be logged to get to this page, user will always exist
 
-  const { friends, isPending } = useGetLoggedUserFriends(user.id as string);
+  const { followings, isPending: isPendingGetFollowings } = useGetFollowings(
+    user.id as string
+  );
 
-  isPending ? console.log("fetching") : console.log(friends);
+  const { followers, isPending: isPendingGetFollowers } = useGetFollowers(
+    user.id as string
+  );
+
+  if (isPendingGetFollowers || isPendingGetFollowings)
+    return <StyledLoadingUserBio />;
 
   return (
     <StyledUserBio>
@@ -114,8 +148,9 @@ export default function LoggedUserBio() {
             <UserInfo>
               <Username>{userData ? userData.name : "username"}</Username>
               <UserFriends>
-                {friends ? friends.length : 0}{" "}
-                {friends?.length === 1 ? "amigo" : "amigos"}
+                {followers ? followers.length : 0}{" "}
+                {followers?.length === 1 ? "seguidor" : "seguidores"} /{" "}
+                {followings ? followings.length : 0} seguindo
               </UserFriends>
             </UserInfo>
 

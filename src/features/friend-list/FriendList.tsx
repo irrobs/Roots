@@ -1,26 +1,27 @@
 import styled from "styled-components";
 import FriendCard from "../../ui/FriendCard";
 import { useGetCachedUser } from "../authentication/useGetCachedUser";
-import { useGetLoggedUserFriends } from "../user/useGetLoggedUserFriends";
 import LoadingMini from "../../ui/LoadingMini";
+import { useGetFollowings } from "../user/useGetFollowings";
 
 const StyledFriendList = styled.aside`
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  overflow-y: auto;
 `;
 
 export default function FriendList() {
   const user = useGetCachedUser();
-  const { friends, isPending } = useGetLoggedUserFriends(user.id as string);
+  const { followings, isPending } = useGetFollowings(user.id as string);
 
   if (isPending) return <LoadingMini />;
-  if (!friends) return <p>Error</p>;
+  if (!followings) return <p>Error</p>;
 
   return (
     <StyledFriendList>
-      {friends.map((friend) => (
+      {followings.map((friend) => (
         <FriendCard friendship={friend} key={friend.friend_id} />
       ))}
     </StyledFriendList>
