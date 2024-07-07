@@ -1,8 +1,4 @@
-import {
-  IoBookmark,
-  IoChatbubbleEllipses,
-  IoNotifications,
-} from "react-icons/io5";
+import { IoNotifications } from "react-icons/io5";
 
 import styled from "styled-components";
 
@@ -14,6 +10,7 @@ const NavItems = styled.ul`
 `;
 
 const NavItem = styled.li`
+  margin-left: auto;
   transition: color 0.3s;
 
   &:hover {
@@ -41,18 +38,6 @@ export default function HeaderNavigation() {
   return (
     <StyledNavigation>
       <NavItems>
-        <NavItem>
-          <NavLink href="#">
-            <IoChatbubbleEllipses />
-          </NavLink>
-        </NavItem>
-
-        <NavItem>
-          <NavLink href="#">
-            <IoBookmark />
-          </NavLink>
-        </NavItem>
-
         <NavItem>
           <NavLink href="#">
             <IoNotifications />

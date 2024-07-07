@@ -77,3 +77,8 @@ export type FriendshipType = {
   friend_id: string;
   created_at: Date;
 };
+
+export type ChatType = {
+  user1_id: string;
+  user2_id: string;
+};

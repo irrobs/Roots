@@ -1,9 +1,10 @@
-import { IoEllipse } from "react-icons/io5";
+import { IoChatbubbleEllipses, IoEllipse } from "react-icons/io5";
 import styled from "styled-components";
 
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { FriendshipType } from "../types";
 import { Link } from "react-router-dom";
+import Button from "./Button";
 
 const StyledFriendCard = styled(Link)`
   background-color: transparent;
@@ -18,7 +19,7 @@ const StyledFriendCard = styled(Link)`
   transition: all 0.3s;
 
   &:hover {
-    background-color: var(--color-lime-500);
+    background-color: var(--color-lime-200);
   }
 
   & span {
@@ -41,6 +42,15 @@ const FriendProfilePicture = styled.img`
   height: 4.8rem;
   border-radius: var(--border-radius-full);
   background-color: var(--color-gray-0);
+`;
+
+const MessageButton = styled(Button)`
+  margin-left: auto;
+  color: var(--color-lime-500);
+
+  &:hover {
+    color: var(--color-lime-700);
+  }
 `;
 
 export default function FriendCard({
@@ -74,6 +84,9 @@ export default function FriendCard({
           disponível
         </span>
       </div>
+      <MessageButton variation="tertiary" size="small">
+        <IoChatbubbleEllipses />
+      </MessageButton>
     </StyledFriendCard>
   );
 }
