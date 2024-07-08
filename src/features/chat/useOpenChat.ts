@@ -12,9 +12,14 @@ export function useOpenChat() {
       openChatApi({ user1_id, user2_id }),
 
     onSuccess: (data) => {
+      const possibleNewChatId = data.id;
       const existingChats =
         queryClient.getQueryData<ChatRenderType[]>(["chats"]) || [];
-      const updatedChats = [...existingChats, data];
+      const existingChatsIds = existingChats.map((chat) => chat.id);
+      let updatedChats;
+      existingChatsIds.includes(possibleNewChatId)
+        ? (updatedChats = [existingChats])
+        : (updatedChats = [...existingChats, data]);
 
       queryClient.setQueryData(["chats"], updatedChats);
     },

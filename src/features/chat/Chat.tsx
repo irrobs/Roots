@@ -83,6 +83,7 @@ const MessageButton = styled(Button)`
 export default function Chat({ chat }: { chat: ChatRenderType }) {
   const [minimized, setMinimized] = useState(false);
   const user = useGetCachedUser();
+  console.log(user);
 
   return (
     <StyledChat minimized={minimized}>
