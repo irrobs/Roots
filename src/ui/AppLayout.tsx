@@ -2,11 +2,9 @@ import styled from "styled-components";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
-import Chat from "../features/chat/Chat";
 
 const StyledAppLayout = styled.div`
   display: grid;
-  position: relative;
 
   grid-template-columns: 15vw 1fr;
   grid-template-rows: 8rem 1fr;
@@ -27,7 +25,6 @@ export default function AppLayout() {
       <Main>
         <Outlet />
       </Main>
-      <Chat />
     </StyledAppLayout>
   );
 }

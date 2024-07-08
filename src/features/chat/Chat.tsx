@@ -6,19 +6,20 @@ import {
   IoSendOutline,
 } from "react-icons/io5";
 import Message from "./Message";
+import { ChatRenderType } from "../../types";
+import { useGetCachedUser } from "../authentication/useGetCachedUser";
+import { useState } from "react";
 
-const StyledChat = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 15vw;
-  height: 50rem;
+const StyledChat = styled.div<{ minimized: boolean }>`
   max-width: 40rem;
   background-color: var(--color-gray-0);
   box-shadow: var(--shadow-md);
   border-top-left-radius: var(--border-radius-md);
   border-top-right-radius: var(--border-radius-md);
   display: grid;
-  grid-template-rows: 12% 1fr 8%;
+  grid-template-rows: ${({ minimized }) => (minimized ? "100%" : "12% 1fr 8%")};
+  height: ${({ minimized }) => (minimized ? "min-content" : "50rem")};
+  margin-top: ${({ minimized }) => (minimized ? "auto" : "0")};
 `;
 
 const FriendInfo = styled.div`
@@ -55,7 +56,6 @@ const FriendImg = styled.img`
 const MessagesContainer = styled.div`
   padding: 1rem;
   overflow-y: auto;
-  display: flex;
   flex-direction: column;
   gap: 0.5rem;
   background-color: #f7fee7;
@@ -80,18 +80,25 @@ const MessageButton = styled(Button)`
   transform: translateY(-50%);
 `;
 
-export default function Chat() {
+export default function Chat({ chat }: { chat: ChatRenderType }) {
+  const [minimized, setMinimized] = useState(false);
+  const user = useGetCachedUser();
+
   return (
-    <StyledChat>
+    <StyledChat minimized={minimized}>
       <FriendInfo>
         <FriendImg
           src="/default-profile-picture.svg"
           alt="Foto de perfil de ..."
         />
-        <span>nome</span>
+        <span>{chat.id}</span>
 
         <Buttons>
-          <Button variation="tertiary" size="small">
+          <Button
+            variation="tertiary"
+            size="small"
+            onClick={() => setMinimized(!minimized)}
+          >
             <IoRemoveOutline />
           </Button>
           <Button variation="tertiary" size="small">
@@ -100,23 +107,27 @@ export default function Chat() {
         </Buttons>
       </FriendInfo>
 
-      <MessagesContainer>
-        <Message number={1} />
-        <Message number={2} />
-        <Message number={3} />
-        <Message number={4} />
-        <Message number={5} />
-        <Message number={6} />
-        <Message number={7} />
-        <Message number={8} />
-      </MessagesContainer>
+      {!minimized && (
+        <>
+          <MessagesContainer>
+            <Message number={1} />
+            <Message number={2} />
+            <Message number={3} />
+            <Message number={4} />
+            <Message number={5} />
+            <Message number={6} />
+            <Message number={7} />
+            <Message number={8} />
+          </MessagesContainer>
 
-      <InputContainer>
-        <MessageInput placeholder="Envie uma mensagem" />
-        <MessageButton variation="tertiary" size="small">
-          <IoSendOutline />
-        </MessageButton>
-      </InputContainer>
+          <InputContainer>
+            <MessageInput placeholder="Envie uma mensagem" />
+            <MessageButton variation="tertiary" size="small">
+              <IoSendOutline />
+            </MessageButton>
+          </InputContainer>
+        </>
+      )}
     </StyledChat>
   );
 }

@@ -82,3 +82,10 @@ export type ChatType = {
   user1_id: string;
   user2_id: string;
 };
+
+export type ChatRenderType = {
+  id: string;
+  user1_id: string;
+  user2_id: string;
+  created_at: Date;
+};

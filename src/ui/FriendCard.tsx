@@ -5,6 +5,9 @@ import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { FriendshipType } from "../types";
 import { Link } from "react-router-dom";
 import Button from "./Button";
+import { useOpenChat } from "../features/chat/useOpenChat";
+import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+import ChatContainer from "../features/chat/ChatContainer";
 
 const StyledFriendCard = styled(Link)`
   background-color: transparent;
@@ -28,7 +31,6 @@ const StyledFriendCard = styled(Link)`
     display: flex;
     gap: 0.5rem;
     align-items: center;
-
     line-height: 1;
 
     & span {
@@ -58,35 +60,52 @@ export default function FriendCard({
 }: {
   friendship: FriendshipType;
 }) {
+  const { openChat, chats, isPending: isPendingOpenChat } = useOpenChat();
   const { user: friend, isPending } = useGetUserWithId(friendship.friend_id);
+  const user = useGetCachedUser();
 
   if (isPending) return <p>Loading</p>;
 
   const friendData = friend!.user_metadata;
 
-  return (
-    <StyledFriendCard to={`/user/${friend!.id}`}>
-      <FriendProfilePicture
-        src={
-          friendData.profilePicture
-            ? friendData.profilePicture
-            : "/default-profile-picture.svg"
-        }
-        alt="Foto de usuário"
-      />
+  function handleOpenChat(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    e.preventDefault();
+    e.stopPropagation();
+    openChat({ user1_id: user.id, user2_id: friend!.id });
+  }
 
-      <div>
-        <p>{friendData.name}</p>
-        <span>
+  return (
+    <>
+      <StyledFriendCard to={`/user/${friend!.id}`}>
+        <FriendProfilePicture
+          src={
+            friendData.profilePicture
+              ? friendData.profilePicture
+              : "/default-profile-picture.svg"
+          }
+          alt="Foto de usuário"
+        />
+
+        <div>
+          <p>{friendData.name}</p>
           <span>
-            <IoEllipse />
-          </span>{" "}
-          disponível
-        </span>
-      </div>
-      <MessageButton variation="tertiary" size="small">
-        <IoChatbubbleEllipses />
-      </MessageButton>
-    </StyledFriendCard>
+            <span>
+              <IoEllipse />
+            </span>{" "}
+            disponível
+          </span>
+        </div>
+        <MessageButton
+          variation="tertiary"
+          size="small"
+          onClick={(e) => handleOpenChat(e)}
+        >
+          <IoChatbubbleEllipses />
+        </MessageButton>
+      </StyledFriendCard>
+      {chats.length === 0 || isPendingOpenChat ? null : (
+        <ChatContainer chats={chats} />
+      )}
+    </>
   );
 }
