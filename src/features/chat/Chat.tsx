@@ -1,19 +1,14 @@
 import styled from "styled-components";
 import Button from "../../ui/Button";
-import {
-  IoCloseOutline,
-  IoRemoveOutline,
-  IoSendOutline,
-} from "react-icons/io5";
-import Message from "./Message";
+import { IoCloseOutline, IoRemoveOutline } from "react-icons/io5";
+
 import { ChatRenderType } from "../../types";
 import { useGetCachedUser } from "../authentication/useGetCachedUser";
 import { useState } from "react";
 import { useGetUserWithId } from "../user/useGetUserWithId";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetChats } from "./useGetChats";
-import { useSendMessage } from "./useSendMessage";
-import { useGetMessages } from "./useGetMessages";
+import Messages from "./Messages";
 
 const StyledChat = styled.div<{ minimized: boolean }>`
   width: 40rem;
@@ -58,46 +53,15 @@ const FriendImg = styled.img`
   width: 10%;
 `;
 
-const MessagesContainer = styled.div`
-  padding: 1rem;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 0.5rem;
-  background-color: #f7fee7;
-`;
-
-const InputContainer = styled.div`
-  position: relative;
-  width: 100%;
-  border-top: 1px solid var(--color-gray-200);
-  padding: 1rem;
-`;
-
-const MessageInput = styled.input`
-  width: 90%;
-  border: none;
-`;
-
-const MessageButton = styled(Button)`
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
-`;
-
 export default function Chat({ chat }: { chat: ChatRenderType }) {
   const [minimized, setMinimized] = useState(false);
-  const [message, setMessage] = useState("");
+
   const queryClient = useQueryClient();
   const loggedUser = useGetCachedUser();
   const friendId =
     chat.user1_id === loggedUser.id ? chat.user2_id : chat.user1_id;
   const { user: friend, isPending } = useGetUserWithId(friendId);
   const { chats } = useGetChats();
-  const { sendMessage, isPending: isPendingSendMessage } = useSendMessage();
-  const { messages = [] } = useGetMessages(chat.id);
 
   if (isPending) return <p>Loading...</p>;
 
@@ -106,15 +70,6 @@ export default function Chat({ chat }: { chat: ChatRenderType }) {
   function handleCloseChat() {
     const newChats = chats!.filter((savedChat) => savedChat.id !== chat.id);
     queryClient.setQueryData(["chats"], newChats);
-  }
-
-  function handleSubmitMessage() {
-    sendMessage({
-      content: message,
-      sender_id: loggedUser.id,
-      conversation_id: chat.id,
-    });
-    setMessage("");
   }
 
   return (
@@ -144,36 +99,7 @@ export default function Chat({ chat }: { chat: ChatRenderType }) {
         </Buttons>
       </FriendInfo>
 
-      {!minimized && (
-        <>
-          <MessagesContainer>
-            {messages.map((message) => (
-              <Message
-                side={message.sender_id === loggedUser.id ? "right" : "left"}
-                content={message.content}
-                key={message.id}
-              />
-            ))}
-          </MessagesContainer>
-
-          <InputContainer>
-            <MessageInput
-              placeholder="Envie uma mensagem"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              disabled={isPendingSendMessage}
-            />
-            <MessageButton
-              variation="tertiary"
-              size="small"
-              onClick={handleSubmitMessage}
-              disabled={isPendingSendMessage}
-            >
-              <IoSendOutline />
-            </MessageButton>
-          </InputContainer>
-        </>
-      )}
+      <Messages minimized={minimized} chatId={chat.id} />
     </StyledChat>
   );
 }
