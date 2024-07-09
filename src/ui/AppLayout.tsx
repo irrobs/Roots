@@ -2,6 +2,8 @@ import styled from "styled-components";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
+import { useGetChats } from "../features/chat/useGetChats";
+import ChatContainer from "../features/chat/ChatContainer";
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -17,6 +19,7 @@ const Main = styled.main`
 `;
 
 export default function AppLayout() {
+  const { chats } = useGetChats();
   return (
     <StyledAppLayout>
       <Header />
@@ -25,6 +28,7 @@ export default function AppLayout() {
       <Main>
         <Outlet />
       </Main>
+      {chats === undefined ? null : <ChatContainer chats={chats} />}
     </StyledAppLayout>
   );
 }

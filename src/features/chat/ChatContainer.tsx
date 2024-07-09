@@ -1,4 +1,3 @@
-import { createPortal } from "react-dom";
 import { ChatRenderType } from "../../types";
 import styled from "styled-components";
 import Chat from "./Chat";
@@ -12,12 +11,11 @@ const StyledChatContainer = styled.div`
 `;
 
 export default function ChatContainer({ chats }: { chats: ChatRenderType[] }) {
-  return createPortal(
+  return (
     <StyledChatContainer>
       {chats.map((chat) => (
         <Chat chat={chat} key={chat.id} />
       ))}
-    </StyledChatContainer>,
-    document.body
+    </StyledChatContainer>
   );
 }

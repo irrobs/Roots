@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import Button from "./Button";
 import { useOpenChat } from "../features/chat/useOpenChat";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
-import ChatContainer from "../features/chat/ChatContainer";
 
 const StyledFriendCard = styled(Link)`
   background-color: transparent;
@@ -60,7 +59,7 @@ export default function FriendCard({
 }: {
   friendship: FriendshipType;
 }) {
-  const { openChat, chats, isPending: isPendingOpenChat } = useOpenChat();
+  const { openChat } = useOpenChat();
   const { user: friend, isPending } = useGetUserWithId(friendship.friend_id);
   const user = useGetCachedUser();
 
@@ -75,37 +74,32 @@ export default function FriendCard({
   }
 
   return (
-    <>
-      <StyledFriendCard to={`/user/${friend!.id}`}>
-        <FriendProfilePicture
-          src={
-            friendData.profilePicture
-              ? friendData.profilePicture
-              : "/default-profile-picture.svg"
-          }
-          alt="Foto de usuário"
-        />
+    <StyledFriendCard to={`/user/${friend!.id}`}>
+      <FriendProfilePicture
+        src={
+          friendData.profilePicture
+            ? friendData.profilePicture
+            : "/default-profile-picture.svg"
+        }
+        alt="Foto de usuário"
+      />
 
-        <div>
-          <p>{friendData.name}</p>
+      <div>
+        <p>{friendData.name}</p>
+        <span>
           <span>
-            <span>
-              <IoEllipse />
-            </span>{" "}
-            disponível
-          </span>
-        </div>
-        <MessageButton
-          variation="tertiary"
-          size="small"
-          onClick={(e) => handleOpenChat(e)}
-        >
-          <IoChatbubbleEllipses />
-        </MessageButton>
-      </StyledFriendCard>
-      {chats.length === 0 || isPendingOpenChat ? null : (
-        <ChatContainer chats={chats} />
-      )}
-    </>
+            <IoEllipse />
+          </span>{" "}
+          disponível
+        </span>
+      </div>
+      <MessageButton
+        variation="tertiary"
+        size="small"
+        onClick={(e) => handleOpenChat(e)}
+      >
+        <IoChatbubbleEllipses />
+      </MessageButton>
+    </StyledFriendCard>
   );
 }
