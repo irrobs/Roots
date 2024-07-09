@@ -9,6 +9,9 @@ import Message from "./Message";
 import { ChatRenderType } from "../../types";
 import { useGetCachedUser } from "../authentication/useGetCachedUser";
 import { useState } from "react";
+import { useGetUserWithId } from "../user/useGetUserWithId";
+import { useQueryClient } from "@tanstack/react-query";
+import { useGetChats } from "./useGetChats";
 
 const StyledChat = styled.div<{ minimized: boolean }>`
   max-width: 40rem;
@@ -82,17 +85,40 @@ const MessageButton = styled(Button)`
 
 export default function Chat({ chat }: { chat: ChatRenderType }) {
   const [minimized, setMinimized] = useState(false);
-  const user = useGetCachedUser();
-  console.log(user);
+  const [message, setMessage] = useState("");
+  const queryClient = useQueryClient();
+  const loggedUser = useGetCachedUser();
+  const friendId =
+    chat.user1_id === loggedUser.id ? chat.user2_id : chat.user1_id;
+  const { user: friend, isPending } = useGetUserWithId(friendId);
+  const { chats } = useGetChats();
+
+  if (isPending) return <p>Loading...</p>;
+
+  const friendData = friend!.user_metadata;
+
+  function handleCloseChat() {
+    const newChats = chats!.filter((savedChat) => savedChat.id !== chat.id);
+    queryClient.setQueryData(["chats"], newChats);
+  }
+
+  function handleSubmitMessage() {
+    console.log(message);
+    setMessage("");
+  }
 
   return (
     <StyledChat minimized={minimized}>
       <FriendInfo>
         <FriendImg
-          src="/default-profile-picture.svg"
-          alt="Foto de perfil de ..."
+          src={
+            friendData.profilePicture
+              ? friendData.profilePicture
+              : "/default-profile-picture.svg"
+          }
+          alt={`Foto de perfil de ${friendData.name}`}
         />
-        <span>{chat.id}</span>
+        <span>{friendData.name}</span>
 
         <Buttons>
           <Button
@@ -102,7 +128,7 @@ export default function Chat({ chat }: { chat: ChatRenderType }) {
           >
             <IoRemoveOutline />
           </Button>
-          <Button variation="tertiary" size="small">
+          <Button variation="tertiary" size="small" onClick={handleCloseChat}>
             <IoCloseOutline />
           </Button>
         </Buttons>
@@ -122,8 +148,16 @@ export default function Chat({ chat }: { chat: ChatRenderType }) {
           </MessagesContainer>
 
           <InputContainer>
-            <MessageInput placeholder="Envie uma mensagem" />
-            <MessageButton variation="tertiary" size="small">
+            <MessageInput
+              placeholder="Envie uma mensagem"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <MessageButton
+              variation="tertiary"
+              size="small"
+              onClick={handleSubmitMessage}
+            >
               <IoSendOutline />
             </MessageButton>
           </InputContainer>
