@@ -20,6 +20,7 @@ const Main = styled.main`
 
 export default function AppLayout() {
   const { chats } = useGetChats();
+  console.log(chats);
   return (
     <StyledAppLayout>
       <Header />

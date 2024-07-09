@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 type StyledMessageProps = {
-  number: number;
+  side: string;
 };
 
 const StyledMessage = styled.div<StyledMessageProps>`
@@ -12,7 +12,7 @@ const StyledMessage = styled.div<StyledMessageProps>`
   background-color: var(--color-lime-500);
   color: var(--color-gray-0);
   ${(props) => {
-    if (props.number % 2 === 0) {
+    if (props.side === "right") {
       return css`
         background-color: var(--color-lime-700);
 
@@ -23,13 +23,16 @@ const StyledMessage = styled.div<StyledMessageProps>`
   }}
 `;
 
-export default function Message({ number }: { number: number }) {
+export default function Message({
+  side,
+  content,
+}: {
+  side: string;
+  content: string;
+}) {
   return (
-    <StyledMessage number={number}>
-      <span>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam quos
-        omnis molestiass
-      </span>
+    <StyledMessage side={side}>
+      <span>{content}</span>
     </StyledMessage>
   );
 }

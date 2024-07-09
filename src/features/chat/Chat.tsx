@@ -12,9 +12,11 @@ import { useState } from "react";
 import { useGetUserWithId } from "../user/useGetUserWithId";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetChats } from "./useGetChats";
+import { useSendMessage } from "./useSendMessage";
+import { useGetMessages } from "./useGetMessages";
 
 const StyledChat = styled.div<{ minimized: boolean }>`
-  max-width: 40rem;
+  width: 40rem;
   background-color: var(--color-gray-0);
   box-shadow: var(--shadow-md);
   border-top-left-radius: var(--border-radius-md);
@@ -59,7 +61,9 @@ const FriendImg = styled.img`
 const MessagesContainer = styled.div`
   padding: 1rem;
   overflow-y: auto;
+  display: flex;
   flex-direction: column;
+  width: 100%;
   gap: 0.5rem;
   background-color: #f7fee7;
 `;
@@ -92,6 +96,8 @@ export default function Chat({ chat }: { chat: ChatRenderType }) {
     chat.user1_id === loggedUser.id ? chat.user2_id : chat.user1_id;
   const { user: friend, isPending } = useGetUserWithId(friendId);
   const { chats } = useGetChats();
+  const { sendMessage, isPending: isPendingSendMessage } = useSendMessage();
+  const { messages = [] } = useGetMessages(chat.id);
 
   if (isPending) return <p>Loading...</p>;
 
@@ -103,7 +109,11 @@ export default function Chat({ chat }: { chat: ChatRenderType }) {
   }
 
   function handleSubmitMessage() {
-    console.log(message);
+    sendMessage({
+      content: message,
+      sender_id: loggedUser.id,
+      conversation_id: chat.id,
+    });
     setMessage("");
   }
 
@@ -137,14 +147,13 @@ export default function Chat({ chat }: { chat: ChatRenderType }) {
       {!minimized && (
         <>
           <MessagesContainer>
-            <Message number={1} />
-            <Message number={2} />
-            <Message number={3} />
-            <Message number={4} />
-            <Message number={5} />
-            <Message number={6} />
-            <Message number={7} />
-            <Message number={8} />
+            {messages.map((message) => (
+              <Message
+                side={message.sender_id === loggedUser.id ? "right" : "left"}
+                content={message.content}
+                key={message.id}
+              />
+            ))}
           </MessagesContainer>
 
           <InputContainer>
@@ -152,11 +161,13 @@ export default function Chat({ chat }: { chat: ChatRenderType }) {
               placeholder="Envie uma mensagem"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              disabled={isPendingSendMessage}
             />
             <MessageButton
               variation="tertiary"
               size="small"
               onClick={handleSubmitMessage}
+              disabled={isPendingSendMessage}
             >
               <IoSendOutline />
             </MessageButton>

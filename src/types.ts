@@ -89,3 +89,9 @@ export type ChatRenderType = {
   user2_id: string;
   created_at: Date;
 };
+
+export type MessageSendType = {
+  content: string;
+  sender_id: string;
+  conversation_id: string;
+};
