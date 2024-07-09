@@ -140,8 +140,8 @@ export default function UserBio() {
     return <StyledLoadingUserBio />;
 
   const userData = user!.user_metadata;
-  const followersIds = followers?.map((friendship) => friendship.friend_id);
-  const isFollower = followersIds?.includes(id as string);
+  const followersIds = followers?.map((friendship) => friendship.user_id);
+  const isFollower = followersIds?.includes(loggedUser.id);
 
   return (
     <StyledUserBio>
