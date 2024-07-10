@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Select from "./Select";
 
 const StyledFooter = styled.footer`
   background-color: var(--color-lime-200);
@@ -26,12 +25,6 @@ export default function Footer() {
 
       <SelectContainer>
         <label htmlFor="language-select">Idiomas:</label>
-
-        <Select id="language-select" variation="language">
-          <option value="1">Português</option>
-          <option value="2">Inglês</option>
-          <option value="3">Espanhol</option>
-        </Select>
       </SelectContainer>
 
       <span>@2024 copyright - fasdfsafd</span>

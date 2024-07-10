@@ -5,6 +5,7 @@ import Navigation from "./HeaderNavigation";
 import UserDropDown from "./UserDropDown";
 import { useState } from "react";
 import Searchbar from "./Searchbar";
+import { Link } from "react-router-dom";
 
 const StyledHeader = styled.header`
   grid-column: 1/ -1;
@@ -23,7 +24,9 @@ export default function Header() {
   return (
     <>
       <StyledHeader>
-        <Logo variation="header" />
+        <Link to="/main">
+          <Logo variation="header" />
+        </Link>
 
         <Searchbar />
 

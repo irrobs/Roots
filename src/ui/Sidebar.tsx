@@ -3,6 +3,7 @@ import SidebarNavigation from "./SidebarNavigation";
 
 const StyledSidebar = styled.aside`
   background-color: var(--color-lime-200);
+  height: calc(100vh - 8rem);
   padding: 4rem 3rem 2rem;
   display: flex;
   flex-direction: column;

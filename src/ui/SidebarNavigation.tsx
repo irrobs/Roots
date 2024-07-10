@@ -49,7 +49,7 @@ export default function SidebarNavigation() {
         </NavItem>
 
         <NavItem>
-          <NavLink to="#">
+          <NavLink to="/settings">
             <IoSettings /> Configurações
           </NavLink>
         </NavItem>

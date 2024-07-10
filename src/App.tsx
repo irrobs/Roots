@@ -10,6 +10,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import LoggedUserPage from "./pages/LoggedUserPage";
 import UserPage from "./pages/UserPage";
+import SettingsPage from "./pages/SettingsPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -38,6 +39,7 @@ export default function App() {
               <Route path="main" element={<MainPage />} />
               <Route path="user" element={<LoggedUserPage />} />
               <Route path="user/:id" element={<UserPage />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
 
             <Route path="login" element={<Login />} />
