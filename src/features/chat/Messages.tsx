@@ -21,11 +21,11 @@ const InputContainer = styled.div`
   position: relative;
   width: 100%;
   border-top: 1px solid var(--color-gray-200);
-  padding: 1rem;
 `;
 
 const MessageInput = styled.input`
   width: 90%;
+  padding: 1rem;
   border: none;
 `;
 
@@ -49,6 +49,7 @@ export default function Messages({
   const { messages = [] } = useGetMessages(chatId);
 
   function handleSubmitMessage() {
+    if (message === "") return;
     sendMessage({
       content: message,
       sender_id: loggedUser.id,
@@ -70,22 +71,25 @@ export default function Messages({
             ))}
           </MessagesContainer>
 
-          <InputContainer>
-            <MessageInput
-              placeholder="Envie uma mensagem"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              disabled={isPendingSendMessage}
-            />
-            <MessageButton
-              variation="tertiary"
-              size="small"
-              onClick={handleSubmitMessage}
-              disabled={isPendingSendMessage}
-            >
-              <IoSendOutline />
-            </MessageButton>
-          </InputContainer>
+          <form onSubmit={handleSubmitMessage}>
+            <InputContainer>
+              <MessageInput
+                placeholder="Envie uma mensagem"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                disabled={isPendingSendMessage}
+              />
+              <MessageButton
+                type="submit"
+                variation="tertiary"
+                size="small"
+                onClick={handleSubmitMessage}
+                disabled={isPendingSendMessage}
+              >
+                <IoSendOutline />
+              </MessageButton>
+            </InputContainer>
+          </form>
         </>
       )}
     </>

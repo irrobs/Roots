@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Posts from "../../ui/Posts";
-import Select from "../../ui/Select";
+
 import CreatePost from "../../ui/CreatePost";
 
 const StyledTimeline = styled.div`
@@ -17,10 +17,6 @@ export default function Timeline() {
   return (
     <StyledTimeline>
       <CreatePost />
-      <Select>
-        <option value="1">A - Z</option>
-        <option value="2">Z - A</option>
-      </Select>
       <Posts />
     </StyledTimeline>
   );

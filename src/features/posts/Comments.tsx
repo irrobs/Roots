@@ -26,7 +26,7 @@ const CommentsContainer = styled.div`
   margin: 1rem 0;
 `;
 
-const NewCommentInput = styled.input.attrs({ type: "text" })`
+const NewCommentInput = styled.input`
   border: none;
   border-bottom: 1px solid var(--color-gray-500);
   outline: none;
@@ -55,11 +55,7 @@ export default function Comments({ post }: { post: PostRenderType }) {
   const [comment, setComment] = useState("");
   const [showComments, setShowComments] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    /* formState: { errors }, */
-  } = useForm();
+  const { register, handleSubmit } = useForm();
 
   function onSubmitComment() {
     if (!user.id || !userData.name)
@@ -113,6 +109,7 @@ export default function Comments({ post }: { post: PostRenderType }) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setComment(e.target.value)
           }
+          autoComplete="off"
         />
         <ButtonComment
           type="submit"
