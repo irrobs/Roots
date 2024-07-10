@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import styled from "styled-components";
@@ -55,27 +55,58 @@ export default function Comments({ post }: { post: PostRenderType }) {
   const [comment, setComment] = useState("");
   const [showComments, setShowComments] = useState(false);
 
+  const inputRef = useRef(null);
+
   const { register, handleSubmit } = useForm();
 
-  function onSubmitComment() {
-    if (!user.id || !userData.name)
-      return toast.error("Comentário não pode ser criado");
+  const onSubmitComment = useCallback(
+    function () {
+      if (!user.id || !userData.name)
+        return toast.error("Comentário não pode ser criado");
 
-    createComment(
-      {
-        user_id: user.id,
-        post_id: post.id,
-        content: comment,
-        user_name: userData.name,
-      },
-      {
-        onSuccess: () => {
-          setComment("");
-          setShowComments(true);
+      createComment(
+        {
+          user_id: user.id,
+          post_id: post.id,
+          content: comment,
+          user_name: userData.name,
         },
+        {
+          onSuccess: () => {
+            setComment("");
+            setShowComments(true);
+          },
+        }
+      );
+    },
+    [
+      comment,
+      createComment,
+      setComment,
+      setShowComments,
+      post.id,
+      user.id,
+      userData.name,
+    ]
+  );
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (
+        event.key === "Enter" &&
+        document.activeElement === inputRef.current
+      ) {
+        event.preventDefault(); // Prevent default form submission
+        onSubmitComment();
       }
-    );
-  }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onSubmitComment]);
 
   return (
     <>
@@ -109,6 +140,7 @@ export default function Comments({ post }: { post: PostRenderType }) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setComment(e.target.value)
           }
+          ref={inputRef}
           autoComplete="off"
         />
         <ButtonComment
