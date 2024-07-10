@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import styled from "styled-components";
@@ -91,7 +91,7 @@ export default function Comments({ post }: { post: PostRenderType }) {
   );
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (event: KeyboardEvent) => {
       if (
         event.key === "Enter" &&
         document.activeElement === inputRef.current
