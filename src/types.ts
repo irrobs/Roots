@@ -33,7 +33,6 @@ export type UserSendType = {
   description?: string;
   profilePicture: File | null;
   coverPhoto: File | null;
-  status: "offline";
 };
 
 export type PostType = {
