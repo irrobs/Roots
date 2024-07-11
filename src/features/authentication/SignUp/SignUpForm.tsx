@@ -119,6 +119,7 @@ export default function SignUpForm() {
 
       <InputContainer>
         <Input
+          type="password"
           placeholder="Confirme sua senha"
           {...register("confirm-password", { required: true, minLength: 8 })}
           value={confirmPassword}

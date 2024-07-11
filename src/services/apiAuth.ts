@@ -11,6 +11,7 @@ export async function signUp({ email, password, name }: UserData) {
         description: "",
         profilePicture: "",
         coverPhoto: "",
+        status: "offline",
       },
     },
   });
@@ -21,14 +22,23 @@ export async function signUp({ email, password, name }: UserData) {
 }
 
 export async function login({ email, password }: LoginData) {
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) throw new Error(error.message);
 
-  return data;
+  const { data: dataUpdated, error: errorUpdateUser } =
+    await supabase.auth.updateUser({
+      data: {
+        status: "online",
+      },
+    });
+
+  if (errorUpdateUser) throw new Error(errorUpdateUser.message);
+
+  return dataUpdated;
 }
 
 //gets user from localStore from supabase auth token
@@ -46,6 +56,14 @@ export async function getCurrentUser() {
 }
 
 export async function signOut() {
+  const { error: errorUpdateUser } = await supabase.auth.updateUser({
+    data: {
+      status: "offline",
+    },
+  });
+
+  if (errorUpdateUser) throw new Error(errorUpdateUser.message);
+
   const { error } = await supabase.auth.signOut();
 
   if (error) throw new Error(error.message);

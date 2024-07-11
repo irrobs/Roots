@@ -24,6 +24,7 @@ export interface PartialCachedUser {
     coverPhoto: string;
     profilePicture: string;
     description: string;
+    status: "offline" | "online";
   };
 }
 
@@ -32,6 +33,7 @@ export type UserSendType = {
   description?: string;
   profilePicture: File | null;
   coverPhoto: File | null;
+  status: "offline";
 };
 
 export type PostType = {
