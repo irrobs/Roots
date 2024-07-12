@@ -88,7 +88,7 @@ export default function FriendCard({
   const { user: friend, isPending } = useGetUserWithId(friendship.friend_id);
   const user = useGetCachedUser();
   const { settings, isPending: isPendingGetSettings } = useGetSettings(
-    friend!.id
+    friendship.friend_id
   );
 
   if (isPending || isPendingGetSettings) return <p>Loading</p>;

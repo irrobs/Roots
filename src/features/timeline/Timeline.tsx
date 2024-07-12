@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Posts from "../../ui/Posts";
 
 import CreatePost from "../../ui/CreatePost";
+import SortBy from "../../ui/SortBy";
 
 const StyledTimeline = styled.div`
   padding-top: 2rem;
@@ -17,6 +18,7 @@ export default function Timeline() {
   return (
     <StyledTimeline>
       <CreatePost />
+      <SortBy />
       <Posts />
     </StyledTimeline>
   );

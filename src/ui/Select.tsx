@@ -25,6 +25,7 @@ const Select = styled.select<SelectProps>`
   background-color: transparent;
   outline-offset: 0;
   color: var(--color-lime-700);
+  text-align: center;
 
   ${(props) => variation[props.variation ?? "sort"]}
 `;
