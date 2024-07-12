@@ -1,5 +1,5 @@
 import { User } from "@supabase/supabase-js";
-import { FriendSendType, UserSendType } from "../types";
+import { FriendSendType, SettingSendType, UserSendType } from "../types";
 import supabase, { supabaseUrl } from "./supabase";
 
 export async function editUser({
@@ -117,6 +117,46 @@ export async function getFollowings(user_id: string) {
     .from("friend_list")
     .select()
     .eq("user_id", user_id);
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
+
+export async function setSetting({
+  id,
+  dark_mode,
+  hide_visibility,
+}: SettingSendType) {
+  const { data, error } = await supabase
+    .from("user_setting")
+    .select()
+    .eq("id", id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  if (!data) {
+    const { error } = await supabase
+      .from("user_setting")
+      .insert({ id, dark_mode, hide_visibility });
+
+    if (error) throw new Error(error.message);
+  } else {
+    const { error } = await supabase
+      .from("user_setting")
+      .update({ dark_mode, hide_visibility })
+      .eq("id", id);
+    if (error) throw new Error(error.message);
+  }
+}
+
+export async function getSettings(id: string) {
+  const { data, error } = await supabase
+    .from("user_setting")
+    .select("*")
+    .eq("id", id)
+    .single();
 
   if (error) throw new Error(error.message);
 

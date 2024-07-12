@@ -4,6 +4,8 @@ import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
 import { useGetChats } from "../features/chat/useGetChats";
 import ChatContainer from "../features/chat/ChatContainer";
+import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+import { useGetSettings } from "../features/settings/useGetSettings";
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -20,6 +22,19 @@ const Main = styled.main`
 
 export default function AppLayout() {
   const { chats } = useGetChats();
+  const user = useGetCachedUser();
+  const { settings, isPending } = useGetSettings(user.id);
+
+  if (isPending) return <p>loading...</p>;
+
+  if (settings.dark_mode) {
+    document.documentElement.classList.add("dark-mode");
+    document.documentElement.classList.remove("light-mode");
+  } else {
+    document.documentElement.classList.add("light-mode");
+    document.documentElement.classList.remove("dark-mode");
+  }
+
   return (
     <StyledAppLayout>
       <Header />

@@ -96,3 +96,9 @@ export type MessageSendType = {
   sender_id: string;
   conversation_id: string;
 };
+
+export type SettingSendType = {
+  id: string;
+  dark_mode: boolean;
+  hide_visibility: boolean;
+};

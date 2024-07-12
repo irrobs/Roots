@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import Button from "../ui/Button";
-import Select from "../ui/Select";
+import { useState } from "react";
+import { useSetSettings } from "../features/settings/useSetSettings";
 
 const PageContainer = styled.div`
   grid-column: 1 / -1;
@@ -25,13 +26,13 @@ const UserInfo = styled.div`
 
 const UserImg = styled.img`
   width: 10%;
+  border-radius: var(--border-radius-full);
 `;
 
-const Settings = styled.div`
+const Settings = styled.form`
   display: flex;
   justify-content: space-around;
   margin-bottom: 5rem;
-  height: 50%;
 `;
 
 const CheckboxContainer = styled.label`
@@ -73,8 +74,24 @@ const FakeCheckbox = styled.span`
 `;
 
 export default function SettingsPage() {
+  const [darkMode, setDarkMode] = useState(false);
+  const [hideStatus, setHideStatus] = useState(false);
+
   const user = useGetCachedUser();
   const userData = user.user_metadata;
+
+  const { setSettings } = useSetSettings();
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    console.log(darkMode);
+    setSettings({
+      id: user.id,
+      dark_mode: darkMode,
+      hide_visibility: hideStatus,
+    });
+  }
+
   return (
     <PageContainer>
       <UserInfo>
@@ -84,31 +101,33 @@ export default function SettingsPage() {
         />
         <p>{userData.name}</p>
       </UserInfo>
-      <Settings>
+
+      <Settings onSubmit={handleSubmit}>
         <CheckboxContainer htmlFor="light-dark-mode">
           <p style={{ display: "inline" }}>Tema escuro</p>
-          <RealCheckbox type="checkbox" id="light-dark-mode" />
+          <RealCheckbox
+            type="checkbox"
+            id="light-dark-mode"
+            checked={darkMode}
+            onChange={() => setDarkMode(!darkMode)}
+          />
           <FakeCheckbox></FakeCheckbox>
         </CheckboxContainer>
-
-        <div>
-          <span>Linguagem:</span>
-          <Select id="language-select" variation="language">
-            <option value="1">Português</option>
-            <option value="2">Inglês</option>
-            <option value="3">Espanhol</option>
-          </Select>
-        </div>
 
         <CheckboxContainer htmlFor="hide-online-status">
           Ocultar online
-          <RealCheckbox type="checkbox" id="hide-online-status" />
+          <RealCheckbox
+            type="checkbox"
+            id="hide-online-status"
+            checked={hideStatus}
+            onChange={() => setHideStatus(!hideStatus)}
+          />
           <FakeCheckbox></FakeCheckbox>
         </CheckboxContainer>
+        <Button type="submit" size="medium" style={{ margin: "auto auto 0" }}>
+          Salvar
+        </Button>
       </Settings>
-      <Button size="medium" style={{ margin: "auto auto 0" }}>
-        Salvar
-      </Button>
     </PageContainer>
   );
 }

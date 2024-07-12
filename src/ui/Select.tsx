@@ -15,7 +15,9 @@ const variation = {
     font-size: 1.6rem;
     margin-left: auto;
   `,
-  language: css``,
+  language: css`
+    font-size: 1.8rem;
+  `,
 };
 
 const Select = styled.select<SelectProps>`

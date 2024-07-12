@@ -13,19 +13,10 @@ const StyledLink = styled.a`
   color: var(--color-gray-500);
 `;
 
-const SelectContainer = styled.div`
-  display: flex;
-  gap: 0.5rem;
-`;
-
 export default function Footer() {
   return (
     <StyledFooter>
       <StyledLink href="#">Sobre</StyledLink>
-
-      <SelectContainer>
-        <label htmlFor="language-select">Idiomas:</label>
-      </SelectContainer>
 
       <span>@2024 copyright - fasdfsafd</span>
     </StyledFooter>
