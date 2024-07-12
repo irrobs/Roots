@@ -1,12 +1,15 @@
 import { IoChatbubbleEllipses, IoEllipse } from "react-icons/io5";
 import styled from "styled-components";
-
 import { useGetUserWithId } from "../features/user/useGetUserWithId";
 import { FriendshipType } from "../types";
 import { Link } from "react-router-dom";
 import Button from "./Button";
 import { useOpenChat } from "../features/chat/useOpenChat";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+
+type UserInfoProps = {
+  onlineStatus: "offline" | "online";
+};
 
 const StyledFriendCard = styled(Link)`
   background-color: transparent;
@@ -43,6 +46,27 @@ const FriendProfilePicture = styled.img`
   height: 4.8rem;
   border-radius: var(--border-radius-full);
   background-color: var(--color-gray-0);
+`;
+
+const UserStatus = styled.div<UserInfoProps>`
+  font-weight: lighter;
+  font-size: 1.6rem;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  line-height: 1;
+
+  & span {
+    height: 1.6rem;
+    color: ${(props) =>
+      props.onlineStatus === "offline"
+        ? "var(--color-gray-200)"
+        : "var(--color-green-600)"};
+  }
+
+  & p {
+    text-transform: capitalize;
+  }
 `;
 
 const MessageButton = styled(Button)`
@@ -86,12 +110,12 @@ export default function FriendCard({
 
       <div>
         <p>{friendData.name}</p>
-        <span>
+        <UserStatus onlineStatus={friendData.status}>
           <span>
             <IoEllipse />
-          </span>{" "}
-          disponível
-        </span>
+          </span>
+          <p>{friendData.status}</p>
+        </UserStatus>
       </div>
       <MessageButton
         variation="tertiary"
