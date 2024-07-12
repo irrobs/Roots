@@ -32,6 +32,8 @@ const NewCommentInput = styled.input`
   outline: none;
   width: 95%;
   padding: 0.5rem;
+  color: var(--color-gray-500);
+  background-color: var(--color-gray-0);
 `;
 
 const ButtonComment = styled(Button)`

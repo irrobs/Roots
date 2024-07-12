@@ -60,6 +60,7 @@ const Likes = styled.span`
 
 const LikeButton = styled.button`
   & > * {
+    color: var(--color-red-600);
     fill: var(--color-red-600);
   }
 `;

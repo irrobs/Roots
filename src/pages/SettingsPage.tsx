@@ -3,6 +3,7 @@ import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import Button from "../ui/Button";
 import { useState } from "react";
 import { useSetSettings } from "../features/settings/useSetSettings";
+import { IoCheckmark } from "react-icons/io5";
 
 const PageContainer = styled.div`
   grid-column: 1 / -1;
@@ -33,6 +34,9 @@ const Settings = styled.form`
   display: flex;
   justify-content: space-around;
   margin-bottom: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const CheckboxContainer = styled.label`
@@ -68,8 +72,8 @@ const FakeCheckbox = styled.span`
   border-radius: var(--border-radius-sm);
   top: 0.4rem;
 
-  &::after {
-    content: url("/checkmark.svg");
+  & > * {
+    stroke: var(--color-gray-0);
   }
 `;
 
@@ -111,7 +115,9 @@ export default function SettingsPage() {
             checked={darkMode}
             onChange={() => setDarkMode(!darkMode)}
           />
-          <FakeCheckbox></FakeCheckbox>
+          <FakeCheckbox>
+            <IoCheckmark />
+          </FakeCheckbox>
         </CheckboxContainer>
 
         <CheckboxContainer htmlFor="hide-online-status">
@@ -122,8 +128,11 @@ export default function SettingsPage() {
             checked={hideStatus}
             onChange={() => setHideStatus(!hideStatus)}
           />
-          <FakeCheckbox></FakeCheckbox>
+          <FakeCheckbox>
+            <IoCheckmark />
+          </FakeCheckbox>
         </CheckboxContainer>
+
         <Button type="submit" size="medium" style={{ margin: "auto auto 0" }}>
           Salvar
         </Button>

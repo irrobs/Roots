@@ -13,7 +13,7 @@ const StyledUserCard = styled.button`
   grid-template-columns: auto 1fr;
   align-items: center;
   gap: 1rem;
-  color: var(--color-gray-0);
+  color: var(--color-gray-text);
   font-size: 2rem;
   transition: all 0.3s;
 

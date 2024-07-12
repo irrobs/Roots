@@ -4,11 +4,10 @@ import LoggedUserContent from "../ui/LoggedUserContent";
 
 const PageContainer = styled.div`
   grid-column: 1 / -1;
-  width: 90%;
-  margin: 0 auto;
-  padding: 2rem 0;
+
+  padding: 2rem 10rem;
   height: calc(100vh - 8rem);
-  overflow-y: auto;
+  overflow-y: scroll;
 `;
 
 export default function LoggedUserPage() {

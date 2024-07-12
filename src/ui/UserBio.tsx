@@ -43,6 +43,9 @@ const StyledUserBio = styled.div`
   grid-template-rows: 50% 1fr min-content;
   height: 60vh;
   margin-bottom: 3rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding-bottom: 2rem;
 `;
 
 const BackgroundImage = styled.img`
@@ -91,7 +94,7 @@ const UserFriends = styled.span`
 const FriendButton = styled(Button)`
   position: absolute;
   top: 1rem;
-  right: 0;
+  right: 1rem;
   border-radius: var(--border-radius-sm);
   padding: 1rem 2rem;
   font-size: 1.8rem;
@@ -109,6 +112,7 @@ const UserDescription = styled.p`
   margin: 8rem auto 0;
   max-width: 140ch;
   font-size: 1.8rem;
+  color: var(--color-gray-800);
 `;
 
 export default function UserBio() {

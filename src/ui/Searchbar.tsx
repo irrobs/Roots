@@ -18,6 +18,7 @@ const InputSearch = styled.input.attrs({ type: "text" })`
   border: none;
   outline-color: var(--color-lime-700);
   color: var(--color-gray-500);
+  background-color: var(--color-gray-0);
 `;
 
 const Icon = styled.span`
@@ -28,6 +29,7 @@ const Icon = styled.span`
   top: 50%;
   right: 1rem;
   transform: translateY(-40%);
+  color: var(--color-gray-500);
 `;
 
 const SearchedUsersList = styled.ul`

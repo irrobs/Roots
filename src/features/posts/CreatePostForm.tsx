@@ -29,6 +29,7 @@ const PostText = styled.textarea`
   border-radius: var(--border-radius-md);
   font-family: "Nunito";
   color: var(--color-gray-800);
+  background-color: var(--color-gray-0);
 `;
 
 const PostImgInput = styled.input`

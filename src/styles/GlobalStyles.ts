@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
       --color-gray-600: #4b5563;
       --color-gray-800: #1f2937;
       --color-gray-800-1: rgba(31,41,44, 0.1);
-      --color-gray-900: ##111827;
+      --color-gray-900: #111827;
       --color-lime-200: #d9f99d;
       --color-lime-500: #84cc16;
       --color-lime-500-1: rgba(132, 204, 22, 0.1);
@@ -29,17 +29,18 @@ const GlobalStyles = createGlobalStyle`
     }
 
     &.dark-mode {
-      --color-gray-0: #000;
-      --color-gray-200: #e5e7eb;
-      --color-gray-500: #6b7280;
+      --color-gray-text:#fff;
+      --color-gray-0: #1f2937;
+      --color-gray-200: #4b5563;
+      --color-gray-500: #e5e7eb;
       --color-gray-600: #4b5563;
-      --color-gray-800: #1f2937;
-      --color-gray-800-1: rgba(31,41,44, 0.1);
-      --color-gray-900: ##111827;
-      --color-lime-200: #d9f99d;
-      --color-lime-500: #84cc16;
+      --color-gray-800:  #fff;
+      --color-gray-800-1: rgba(255,255,255, 0.1);
+      --color-gray-900: #fff;
+      --color-lime-200: #365314;
+      --color-lime-500: #4d7c0f;
       --color-lime-500-1: rgba(132, 204, 22, 0.1);
-      --color-lime-700: #4d7c0f;
+      --color-lime-700: #d9f99d;
       --color-red-600: #dc2626;
       --color-green-600: #16a34a;
 
@@ -80,6 +81,7 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     color: var(--color-grey-900);
+    background-color: var(--color-gray-0);
     position: relative;
 
     transition: color 0.3s, background-color 0.3s;
