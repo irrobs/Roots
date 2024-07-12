@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Button from "./Button";
 import { useOpenChat } from "../features/chat/useOpenChat";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+import { useGetSettings } from "../features/settings/useGetSettings";
 
 type UserInfoProps = {
   onlineStatus: "offline" | "online";
@@ -86,8 +87,11 @@ export default function FriendCard({
   const { openChat } = useOpenChat();
   const { user: friend, isPending } = useGetUserWithId(friendship.friend_id);
   const user = useGetCachedUser();
+  const { settings, isPending: isPendingGetSettings } = useGetSettings(
+    friend!.id
+  );
 
-  if (isPending) return <p>Loading</p>;
+  if (isPending || isPendingGetSettings) return <p>Loading</p>;
 
   const friendData = friend!.user_metadata;
 
@@ -110,11 +114,15 @@ export default function FriendCard({
 
       <div>
         <p>{friendData.name}</p>
-        <UserStatus onlineStatus={friendData.status}>
+        <UserStatus
+          onlineStatus={
+            settings.hide_visibility ? "offline" : friendData.status
+          }
+        >
           <span>
             <IoEllipse />
           </span>
-          <p>{friendData.status}</p>
+          <p>{settings.hide_visibility ? "offline" : friendData.status}</p>
         </UserStatus>
       </div>
       <MessageButton

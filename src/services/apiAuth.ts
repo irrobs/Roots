@@ -22,23 +22,34 @@ export async function signUp({ email, password, name }: UserData) {
 }
 
 export async function login({ email, password }: LoginData) {
-  const { error } = await supabase.auth.signInWithPassword({
+  const { data, error } = await supabase.auth.signInWithPassword({
     email,
     password,
   });
 
   if (error) throw new Error(error.message);
 
-  const { data: dataUpdated, error: errorUpdateUser } =
-    await supabase.auth.updateUser({
-      data: {
-        status: "online",
-      },
-    });
+  const { data: settings, error: errorSettings } = await supabase
+    .from("user_setting")
+    .select("*")
+    .eq("id", data.user.id);
 
-  if (errorUpdateUser) throw new Error(errorUpdateUser.message);
+  if (errorSettings) throw new Error(errorSettings.message);
 
-  return dataUpdated;
+  if (settings[0].hide_visibility) {
+    return data;
+  } else {
+    const { data: dataUpdated, error: errorUpdateUser } =
+      await supabase.auth.updateUser({
+        data: {
+          status: "online",
+        },
+      });
+
+    if (errorUpdateUser) throw new Error(errorUpdateUser.message);
+
+    return dataUpdated;
+  }
 }
 
 //gets user from localStore from supabase auth token

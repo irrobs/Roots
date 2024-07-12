@@ -1,6 +1,8 @@
 import { IoEllipse } from "react-icons/io5";
 import styled from "styled-components";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
+import { useGetSettings } from "../features/settings/useGetSettings";
+import LoadingMini from "./LoadingMini";
 
 type UserInfoProps = {
   onlineStatus: "offline" | "online";
@@ -62,6 +64,10 @@ export default function UserCard({
   const user = useGetCachedUser();
   const userData = user.user_metadata;
 
+  const { settings, isPending } = useGetSettings(user.id);
+
+  if (isPending) <LoadingMini />;
+
   return (
     <StyledUserCard
       onMouseEnter={() => onSetIsHovered(true)}
@@ -69,8 +75,10 @@ export default function UserCard({
     >
       <UserInfoContainer>
         <p>{userData.name}</p>
-        <UserStatus onlineStatus={userData.status}>
-          <p>{userData.status}</p>
+        <UserStatus
+          onlineStatus={settings.hide_visibility ? "offline" : userData.status}
+        >
+          <p>{settings.hide_visibility ? "offline" : userData.status}</p>
           <span>
             <IoEllipse />
           </span>

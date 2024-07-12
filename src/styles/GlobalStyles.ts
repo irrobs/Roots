@@ -5,6 +5,7 @@ const GlobalStyles = createGlobalStyle`
    font-family: "Nunito", sans-serif;
     
      &,&.light-mode {
+      --color-gray-text:#fff;
       --color-gray-0: #fff;
       --color-gray-200: #e5e7eb;
       --color-gray-500: #6b7280;
@@ -30,7 +31,7 @@ const GlobalStyles = createGlobalStyle`
 
     &.dark-mode {
       --color-gray-text:#fff;
-      --color-gray-0: #1f2937;
+      --color-gray-0: #292524;
       --color-gray-200: #4b5563;
       --color-gray-500: #e5e7eb;
       --color-gray-600: #4b5563;

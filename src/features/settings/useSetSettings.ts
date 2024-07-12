@@ -9,7 +9,6 @@ export function useSetSettings() {
       setSetting({ id, dark_mode, hide_visibility }),
 
     onSuccess: () => {
-      console.log("succes");
       queryClient.invalidateQueries({ queryKey: ["user-settings"] });
     },
   });
