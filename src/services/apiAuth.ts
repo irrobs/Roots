@@ -18,6 +18,12 @@ export async function signUp({ email, password, name }: UserData) {
 
   if (error) throw new Error(error.message);
 
+  const { error: errorSettings } = await supabase
+    .from("user_setting")
+    .insert({ id: data.user?.id, hide_visibility: false, dark_mode: false });
+
+  if (errorSettings) throw new Error(errorSettings.message);
+
   return data;
 }
 
