@@ -34,6 +34,13 @@ export default function Posts() {
     );
   }
 
+  if (sortBy === "old") {
+    sortedPosts = filteredPosts.sort(
+      (a, b) =>
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+    );
+  }
+
   return (
     <PostsContainer>
       {sortedPosts!.map((post) => (

@@ -13,7 +13,7 @@ export default function SortBy() {
   return (
     <Select value={sortBy} onChange={handleChange}>
       <option value="recent">Mais recentes</option>
-      <option value="popular">Populares</option>
+      <option value="old">Mais antigos</option>
     </Select>
   );
 }
