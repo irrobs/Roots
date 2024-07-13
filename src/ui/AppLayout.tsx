@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Header from "./Header";
-import Sidebar from "./Sidebar";
+
 import { Outlet } from "react-router-dom";
 import { useGetChats } from "../features/chat/useGetChats";
 import ChatContainer from "../features/chat/ChatContainer";
@@ -10,7 +10,6 @@ import { useGetSettings } from "../features/settings/useGetSettings";
 const StyledAppLayout = styled.div`
   display: grid;
 
-  grid-template-columns: 15vw 1fr;
   grid-template-rows: 8rem 1fr;
 `;
 
@@ -38,7 +37,6 @@ export default function AppLayout() {
   return (
     <StyledAppLayout>
       <Header />
-      <Sidebar />
 
       <Main>
         <Outlet />
