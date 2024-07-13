@@ -137,17 +137,25 @@ export async function setSetting({
   if (error) throw new Error(error.message);
 
   if (!data) {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("user_setting")
-      .insert({ id, dark_mode, hide_visibility });
+      .insert({ id, dark_mode, hide_visibility })
+      .select("*")
+      .single();
 
     if (error) throw new Error(error.message);
+
+    return data;
   } else {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from("user_setting")
       .update({ dark_mode, hide_visibility })
-      .eq("id", id);
+      .eq("id", id)
+      .select("*")
+      .single();
     if (error) throw new Error(error.message);
+
+    return data;
   }
 }
 

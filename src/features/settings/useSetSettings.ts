@@ -8,8 +8,11 @@ export function useSetSettings() {
     mutationFn: ({ id, dark_mode, hide_visibility }: SettingSendType) =>
       setSetting({ id, dark_mode, hide_visibility }),
 
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["user-settings"] });
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: [`user-${data.id}-settings`],
+      });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
     },
   });
 

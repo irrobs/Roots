@@ -3,7 +3,7 @@ import { getSettings } from "../../services/apiUser";
 
 export function useGetSettings(id: string) {
   const { data: settings, isPending } = useQuery({
-    queryKey: ["user-settings"],
+    queryKey: [`user-${id}-settings`],
     queryFn: () => getSettings(id),
   });
 

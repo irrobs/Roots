@@ -6,6 +6,8 @@ import { useGetChats } from "../features/chat/useGetChats";
 import ChatContainer from "../features/chat/ChatContainer";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import { useGetSettings } from "../features/settings/useGetSettings";
+import { useEffect } from "react";
+import { updateUserStatus } from "../services/apiAuth";
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -23,6 +25,20 @@ export default function AppLayout() {
   const { chats } = useGetChats();
   const user = useGetCachedUser();
   const { settings, isPending } = useGetSettings(user.id);
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      updateUserStatus("offline");
+      event.preventDefault();
+      event.returnValue = "";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   if (isPending) return <p>loading...</p>;
 

@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import { useGetSettings } from "../features/settings/useGetSettings";
 import LoadingMini from "./LoadingMini";
+import { useUpdateUserStatus } from "../features/user/useUpdateUserStatus";
+import { useEffect } from "react";
 
 type UserInfoProps = {
   onlineStatus: "offline" | "online";
@@ -61,12 +63,19 @@ export default function UserCard({
 }: {
   onSetIsHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { updateStatus, isPending: isPendingUpdateStatus } =
+    useUpdateUserStatus();
   const user = useGetCachedUser();
   const userData = user.user_metadata;
 
   const { settings, isPending } = useGetSettings(user.id);
 
-  if (isPending) <LoadingMini />;
+  useEffect(() => {
+    updateStatus("online");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (isPending || isPendingUpdateStatus) <LoadingMini />;
 
   return (
     <StyledUserCard

@@ -102,6 +102,7 @@ export default function FriendCard({
     openChat({ user1_id: user.id, user2_id: friend!.id });
   }
 
+  console.log(friendship.friend_id);
   return (
     <StyledFriendCard to={`/user/${friend!.id}`}>
       <FriendProfilePicture

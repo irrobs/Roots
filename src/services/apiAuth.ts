@@ -99,3 +99,13 @@ export async function updateUserPassword(newPassword: string) {
     password: newPassword,
   });
 }
+
+export async function updateUserStatus(status: string) {
+  const { error } = await supabase.auth.updateUser({
+    data: {
+      status,
+    },
+  });
+
+  if (error) throw new Error(error.message);
+}

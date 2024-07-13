@@ -88,7 +88,6 @@ export default function SettingsPage() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log(darkMode);
     setSettings({
       id: user.id,
       dark_mode: darkMode,
