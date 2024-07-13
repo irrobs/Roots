@@ -22,7 +22,7 @@ const StyledFriendCard = styled(Link)`
   padding: 0.5rem;
   color: var(--color-gray-500);
   font-size: 1.6rem;
-  max-width: 15vw;
+  width: 14vw;
   transition: all 0.3s;
 
   &:hover {

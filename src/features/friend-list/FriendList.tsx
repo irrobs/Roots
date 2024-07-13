@@ -3,6 +3,7 @@ import FriendCard from "../../ui/FriendCard";
 import { useGetCachedUser } from "../authentication/useGetCachedUser";
 import LoadingMini from "../../ui/LoadingMini";
 import { useGetFollowings } from "../user/useGetFollowings";
+import { useParams } from "react-router-dom";
 
 const StyledFriendList = styled.aside<{ layout: string }>`
   padding: 2rem 1rem;
@@ -25,8 +26,9 @@ interface FriendListProps {
 }
 
 export default function FriendList({ layout = "column" }: FriendListProps) {
+  const { id } = useParams();
   const user = useGetCachedUser();
-  const { followings, isPending } = useGetFollowings(user.id as string);
+  const { followings, isPending } = useGetFollowings(id ? id : user.id);
 
   if (isPending) return <LoadingMini />;
   if (!followings) return <p>Error</p>;
