@@ -97,6 +97,13 @@ export type MessageSendType = {
   conversation_id: string;
 };
 
+export type MessageRenderType = {
+  id: number;
+  content: string;
+  sender_id: string;
+  conversation_id: string;
+};
+
 export type SettingSendType = {
   id: string;
   dark_mode: boolean;

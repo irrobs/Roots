@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetCachedUser } from "../authentication/useGetCachedUser";
 import { useSendMessage } from "./useSendMessage";
 import { useGetMessages } from "./useGetMessages";
@@ -6,6 +6,8 @@ import styled from "styled-components";
 import Button from "../../ui/Button";
 import Message from "./Message";
 import { IoSendOutline } from "react-icons/io5";
+import supabase from "../../services/supabase";
+import { MessageRenderType } from "../../types";
 
 const MessagesContainer = styled.div`
   padding: 1rem;
@@ -44,11 +46,43 @@ export default function Messages({
   chatId: string;
 }) {
   const [message, setMessage] = useState("");
+  const [chatMessages, setChatMessages] = useState<MessageRenderType[] | []>(
+    []
+  );
+  const { messages: initialMessages = [] } = useGetMessages(chatId);
+
   const loggedUser = useGetCachedUser();
   const { sendMessage, isPending: isPendingSendMessage } = useSendMessage();
-  const { messages = [] } = useGetMessages(chatId);
 
-  function handleSubmitMessage() {
+  // Set initial messages
+  useEffect(() => {
+    setChatMessages(initialMessages);
+  }, [initialMessages]);
+
+  useEffect(() => {
+    const channel = supabase
+      .channel(`chat-${chatId}`)
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "messages" },
+        (payload) => {
+          if (!chatMessages.some((message) => message.id === payload.new.id)) {
+            setChatMessages([
+              ...chatMessages,
+              payload.new as MessageRenderType,
+            ]);
+          }
+        }
+      )
+      .subscribe();
+
+    return () => {
+      channel.unsubscribe();
+    };
+  }, [chatId, chatMessages]);
+
+  function handleSubmitMessage(event: React.FormEvent) {
+    event.preventDefault();
     if (message === "") return;
     sendMessage({
       content: message,
@@ -57,12 +91,13 @@ export default function Messages({
     });
     setMessage("");
   }
+
   return (
     <>
       {minimized ? null : (
         <>
           <MessagesContainer>
-            {messages.map((message) => (
+            {chatMessages.map((message) => (
               <Message
                 side={message.sender_id === loggedUser.id ? "right" : "left"}
                 content={message.content}
@@ -83,7 +118,6 @@ export default function Messages({
                 type="submit"
                 variation="tertiary"
                 size="small"
-                onClick={handleSubmitMessage}
                 disabled={isPendingSendMessage}
               >
                 <IoSendOutline />
