@@ -130,33 +130,13 @@ export async function setSetting({
 }: SettingSendType) {
   const { data, error } = await supabase
     .from("user_setting")
-    .select()
+    .update({ dark_mode, hide_visibility })
     .eq("id", id)
+    .select("*")
     .single();
-
   if (error) throw new Error(error.message);
 
-  if (!data) {
-    const { data, error } = await supabase
-      .from("user_setting")
-      .insert({ id, dark_mode, hide_visibility })
-      .select("*")
-      .single();
-
-    if (error) throw new Error(error.message);
-
-    return data;
-  } else {
-    const { data, error } = await supabase
-      .from("user_setting")
-      .update({ dark_mode, hide_visibility })
-      .eq("id", id)
-      .select("*")
-      .single();
-    if (error) throw new Error(error.message);
-
-    return data;
-  }
+  return data;
 }
 
 export async function getSettings(id: string) {

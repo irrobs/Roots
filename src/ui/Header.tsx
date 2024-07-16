@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import UserCard from "./UserCard";
 import Logo from "./Logo";
-import Navigation from "./HeaderNavigation";
 import UserDropDown from "./UserDropDown";
 import { useState } from "react";
 import Searchbar from "./Searchbar";
@@ -12,7 +11,7 @@ const StyledHeader = styled.header`
   background-color: var(--color-lime-500);
   padding: 1rem;
   display: grid;
-  grid-template-columns: 10vw 65% 1fr auto;
+  grid-template-columns: 10vw 1fr auto;
   align-items: center;
   gap: 3rem;
   position: relative;
@@ -29,8 +28,6 @@ export default function Header() {
         </Link>
 
         <Searchbar />
-
-        <Navigation />
 
         <UserCard onSetIsHovered={setIsHovered} />
       </StyledHeader>

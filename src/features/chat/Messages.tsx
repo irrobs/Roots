@@ -71,7 +71,7 @@ export default function Messages({
               ...chatMessages,
               payload.new as MessageRenderType,
             ]);
-          }
+          } 
         }
       )
       .subscribe();
