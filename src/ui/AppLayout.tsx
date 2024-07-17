@@ -18,7 +18,7 @@ const StyledAppLayout = styled.div`
 const Main = styled.main`
   display: grid;
 
-  grid-template-columns: 1fr 15vw;
+  grid-template-columns: 1fr 22rem;
 `;
 
 export default function AppLayout() {

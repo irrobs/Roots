@@ -4,10 +4,15 @@ import { useQueryPosts } from "../features/posts/useQueryPosts";
 import LoadingMini from "./LoadingMini";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import { useParams } from "react-router-dom";
+import { device } from "../styles/breakpoints";
 
 const PostsContainer = styled.section`
   margin-top: 1rem;
-  width: 50%;
+  width: 60%;
+
+  @media ${device.laptop} {
+    width: 75%;
+  }
 `;
 
 export default function UserPosts() {

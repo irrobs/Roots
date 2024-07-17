@@ -5,10 +5,15 @@ import LoadingMini from "./LoadingMini";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import { useGetFollowings } from "../features/user/useGetFollowings";
 import { useSearchParams } from "react-router-dom";
+import { device } from "../styles/breakpoints";
 
 const PostsContainer = styled.section`
   margin-top: 1rem;
-  width: 50%;
+  width: 60%;
+
+  @media ${device.laptop} {
+    width: 75%;
+  }
 `;
 
 export default function Posts() {

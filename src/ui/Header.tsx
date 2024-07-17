@@ -11,7 +11,7 @@ const StyledHeader = styled.header`
   background-color: var(--color-lime-500);
   padding: 1rem;
   display: grid;
-  grid-template-columns: 10vw 1fr auto;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 3rem;
   position: relative;

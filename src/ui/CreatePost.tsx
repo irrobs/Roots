@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Modal from "./Modal";
 import CreatePostForm from "../features/posts/CreatePostForm";
 import { useUser } from "../features/authentication/useUser";
+import { device } from "../styles/breakpoints";
 
 const StyledCreatePost = styled.div`
   background-color: var(--color-lime-500);
@@ -12,6 +13,10 @@ const StyledCreatePost = styled.div`
   align-items: center;
   gap: 2rem;
   margin-bottom: 1rem;
+
+  @media ${device.laptop} {
+    width: 75%;
+  }
 
   & img {
     background-color: var(--color-gray-0);

@@ -3,6 +3,7 @@ import LoginForm from "../features/authentication/Login/LoginForm";
 import Footer from "../ui/Footer";
 import SignUp from "../features/authentication/SignUp/SignUp";
 import ResetPassword from "../features/authentication/Reset/ResetPasswordRedirect";
+import { device } from "../styles/breakpoints";
 
 const StyledPageContainer = styled.div`
   display: flex;
@@ -12,13 +13,17 @@ const StyledPageContainer = styled.div`
 `;
 
 const StyledContainer = styled.div`
-  width: 20vw;
-  margin: 20vh auto 0;
+  width: 30vw;
+  margin: auto;
+
+  @media ${device.laptop} {
+    width: 40vw;
+  }
 `;
 
-const ActionsContainer=styled.div`
-display: flex;
-gap: 1rem;
+const ActionsContainer = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
 
 export default function Login() {
@@ -27,7 +32,7 @@ export default function Login() {
       <StyledContainer>
         <LoginForm />
         <ActionsContainer>
-          <ResetPassword/>
+          <ResetPassword />
           <SignUp />
         </ActionsContainer>
       </StyledContainer>

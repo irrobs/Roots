@@ -22,7 +22,7 @@ const StyledFriendCard = styled(Link)`
   padding: 0.5rem;
   color: var(--color-gray-500);
   font-size: 1.6rem;
-  width: 14vw;
+  width: 20rem;
   transition: all 0.3s;
 
   &:hover {
@@ -102,7 +102,6 @@ export default function FriendCard({
     openChat({ user1_id: user.id, user2_id: friend!.id });
   }
 
-  console.log(friendship.friend_id);
   return (
     <StyledFriendCard to={`/user/${friend!.id}`}>
       <FriendProfilePicture

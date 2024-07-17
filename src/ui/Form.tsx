@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { device } from "../styles/breakpoints";
 
 type VariationType = "regular" | "modal" | "post";
 
@@ -14,10 +15,18 @@ const variations = {
 
   modal: css`
     width: 20vw;
+
+    @media ${device.laptop} {
+      width: 40vw;
+    }
   `,
 
   post: css`
     width: 30vw;
+
+    @media ${device.laptop} {
+      width: 50vw;
+    }
   `,
 };
 

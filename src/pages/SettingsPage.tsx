@@ -31,15 +31,18 @@ const UserImg = styled.img`
 `;
 
 const Settings = styled.form`
+  margin: 0 auto;
   display: flex;
   justify-content: space-around;
-  margin-bottom: 5rem;
+
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 30%;
 `;
 
 const CheckboxContainer = styled.label`
+  width: 50%;
   position: relative;
   cursor: pointer;
   font-size: 2rem;
@@ -61,6 +64,7 @@ const RealCheckbox = styled.input.attrs({ type: "checkbox" })`
   width: 2.4rem;
   position: absolute;
   top: 0.4rem;
+  right: 0;
 `;
 
 const FakeCheckbox = styled.span`
@@ -71,6 +75,7 @@ const FakeCheckbox = styled.span`
   border: 2px solid var(--color-lime-500);
   border-radius: var(--border-radius-sm);
   top: 0.4rem;
+  right: 0;
 
   & > * {
     stroke: var(--color-gray-0);
@@ -132,7 +137,7 @@ export default function SettingsPage() {
           </FakeCheckbox>
         </CheckboxContainer>
 
-        <Button type="submit" size="medium" style={{ margin: "auto auto 0" }}>
+        <Button type="submit" style={{ margin: "3rem auto 0" }}>
           Salvar
         </Button>
       </Settings>
