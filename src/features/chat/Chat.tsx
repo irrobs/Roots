@@ -9,6 +9,7 @@ import { useGetUserWithId } from "../user/useGetUserWithId";
 import { useQueryClient } from "@tanstack/react-query";
 import { useGetChats } from "./useGetChats";
 import Messages from "./Messages";
+import { device } from "../../styles/breakpoints";
 
 const StyledChat = styled.div<{ minimized: boolean }>`
   width: 40rem;
@@ -20,6 +21,10 @@ const StyledChat = styled.div<{ minimized: boolean }>`
   grid-template-rows: ${({ minimized }) => (minimized ? "100%" : "12% 1fr 8%")};
   height: ${({ minimized }) => (minimized ? "min-content" : "50rem")};
   margin-top: ${({ minimized }) => (minimized ? "auto" : "0")};
+
+  @media ${device.smallLaptop} {
+    width: 35rem;
+  }
 `;
 
 const FriendInfo = styled.div`

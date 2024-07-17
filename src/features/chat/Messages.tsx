@@ -49,15 +49,15 @@ export default function Messages({
   const [chatMessages, setChatMessages] = useState<MessageRenderType[] | []>(
     []
   );
-  const { messages: initialMessages = [] } = useGetMessages(chatId);
+  const { messages: initialMessages = [], isPending } = useGetMessages(chatId);
   const loggedUser = useGetCachedUser();
   const { sendMessage, isPending: isPendingSendMessage } = useSendMessage();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Set initial messages
   useEffect(() => {
-    setChatMessages(initialMessages);
-  }, [initialMessages]);
+    isPending ? setChatMessages([]) : setChatMessages(initialMessages);
+  }, [isPending]);
 
   // Scroll to bottom whenever chatMessages change
   useEffect(() => {

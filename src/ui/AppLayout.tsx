@@ -8,17 +8,24 @@ import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import { useGetSettings } from "../features/settings/useGetSettings";
 import { useEffect } from "react";
 import { updateUserStatus } from "../services/apiAuth";
+import { device } from "../styles/breakpoints";
 
 const StyledAppLayout = styled.div`
   display: grid;
+  position: relative;
 
   grid-template-rows: 8rem 1fr;
 `;
 
 const Main = styled.main`
   display: grid;
+  overflow: hidden;
 
   grid-template-columns: 1fr 22rem;
+
+  @media ${device.smallTablet} {
+    grid-template-columns: 1fr;
+  }
 `;
 
 export default function AppLayout() {

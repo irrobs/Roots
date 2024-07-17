@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { device } from "../styles/breakpoints";
 
 type VariationType = "header";
 
@@ -9,7 +10,17 @@ type LogoProps = {
 const StyledLogo = styled.div<{ variation?: VariationType }>`
   display: flex;
   align-items: center;
+  flex-direction: column;
   gap: 1rem;
+
+  ${(props) =>
+    props.variation === "header" &&
+    css`
+      flex-direction: row;
+      @media ${device.smallTablet} {
+        display: none;
+      }
+    `}
 
   & > img {
     width: 6rem;
@@ -21,8 +32,6 @@ const StyledLogo = styled.div<{ variation?: VariationType }>`
     font-weight: bold;
     font-size: 3.6rem;
   }
-
-  ${(props) => (props.variation === "header" ? "" : "flex-direction: column")}
 `;
 
 export default function Logo({ variation }: LogoProps) {

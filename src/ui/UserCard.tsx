@@ -5,6 +5,7 @@ import { useGetSettings } from "../features/settings/useGetSettings";
 import LoadingMini from "./LoadingMini";
 import { useUpdateUserStatus } from "../features/user/useUpdateUserStatus";
 import { useEffect } from "react";
+import { device } from "../styles/breakpoints";
 
 type UserInfoProps = {
   onlineStatus: "offline" | "online";
@@ -20,6 +21,10 @@ const StyledUserCard = styled.button`
   color: var(--color-gray-text);
   font-size: 2rem;
   transition: all 0.3s;
+
+  @media ${device.smallTablet} {
+    display: none;
+  }
 
   & img {
     background-color: var(--color-gray-0);

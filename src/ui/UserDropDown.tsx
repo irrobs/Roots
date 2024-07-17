@@ -8,6 +8,7 @@ import {
 import Button from "./Button";
 import useSignOut from "../features/authentication/SignOut/useSignOut";
 import { Link } from "react-router-dom";
+import { device } from "../styles/breakpoints";
 
 const StyledUserDropDown = styled.ul<{ $isHovered: boolean }>`
   position: absolute;
@@ -21,6 +22,15 @@ const StyledUserDropDown = styled.ul<{ $isHovered: boolean }>`
   flex-direction: column;
   padding: 1rem;
   border-radius: 0 0 0 var(--border-radius-md);
+
+  @media ${device.tablet} {
+    top: 100%;
+    flex-direction: row;
+    width: 100%;
+    transform: translateY(-100%);
+    justify-content: space-around;
+    border-radius: var(--border-radius-full) var(--border-radius-full) 0 0;
+  }
 
   ${({ $isHovered }) =>
     $isHovered
