@@ -4,6 +4,7 @@ import { useGetCachedUser } from "../authentication/useGetCachedUser";
 import LoadingMini from "../../ui/LoadingMini";
 import { useGetFollowings } from "../user/useGetFollowings";
 import { useParams } from "react-router-dom";
+import { device } from "../../styles/breakpoints";
 
 const StyledFriendList = styled.aside<{ layout: string }>`
   padding: 2rem 1rem;
@@ -18,6 +19,11 @@ const StyledFriendList = styled.aside<{ layout: string }>`
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       column-gap: 5rem;
+
+      @media ${device.smallLaptop} {
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 3rem;
+      }
     `}
 `;
 

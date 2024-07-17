@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { device } from "./breakpoints";
 
 const GlobalStyles = createGlobalStyle`
   :root {
@@ -55,9 +56,6 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
-
-  
-
   *,
   *::before,
   *::after {
@@ -78,6 +76,10 @@ const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 62.5%;
+
+    @media ${device.tablet} {
+      font-size: 56.25%;
+    }
   }
 
   body {
@@ -123,6 +125,8 @@ const GlobalStyles = createGlobalStyle`
   img {
     max-width: 100%;
   }
+
+  
 `;
 
 export default GlobalStyles;

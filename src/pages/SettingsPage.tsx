@@ -38,7 +38,7 @@ const Settings = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 30%;
+  width: 40%;
 `;
 
 const CheckboxContainer = styled.label`
