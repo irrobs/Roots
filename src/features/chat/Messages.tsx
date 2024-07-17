@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useGetCachedUser } from "../authentication/useGetCachedUser";
 import { useSendMessage } from "./useSendMessage";
 import { useGetMessages } from "./useGetMessages";
@@ -50,15 +50,23 @@ export default function Messages({
     []
   );
   const { messages: initialMessages = [] } = useGetMessages(chatId);
-
   const loggedUser = useGetCachedUser();
   const { sendMessage, isPending: isPendingSendMessage } = useSendMessage();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // Set initial messages
   useEffect(() => {
     setChatMessages(initialMessages);
   }, [initialMessages]);
 
+  // Scroll to bottom whenever chatMessages change
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatMessages]);
+
+  // Set up realtime subscription
   useEffect(() => {
     const channel = supabase
       .channel(`chat-${chatId}`)
@@ -66,12 +74,14 @@ export default function Messages({
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "messages" },
         (payload) => {
-          if (!chatMessages.some((message) => message.id === payload.new.id)) {
-            setChatMessages([
-              ...chatMessages,
-              payload.new as MessageRenderType,
-            ]);
-          } 
+          setChatMessages((prevMessages) => {
+            if (
+              !prevMessages.some((message) => message.id === payload.new.id)
+            ) {
+              return [...prevMessages, payload.new as MessageRenderType];
+            }
+            return prevMessages;
+          });
         }
       )
       .subscribe();
@@ -79,7 +89,7 @@ export default function Messages({
     return () => {
       channel.unsubscribe();
     };
-  }, [chatId, chatMessages]);
+  }, [chatId]);
 
   function handleSubmitMessage(event: React.FormEvent) {
     event.preventDefault();
@@ -104,6 +114,7 @@ export default function Messages({
                 key={message.id}
               />
             ))}
+            <div ref={messagesEndRef} />
           </MessagesContainer>
 
           <form onSubmit={handleSubmitMessage}>

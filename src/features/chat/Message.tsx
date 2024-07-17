@@ -5,12 +5,16 @@ type StyledMessageProps = {
 };
 
 const StyledMessage = styled.div<StyledMessageProps>`
-  max-width: 70%;
+  max-width: 25ch;
   border: 1px solid var(--color-gray-200);
   padding: 0.5rem;
   border-radius: var(--border-radius-sm);
   background-color: var(--color-lime-500);
   color: var(--color-gray-0);
+  margin-right: auto;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap; // Add this line
   ${(props) => {
     if (props.side === "right") {
       return css`
@@ -18,6 +22,7 @@ const StyledMessage = styled.div<StyledMessageProps>`
 
         border: 1px solid transparent;
         margin-left: auto;
+        margin-right: 0;
       `;
     }
   }}
