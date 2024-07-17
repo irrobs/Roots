@@ -35,6 +35,10 @@ const StyledForm = styled.form<FormType>`
   flex-direction: column;
   gap: 4rem;
 
+  @media ${device.laptop} {
+    gap: 2rem;
+  }
+
   ${(props) => variations[props.variation ?? "regular"]}
 `;
 

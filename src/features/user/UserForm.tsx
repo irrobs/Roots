@@ -8,6 +8,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { useEditUser } from "./useEditUser";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { device } from "../../styles/breakpoints";
 
 const UserFormContainer = styled.form`
   position: relative;
@@ -48,6 +49,11 @@ const ProfilePictureInput = styled.input`
   height: 19.2rem;
   border-radius: 100%;
 
+  @media ${device.smallLaptop} {
+    width: 14rem;
+    height: 14rem;
+  }
+
   &:hover {
     background-color: var(--color-gray-200);
   }
@@ -56,7 +62,7 @@ const ProfilePictureInput = styled.input`
 const SubmitButton = styled(Button)`
   position: absolute;
   top: 1rem;
-  right: 0;
+  right: 1rem;
   width: 3.2rem;
   height: 3.2rem;
   border-radius: var(--border-radius-sm);
@@ -71,12 +77,20 @@ const UserInput = styled(Input)`
   margin-top: 1rem;
   margin-left: 22rem;
   width: 30ch;
+
+  @media ${device.smallLaptop} {
+    margin-left: 17rem;
+  }
 `;
 
 const DescriptionContainer = styled.div`
   margin: 8rem 0;
   display: flex;
   flex-direction: column;
+
+  @media ${device.smallLaptop} {
+    margin: 2rem 0;
+  }
 
   & label {
     color: var(--color-gray-600);

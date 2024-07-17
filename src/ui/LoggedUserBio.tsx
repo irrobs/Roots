@@ -7,6 +7,7 @@ import UserForm from "../features/user/UserForm";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import { useGetFollowings } from "../features/user/useGetFollowings";
 import { useGetFollowers } from "../features/user/useGetFollowers";
+import { device } from "../styles/breakpoints";
 
 const gradientAnimation = keyframes`
   0% {
@@ -68,6 +69,11 @@ const ProfilePicture = styled.img`
   height: 19.2rem;
   border-radius: 100%;
   border: 2px solid var(--color-gray-0);
+
+  @media ${device.smallLaptop} {
+    width: 14rem;
+    height: 14rem;
+  }
 `;
 
 const UserInfo = styled.div`
@@ -77,6 +83,10 @@ const UserInfo = styled.div`
   margin-left: 22rem;
   line-height: 1;
   height: fit-content;
+
+  @media ${device.smallLaptop} {
+    margin-left: 17rem;
+  }
 `;
 
 const Username = styled.span`
@@ -107,6 +117,10 @@ const UserDescription = styled.p`
   max-width: 140ch;
   font-size: 1.8rem;
   color: var(--color-gray-800);
+
+  @media ${device.smallLaptop} {
+    margin: 4rem auto 0;
+  }
 `;
 
 export default function LoggedUserBio() {

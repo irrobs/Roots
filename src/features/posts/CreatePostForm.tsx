@@ -93,7 +93,7 @@ export default function CreatePostForm() {
 
       <PostText
         id="postText"
-        rows={15}
+        rows={12}
         placeholder="Sobre o que quer falar?"
         {...register("postText", { required: true })}
         value={postText}
