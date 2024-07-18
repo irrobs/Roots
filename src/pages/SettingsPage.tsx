@@ -11,7 +11,7 @@ const PageContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 2rem 0;
-  height: calc(100vh - 8rem);
+  height: calc(100dvh - 8rem);
   overflow-y: auto;
 `;
 

@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import ResetPasswordForm from '../features/authentication/Reset/ResetPasswordForm'
+import ResetPasswordForm from "../features/authentication/Reset/ResetPasswordForm";
 import Footer from "../ui/Footer";
-
 
 const StyledPageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
   justify-content: space-around;
 `;
 
@@ -19,7 +18,7 @@ export default function ResetPasswordPage() {
   return (
     <StyledPageContainer>
       <StyledContainer>
-        <ResetPasswordForm/>
+        <ResetPasswordForm />
       </StyledContainer>
 
       <Footer />

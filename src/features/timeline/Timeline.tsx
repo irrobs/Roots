@@ -11,7 +11,7 @@ const StyledTimeline = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: calc(100vh - 8rem);
+  height: calc(100dvh - 8rem);
   overflow-y: scroll;
 
   @media ${device.phone} {
