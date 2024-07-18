@@ -5,6 +5,7 @@ import UserBio from "../ui/UserBio";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import { useEffect } from "react";
+import { device } from "../styles/breakpoints";
 
 const PageContainer = styled.div`
   grid-column: 1 / -1;
@@ -12,6 +13,10 @@ const PageContainer = styled.div`
   padding: 2rem 10rem;
   height: calc(100vh - 8rem);
   overflow-y: scroll;
+
+  @media ${device.smallTablet} {
+    padding: 2rem;
+  }
 `;
 
 export default function UserPage() {

@@ -44,6 +44,10 @@ const StyledUserBio = styled.div`
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
   padding-bottom: 2rem;
+
+  @media ${device.smallPhone} {
+    height: 70vh;
+  }
 `;
 
 const BackgroundImage = styled.img`
@@ -86,6 +90,11 @@ const UserInfo = styled.div`
 
   @media ${device.smallLaptop} {
     margin-left: 17rem;
+  }
+
+  @media ${device.smallPhone} {
+    margin-left: 2rem;
+    margin-top: 8rem;
   }
 `;
 

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import { useUser } from "../authentication/useUser";
 import { useCreatPost } from "./useCreatePost";
+import { device } from "../../styles/breakpoints";
 
 const UserContainer = styled.div`
   display: flex;
@@ -18,9 +19,17 @@ const UserImg = styled.img`
   border-radius: var(--border-radius-full);
   width: 10%;
   background-color: var(--color-gray-0);
+
+  @media ${device.smallPhone} {
+    width: 20%;
+  }
 `;
 
-const UserName = styled.span``;
+const UserName = styled.span`
+  @media ${device.smallPhone} {
+    font-size: 2.4rem;
+  }
+`;
 
 const PostText = styled.textarea`
   resize: none;
@@ -56,6 +65,8 @@ export default function CreatePostForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const viewportWidth = window.innerWidth;
 
   //submits only if there is user and at leat a text
   function onSubmit() {
@@ -93,7 +104,7 @@ export default function CreatePostForm() {
 
       <PostText
         id="postText"
-        rows={12}
+        rows={viewportWidth <= 750 ? 8 : 12}
         placeholder="Sobre o que quer falar?"
         {...register("postText", { required: true })}
         value={postText}

@@ -23,7 +23,7 @@ const StyledUserDropDown = styled.ul<{ $isHovered: boolean }>`
   padding: 1rem;
   border-radius: 0 0 0 var(--border-radius-md);
 
-  @media ${device.tablet} {
+  @media ${device.smallTablet} {
     top: 100%;
     flex-direction: row;
     width: 100%;

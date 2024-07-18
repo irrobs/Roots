@@ -80,6 +80,10 @@ const GlobalStyles = createGlobalStyle`
     @media ${device.tablet} {
       font-size: 56.25%;
     }
+
+    @media ${device.phone} {
+      font-size: 50%;
+    }
   }
 
   body {

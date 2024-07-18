@@ -19,6 +19,10 @@ const variations = {
     @media ${device.laptop} {
       width: 40vw;
     }
+
+    @media ${device.smallPhone} {
+      width: 60vw;
+    }
   `,
 
   post: css`
@@ -26,6 +30,10 @@ const variations = {
 
     @media ${device.laptop} {
       width: 50vw;
+    }
+
+    @media ${device.smallPhone} {
+      width: 70vw;
     }
   `,
 };

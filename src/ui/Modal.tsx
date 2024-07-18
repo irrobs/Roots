@@ -11,6 +11,7 @@ import { createPortal } from "react-dom";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 import { useAppDispatch } from "../store";
 import { resetState } from "../features/authentication/authenticationSlice";
+import { device } from "../styles/breakpoints";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -22,6 +23,10 @@ const StyledModal = styled.div`
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
+
+  @media ${device.smallTablet} {
+    padding: 1.6rem 2rem;
+  }
 `;
 
 const Overlay = styled.div`

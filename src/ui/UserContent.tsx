@@ -6,6 +6,7 @@ import FriendList from "../features/friend-list/FriendList";
 const StyledUserContent = styled.div`
   display: flex;
   justify-content: center;
+  overflow-x: hidden;
 `;
 
 export default function UserContent() {

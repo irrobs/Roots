@@ -19,6 +19,14 @@ const StyledContainer = styled.div`
   @media ${device.laptop} {
     width: 40vw;
   }
+
+  @media ${device.phone} {
+    width: 60vw;
+  }
+
+  @media ${device.smallPhone} {
+    width: 80vw;
+  }
 `;
 
 const ActionsContainer = styled.div`

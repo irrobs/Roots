@@ -47,6 +47,10 @@ const StyledUserBio = styled.div`
   border-radius: var(--border-radius-md);
   box-shadow: var(--shadow-md);
   padding-bottom: 2rem;
+
+  @media ${device.smallPhone} {
+    height: 70vh;
+  }
 `;
 
 const BackgroundImage = styled.img`
@@ -89,6 +93,11 @@ const UserInfo = styled.div`
 
   @media ${device.smallLaptop} {
     margin-left: 17rem;
+  }
+
+  @media ${device.smallPhone} {
+    margin-left: 2rem;
+    margin-top: 8rem;
   }
 `;
 
@@ -160,6 +169,7 @@ export default function UserBio() {
   const userData = user!.user_metadata;
   const followersIds = followers?.map((friendship) => friendship.user_id);
   const isFollower = followersIds?.includes(loggedUser.id);
+  const viewportWidth = window.innerWidth;
 
   return (
     <StyledUserBio>
@@ -203,7 +213,9 @@ export default function UserBio() {
               }
               disabled={isPendingDelete}
             >
-              <p>{isPendingDelete ? "Removendo..." : "Remover amigo"}</p>
+              {viewportWidth <= 600 ? null : (
+                <p>{isPendingDelete ? "Removendo..." : "Remover amigo"}</p>
+              )}
               <IoPersonRemoveOutline />
             </FriendButton>
           ) : (
@@ -218,7 +230,9 @@ export default function UserBio() {
               }
               disabled={isPending}
             >
-              <p>{isPending ? "Adicionando..." : "Adicionar amigo"}</p>
+              {viewportWidth <= 600 ? null : (
+                <p>{isPending ? "Adicionando..." : "Adicionar amigo"}</p>
+              )}
               <IoPersonAddOutline />
             </FriendButton>
           )}

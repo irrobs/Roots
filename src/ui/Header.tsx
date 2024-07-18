@@ -52,7 +52,7 @@ export default function Header() {
 
         <Searchbar />
 
-        {viewportWidth <= 900 ? (
+        {viewportWidth <= 750 ? (
           <ChatsButton onClick={() => dispatch(toggleFriendList())}>
             <IoChatbubbles />
           </ChatsButton>

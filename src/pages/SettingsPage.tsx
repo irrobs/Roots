@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import { useState } from "react";
 import { useSetSettings } from "../features/settings/useSetSettings";
 import { IoCheckmark } from "react-icons/io5";
+import { device } from "../styles/breakpoints";
 
 const PageContainer = styled.div`
   grid-column: 1 / -1;
@@ -28,6 +29,10 @@ const UserInfo = styled.div`
 const UserImg = styled.img`
   width: 10%;
   border-radius: var(--border-radius-full);
+
+  @media ${device.smallPhone} {
+    width: 30%;
+  }
 `;
 
 const Settings = styled.form`
@@ -39,6 +44,14 @@ const Settings = styled.form`
   flex-direction: column;
   align-items: center;
   width: 40%;
+
+  @media ${device.phone} {
+    width: 50%;
+  }
+
+  @media ${device.smallPhone} {
+    width: 70%;
+  }
 `;
 
 const CheckboxContainer = styled.label`

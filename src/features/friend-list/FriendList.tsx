@@ -12,7 +12,7 @@ const StyledFriendList = styled.aside<{ layout: string; isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  overflow-y: auto;
+  overflow-x: hidden;
 
   ${({ layout }) =>
     layout === "row" &&
@@ -31,16 +31,23 @@ const StyledFriendList = styled.aside<{ layout: string; isOpen: boolean }>`
         column-gap: 2rem;
         margin-bottom: 5rem;
       }
+
+      @media ${device.smallPhone} {
+        column-gap: 1rem;
+      }
     `}
 
   ${({ layout, isOpen }) =>
     layout === "column" &&
     css`
+      height: calc(100% - 8rem);
       @media ${device.smallTablet} {
         position: absolute;
         background-color: var(--color-gray-0);
-        height: 100%;
+        height: calc(100% - 12rem);
+        border: 1px solid blue;
         right: 0;
+        padding-bottom: 10rem;
 
         width: ${isOpen ? "22rem" : "0rem"};
         padding: ${isOpen ? "2rem 1rem" : "2rem 0rem"};

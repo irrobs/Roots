@@ -16,6 +16,10 @@ const UserFormContainer = styled.form`
   grid-template-rows: 50% 1fr min-content;
   height: 60vh;
   margin-bottom: 3rem;
+
+  @media ${device.smallPhone} {
+    height: 70vh;
+  }
 `;
 
 const BackgroundImageInput = styled.input`
@@ -81,6 +85,11 @@ const UserInput = styled(Input)`
   @media ${device.smallLaptop} {
     margin-left: 17rem;
   }
+
+  @media ${device.smallPhone} {
+    margin-left: 2rem;
+    margin-top: 8rem;
+  }
 `;
 
 const DescriptionContainer = styled.div`
@@ -94,11 +103,18 @@ const DescriptionContainer = styled.div`
 
   & label {
     color: var(--color-gray-600);
+    text-align: center;
   }
 `;
 
 const DescriptionInput = styled.textarea`
   resize: none;
+  width: 80%;
+  align-self: center;
+
+  @media ${device.smallPhone} {
+    width: 100%;
+  }
 
   &:focus {
     outline: 2px solid var(--color-lime-500);
