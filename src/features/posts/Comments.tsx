@@ -147,6 +147,7 @@ export default function Comments({ post }: { post: PostRenderType }) {
         />
         <ButtonComment
           type="submit"
+          onClick={onSubmitComment}
           variation="tertiary"
           size="small"
           disabled={isPendingComment}

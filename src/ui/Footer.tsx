@@ -9,16 +9,11 @@ const StyledFooter = styled.footer`
   justify-content: space-around;
   color: var(--color-gray-500);
 `;
-const StyledLink = styled.a`
-  color: var(--color-gray-500);
-`;
 
 export default function Footer() {
   return (
     <StyledFooter>
-      <StyledLink href="#">Sobre</StyledLink>
-
-      <span>@2024 copyright - fasdfsafd</span>
+      <span>@2024 - Matheus Escobar</span>
     </StyledFooter>
   );
 }
