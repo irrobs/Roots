@@ -45,7 +45,6 @@ const StyledFriendList = styled.aside<{ layout: string; isOpen: boolean }>`
         position: absolute;
         background-color: var(--color-gray-0);
         height: calc(100% - 12rem);
-        border: 1px solid blue;
         right: 0;
         padding-bottom: 10rem;
 
