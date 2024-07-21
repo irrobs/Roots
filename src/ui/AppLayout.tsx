@@ -9,6 +9,15 @@ import { useGetSettings } from "../features/settings/useGetSettings";
 import { useEffect } from "react";
 import { updateUserStatus } from "../services/apiAuth";
 import { device } from "../styles/breakpoints";
+import Loading from "./Loading";
+
+const FullPage = styled.div`
+  height: 100vh;
+  background-color: var(--color-grey-50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const StyledAppLayout = styled.div`
   display: grid;
@@ -47,7 +56,12 @@ export default function AppLayout() {
     };
   }, []);
 
-  if (isPending) return <p>loading...</p>;
+  if (isPending)
+    return (
+      <FullPage>
+        <Loading />
+      </FullPage>
+    );
 
   if (settings.dark_mode) {
     document.documentElement.classList.add("dark-mode");

@@ -22,7 +22,7 @@ const StyledLoading = styled.div`
 
 export default function Loading() {
   return (
-    <StyledLoading>
+    <StyledLoading role="alert">
       <img src="/logo.png" alt="Desenho de uma árvore" />
     </StyledLoading>
   );
