@@ -103,6 +103,7 @@ export default function CreatePostForm() {
       </div>
 
       <PostText
+        data-testid="text-input"
         id="postText"
         rows={viewportWidth <= 750 ? 8 : 12}
         placeholder="Sobre o que quer falar?"

@@ -33,7 +33,7 @@ const Icon = styled.span`
 `;
 
 const SearchedUsersList = styled.ul`
-  max-height: 80rem;
+  max-height: 50rem;
   position: absolute;
   background-color: var(--color-gray-0);
   width: 100%;
