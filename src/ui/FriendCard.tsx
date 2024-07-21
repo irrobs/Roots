@@ -9,7 +9,7 @@ import { useGetCachedUser } from "../features/authentication/useGetCachedUser";
 import { useGetSettings } from "../features/settings/useGetSettings";
 
 type UserInfoProps = {
-  onlineStatus: "offline" | "online";
+  $status: "offline" | "online";
 };
 
 const StyledFriendCard = styled(Link)`
@@ -61,7 +61,7 @@ const UserStatus = styled.div<UserInfoProps>`
   & span {
     height: 1.6rem;
     color: ${(props) =>
-      props.onlineStatus === "offline"
+      props.$status === "offline"
         ? "var(--color-gray-200)"
         : "var(--color-green-600)"};
   }
@@ -116,9 +116,7 @@ export default function FriendCard({
       <div>
         <p>{friendData.name}</p>
         <UserStatus
-          onlineStatus={
-            settings.hide_visibility ? "offline" : friendData.status
-          }
+          $status={settings.hide_visibility ? "offline" : friendData.status}
         >
           <span>
             <IoEllipse />

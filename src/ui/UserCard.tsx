@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { device } from "../styles/breakpoints";
 
 type UserInfoProps = {
-  onlineStatus: "offline" | "online";
+  $status: "offline" | "online";
 };
 
 const StyledUserCard = styled.button`
@@ -53,7 +53,7 @@ const UserStatus = styled.span<UserInfoProps>`
   & span {
     height: 1.6rem;
     color: ${(props) =>
-      props.onlineStatus === "offline"
+      props.$status === "offline"
         ? "var(--color-gray-200)"
         : "var(--color-green-600)"};
   }
@@ -80,7 +80,7 @@ export default function UserCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isPending || isPendingUpdateStatus) <LoadingMini />;
+  if (isPending || isPendingUpdateStatus) return <LoadingMini />;
 
   return (
     <StyledUserCard
@@ -90,7 +90,7 @@ export default function UserCard({
       <UserInfoContainer>
         <p>{userData.name}</p>
         <UserStatus
-          onlineStatus={settings.hide_visibility ? "offline" : userData.status}
+          $status={settings.hide_visibility ? "offline" : userData.status}
         >
           <p>{settings.hide_visibility ? "offline" : userData.status}</p>
           <span>
@@ -103,7 +103,7 @@ export default function UserCard({
         src={
           userData.profilePicture
             ? userData.profilePicture
-            : "/public/default-profile-picture.svg"
+            : "/default-profile-picture.svg"
         }
         alt="Foto de perfil"
       />

@@ -7,15 +7,15 @@ import { useParams } from "react-router-dom";
 import { device } from "../../styles/breakpoints";
 import { useAppSelector } from "../../store";
 
-const StyledFriendList = styled.aside<{ layout: string; isOpen: boolean }>`
+const StyledFriendList = styled.aside<{ $layout: string; $isOpen: boolean }>`
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   overflow-x: hidden;
 
-  ${({ layout }) =>
-    layout === "row" &&
+  ${({ $layout }) =>
+    $layout === "row" &&
     css`
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -37,8 +37,8 @@ const StyledFriendList = styled.aside<{ layout: string; isOpen: boolean }>`
       }
     `}
 
-  ${({ layout, isOpen }) =>
-    layout === "column" &&
+  ${({ $layout, $isOpen }) =>
+    $layout === "column" &&
     css`
       height: calc(100% - 8rem);
       @media ${device.smallTablet} {
@@ -48,8 +48,8 @@ const StyledFriendList = styled.aside<{ layout: string; isOpen: boolean }>`
         right: 0;
         padding-bottom: 10rem;
 
-        width: ${isOpen ? "22rem" : "0rem"};
-        padding: ${isOpen ? "2rem 1rem" : "2rem 0rem"};
+        width: ${$isOpen ? "22rem" : "0rem"};
+        padding: ${$isOpen ? "2rem 1rem" : "2rem 0rem"};
         transition: width 0.3s ease-out;
       }
     `}
@@ -71,7 +71,7 @@ export default function FriendList({ layout = "column" }: FriendListProps) {
   if (!followings) return <p>Error</p>;
 
   return (
-    <StyledFriendList layout={layout} isOpen={isOpenFriendList}>
+    <StyledFriendList $layout={layout} $isOpen={isOpenFriendList}>
       {followings.map((friend) => (
         <FriendCard friendship={friend} key={friend.friend_id} />
       ))}
