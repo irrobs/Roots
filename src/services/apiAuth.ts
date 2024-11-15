@@ -88,7 +88,7 @@ export async function signOut() {
 
 export async function resetPassword(email: string) {
   const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: "http://localhost:5173/resetPassword",
+    redirectTo: "https://rootss.vercel.app/resetPassword",
   });
 
   return { data, error };
